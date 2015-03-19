@@ -11,29 +11,33 @@ from gurobipy import *
 import random
 import numpy as np
 
+################################################################################
+#
+#                        VARIABLES ET CONSTANTES GLOBALES
+#
+################################################################################
 
 zoom=4
 
-
+#Loi de probabilité du coût d'une case
 pblanc=0.15
 pverte=0.35
 pbleue=0.25
 prouge=0.15
 pnoire=0.10
 
-
 #taille de la grille
 nblignes=5
 nbcolonnes=5
 
-probaTransition = 0.8
+#Probabilité d'aller effectivement dans la direction voulue
+probaTransition=0.8
 
-
-#poition initiale du robot la grille
+#poition initiale du robot dans la grille
 posX=0
-poxY = 0
+poxY=0
 
-#Position initial du robot dans le dessin
+#Position initiale du robot dans le dessin
 PosX = 20+10*zoom 
 PosY = 20+10*zoom
 
@@ -41,10 +45,7 @@ PosY = 20+10*zoom
 Largeur = zoom*20*nbcolonnes+40
 Hauteur = zoom*20*nblignes+40
 
-
- 
 # valeurs de la grille
-
 cost= np.zeros(5, dtype=np.int)
 weight= np.zeros(5, dtype=np.int)
 weight[1] = 1
@@ -58,7 +59,6 @@ BAS = 1
 GAUCHE = 2
 DROITE = 3
 
-
 # def des couleurs
 myred="#D20B18"
 mygreen="#25A531"
@@ -70,6 +70,126 @@ mywalls="#5E5E64"
 mywhite="#FFFFFF"
 color=[mywhite,mygreen,myblue,myred,myblack]
 
+################################################################################
+#
+#                           FONCTIONS DE DEFINITION DU PROBLEME
+#
+################################################################################
+
+#Définit un labyrinthe de nblignes lignes et nbcolonnes colonnes
+#Retourne g, le labyrinthe (sous la forme d'un tableau à deux dimensions)
+def defineMaze(nblignes,nbcolonnes):
+    g= np.zeros((nblignes,nbcolonnes), dtype=np.int)
+    for i in range(nblignes):
+        for j in range(nbcolonnes):
+            z=np.random.uniform(0,1)
+            if z < pblanc:
+                g[i,j]=0
+            else:
+                if z < pblanc + pverte:
+                    g[i,j]=1
+                else:
+                    if z < pblanc + pverte + pbleue:
+                        g[i,j]=2
+                    else:
+                        if z< pblanc + pverte + pbleue + prouge:
+                            g[i,j]=3
+                        else:
+                            g[i,j]=4
+    
+    #A REMPLACER PAR UNE FONCTION DE TEST D'INTEGRITE DU LABYRINTHE
+    g[0,0]=np.random.random_integers(3)
+    g[0,1]=np.random.random_integers(3)
+    g[2,0]=np.random.random_integers(3)     
+    g[nblignes-1,nbcolonnes-1]=np.random.random_integers(3)
+    g[nblignes-2,nbcolonnes-1]=np.random.random_integers(3)
+    g[nblignes-1,nbcolonnes-2]=np.random.random_integers(3)
+
+    #Case but
+    g[nblignes-1][nbcolonnes-1]=-1000
+    
+    return g
+
+
+#Calcule la loi de probabilité de transition pour une action direction et une position (posX, posY) données.
+#Retourne trans, la loi de probabilité sous la forme d'un dictionnaire
+#Note : si une position n'appartient pas au dictionnaire, alors la probabilité d'aller dans cette position est nulle.
+##################################################A REVOIR (bords)
+def transition(g, direction, posX, posY):
+    trans = {}
+    if direction == GAUCHE and posX != 0:
+        if g[posX-1, posY] != 0:
+            if g[posX-1, posY-1] == 0 and g[posX-1, posY+1]==0 :
+                trans[posX-1, posY] = 1
+            else:
+                if g[posX-1, posY-1] == 0:
+                    trans[posX-1, posY] = (1 + probaTransition)/2
+                    trans[posX-1, posY+1] = (1 - probaTransition)/2
+                else:
+                    if g[posX-1, posY+1] == 0:
+                        trans[posX-1, posY] = (1 + probaTransition)/2
+                        trans[posX-1, posY-1] = (1 - probaTransition)/2
+                    else:
+                        trans[posX-1, posY] = probaTransition
+                        trans[posX-1, posY+1] = (1 - probaTransition)/2
+                        trans[posX-1, posY-1] = (1 - probaTransition)/2
+    if direction == DROITE and posX != nblignes-1:
+        if g[posX+1, posY] != 0:
+            if g[posX+1, posY-1] == 0 and g[posX+1, posY+1]==0 :
+                trans[posX+1, posY] = 1
+            else:
+                if g[posX+1, posY-1] == 0 or posY == 0:
+                    trans[posX+1, posY] = (1 + probaTransition)/2
+                    trans[posX+1, posY+1] = (1 - probaTransition)/2
+                else:
+                    if g[posX+1, posY+1] == 0:
+                        trans[posX+1, posY] = (1 + probaTransition)/2
+                        trans[posX+1, posY-1] = (1 - probaTransition)/2
+                    else:
+                        trans[posX+1, posY] = probaTransition
+                        trans[posX+1, posY+1] = (1 - probaTransition)/2
+                        trans[posX+1, posY-1] = (1 - probaTransition)/2
+    if direction == HAUT and posY != 0:
+        if g[posX, posY-1] != 0:
+            if g[posX-1, posY-1] == 0 and g[posX+1, posY-1]==0 :
+                trans[posX, posY-1] = 1
+            else:
+                if g[posX-1, posY-1] == 0:
+                    trans[posX, posY-1] = (1 + probaTransition)/2
+                    trans[posX+1, posY-1] = (1 - probaTransition)/2
+                else:
+                    if g[posX+1, posY-1] == 0:
+                        trans[posX, posY-1] = (1 + probaTransition)/2
+                        trans[posX-1, posY-1] = (1 - probaTransition)/2
+                    else:
+                        trans[posX, posY-1] = probaTransition
+                        trans[posX+1, posY-1] = (1 - probaTransition)/2
+                        trans[posX-1, posY-1] = (1 - probaTransition)/2
+    if direction == BAS and posY != nbcolonnes-1:
+        if g[posX, posY+1] != 0:
+            if g[posX-1, posY+1] == 0 and g[posX+1, posY+1]==0 :
+                trans[posX, posY+1] = 1
+            else:
+                if g[posX-1, posY+1] == 0:
+                    trans[posX, posY+1] = (1 + probaTransition)/2
+                    trans[posX+1, posY+1] = (1 - probaTransition)/2
+                else:
+                    if g[posX+1, posY+1] == 0:
+                        trans[posX, posY+1] = (1 + probaTransition)/2
+                        trans[posX-1, posY+1] = (1 - probaTransition)/2
+                    else:
+                        trans[posX, posY+1] = probaTransition
+                        trans[posX+1, posY+1] = (1 - probaTransition)/2
+                        trans[posX-1, posY+1] = (1 - probaTransition)/2
+    return trans
+
+
+
+################################################################################
+#
+#                            FONCTIONS GRAPHIQUES
+#
+################################################################################
 
 def initialize():
     global cost
@@ -81,33 +201,6 @@ def initialize():
     Canevas.coords(Pion,PosX -9*zoom, PosY -9*zoom, PosX +9*zoom, PosY +9*zoom)
     w.config(text='Cost = '+ str(cost[0]))
 
-
-
-def defineMaze(nblignes,nbcolonnes):
-    g= np.zeros((nblignes,nbcolonnes), dtype=numpy.int)
-    for i in range(nblignes):
-        for j in range(nbcolonnes):
-            z=np.random.uniform(0,1)
-            if z < pblanc+ pverte:
-                g[i,j]=1
-            else:
-                if z < pblanc+ pverte + pbleue:
-                    g[i,j]=2
-                else:
-                    if z< pblanc+ pverte + pbleue +prouge:
-                        g[i,j]=3
-                    else:
-                        g[i,j]=4
-                        
-    #A REMPLACER PAR UNE FONCTION DE TEST D'INTEGRITE DU LABYRINTHE
-    g[0,0]=np.random.random_integers(3)
-    g[0,1]=np.random.random_integers(3)
-    g[2,0]=np.random.random_integers(3)     
-    g[nblignes-1,nbcolonnes-1]=np.random.random_integers(3)
-    g[nblignes-2,nbcolonnes-1]=np.random.random_integers(3)
-    g[nblignes-1,nbcolonnes-2]=np.random.random_integers(3)
-    
-    return g
 
 #Définit la grille ET la dessine
 def colordraw(nblignes,nbcolonnes):
@@ -156,74 +249,14 @@ def Clavier(event):
         cost[0]+=cost[k+1]*weight[k+1]
     w.config(text='Cost = '+ str(cost[0]))
 
-#retourne laloi de probabilité de transition pour une action direction et une position (posX, posY) données.
-def transition(g, direction, posX, posY):
-    trans = {}
-    if direction == HAUT and posX != 0:
-        if g[posX-1, posY] != 0:
-            if g[posX-1, posY-1] == 0 and g[posX-1, posY+1]==0 :
-                trans[posX-1, posY] = 1
-            else:
-                if g[posX-1, posY-1] == 0:
-                    trans[posX-1, posY] = (1 + probaTransition)/2
-                    trans[posX-1, posY+1] = (1 - probaTransition)/2
-                else:
-                    if g[posX-1, posY+1] == 0:
-                        trans[posX-1, posY] = (1 + probaTransition)/2
-                        trans[posX-1, posY-1] = (1 - probaTransition)/2
-                    else:
-                        trans[posX-1, posY] = probaTransition
-                        trans[posX-1, posY+1] = (1 - probaTransition)/2
-                        trans[posX-1, posY-1] = (1 - probaTransition)/2
-    if direction == BAS and posX != nblignes-1:
-        if g[posX+1, posY] != 0:
-            if g[posX+1, posY-1] == 0 and g[posX+1, posY+1]==0 :
-                trans[posX+1, posY] = 1
-            else:
-                if g[posX+1, posY-1] == 0:
-                    trans[posX+1, posY] = (1 + probaTransition)/2
-                    trans[posX+1, posY+1] = (1 - probaTransition)/2
-                else:
-                    if g[posX+1, posY+1] == 0:
-                        trans[posX+1, posY] = (1 + probaTransition)/2
-                        trans[posX+1, posY-1] = (1 - probaTransition)/2
-                    else:
-                        trans[posX+1, posY] = probaTransition
-                        trans[posX+1, posY+1] = (1 - probaTransition)/2
-                        trans[posX+1, posY-1] = (1 - probaTransition)/2
-    if direction == GAUCHE and posY != 0:
-        if g[posX, posY-1] != 0:
-            if g[posX-1, posY-1] == 0 and g[posX+1, posY-1]==0 :
-                trans[posX, posY-1] = 1
-            else:
-                if g[posX-1, posY-1] == 0:
-                    trans[posX, posY-1] = (1 + probaTransition)/2
-                    trans[posX+1, posY-1] = (1 - probaTransition)/2
-                else:
-                    if g[posX+1, posY-1] == 0:
-                        trans[posX, posY-1] = (1 + probaTransition)/2
-                        trans[posX-1, posY-1] = (1 - probaTransition)/2
-                    else:
-                        trans[posX, posY-1] = probaTransition
-                        trans[posX+1, posY-1] = (1 - probaTransition)/2
-                        trans[posX-1, posY-1] = (1 - probaTransition)/2
-    if direction == DROITE and posY != nbcolonnes-1:
-        if g[posX, posY+1] != 0:
-            if g[posX-1, posY+1] == 0 and g[posX+1, posY+1]==0 :
-                trans[posX, posY+1] = 1
-            else:
-                if g[posX-1, posY+1] == 0:
-                    trans[posX, posY+1] = (1 + probaTransition)/2
-                    trans[posX+1, posY+1] = (1 - probaTransition)/2
-                else:
-                    if g[posX+1, posY+1] == 0:
-                        trans[posX, posY+1] = (1 + probaTransition)/2
-                        trans[posX-1, posY+1] = (1 - probaTransition)/2
-                    else:
-                        trans[posX, posY+1] = probaTransition
-                        trans[posX+1, posY+1] = (1 - probaTransition)/2
-                        trans[posX-1, posY+1] = (1 - probaTransition)/2
-    return trans
+
+
+################################################################################
+#
+#                            FONCTIONS DE RESOLUTION (INTERFACE GUROBI)
+#
+################################################################################
+
 
 def programmeprimal(grille, gamma):
     #Matrice des contraintes + second membre
@@ -288,6 +321,14 @@ def politique(valeurs,grille):
                     pol[i][j]= k
     return pol
 
+
+
+################################################################################
+#
+#                            PROGRAMME PRINCIPAL
+#
+################################################################################
+
 """ GRAPHIQUE
 #Creation de la fenetre
 Mafenetre = Tk()
@@ -327,3 +368,7 @@ initialize()
 Mafenetre.mainloop()
 """
 
+g = defineMaze(10,10)
+print g
+t = transition(g, DROITE, 0,0)
+print t
