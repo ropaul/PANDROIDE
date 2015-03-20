@@ -202,17 +202,32 @@ def initialize():
     w.config(text='Cost = '+ str(cost[0]))
 
 
-#Définit la grille ET la dessine
-def colordraw(nblignes,nbcolonnes):
-    g = defineMaze(nblignes,nbcolonnes)
+# dessine la grille avec des ovales
+def colordraw(g,nblignes,nbcolonnes):
     for i in range(nblignes):
         for j in range(nbcolonnes):          
             y =zoom*20*i+20
             x =zoom*20*j+20
-            if g[i,j]>0:            
-                Canevas.create_oval(x+zoom*(10-3),y+zoom*(10-3),x+zoom*(10+3),y+zoom*(10+3),width=1,outline=color[g[i,j]],fill=color[g[i,j]])
+            if i == nblignes -1 and j == nbcolonnes -1 :
+                Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=mygreen,font = "Verdana 12 bold")
+            else :
+                if g[i,j]>0:            
+                    Canevas.create_oval(x+zoom*(10-3),y+zoom*(10-3),x+zoom*(10+3),y+zoom*(10+3),width=1,outline=color[g[i,j]],fill=color[g[i,j]])
+                else:
+                    Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
+
+
+           
+#Place des valeurs coloré dans le labyrinte                    
+def colordraw2(g,nblignes,nbcolonnes):
+    #Place les valeurs coloré dans le labyrinthe    
+    for i in range(nblignes):
+        for j in range(nbcolonnes):          
+            y =zoom*20*i+20
+            x =zoom*20*j+20
+            if g[i,j,0]>0: 
+                Canevas.create_text(x+zoom*(10),y+zoom*(10),font="1",text =g[i,j],fill=color[g[i,j,0]])
             else:
-                Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
                 Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
 
 
