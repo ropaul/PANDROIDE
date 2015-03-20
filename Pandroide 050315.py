@@ -215,7 +215,89 @@ def colordraw(nblignes,nbcolonnes):
                 Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
                 Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
 
+
 def Clavier(event):
+    global PosX,PosY,cost,g
+    touche = event.keysym
+    cj=(PosX-30)/(20*zoom)
+    li=(PosY-30)/(20*zoom)
+    value = 0 ;
+    z=np.random.uniform(0,1)
+    print 'z=' +str(z)
+    #print(li,cj)
+    # deplacement vers le haut
+    if touche == 'space':
+        Canevas.coords(Pion,30 -9*zoom, 30 -9*zoom, 30 +9*zoom, 30 +9*zoom)
+        return
+    if touche == 'a' and li>0 and g[li-1,cj]>0:
+        print  'haut'        
+
+        trans = transition (g,HAUT,li,cj)
+        for t in trans:
+            value += trans[t]
+            
+            print 'trans='+ str(trans[t])
+            if  value < z:
+                cj= t[0]
+                li= t[1]                                    
+        cost[g[li,cj]] +=1
+       # PosY -= zoom*20
+        #cost[g[li-1,cj]]+=1        
+    # deplacement vers le bas
+    if touche == 'q' and li<nblignes-1 and g[li+1,cj]>0:
+        
+        z=np.random.uniform(0,1)
+        trans = transition (g,BAS,li,cj)
+        for t in trans:
+            value += trans[t]
+            print 'value=' + str(value)
+            print  'bas (' +str(cj)+ ' '+  str(li   )+')'+'(' +str(t[0])+ ' '+  str(t[1])+')'
+            if   z< value:
+                print 'its alive !'
+                cj= t[0]
+                li= t[1]
+        cost[g[li,cj]] +=1
+        #PosY += zoom*20
+        #cost[g[li+1,cj]]+=1
+    # deplacement vers la droite
+    if touche == 'm' and cj< nbcolonnes-1 and g[li,cj+1]>0:
+        print  'droite'
+        z=np.random.uniform(0,1)
+        trans = transition (g,DROITE,li,cj)
+        for t in trans:
+            value += trans[t]
+            if  value > z:
+                cj= t[0]
+                li= t[1]
+        cost[g[li,cj]] +=1
+        #PosX += zoom*20
+        #cost[g[li,cj+1]]+=1
+    # deplacement vers la gauche
+    if touche == 'l' and cj >0 and g[li,cj-1]>0:
+        print  'gauche'
+        z=np.random.uniform(0,1)
+        trans = transition (g,GAUCHE,li,cj)
+        for t in trans:
+            value += trans[t]
+            if  value > z:
+                cj= t[0]
+                li= t[1]
+        cost[g[li,cj]] +=1
+       # PosX -= zoom*20
+        #cost[g[li,cj-1]]+=1
+    # on dessine le pion a sa nouvelle position
+    print 'cj='+str(cj)+'  li='+str(li)
+    PosX = cj *20*zoom +30
+    PosY = li *20*zoom +30
+    print 'PosX=' +str(PosX) + 'PosY=' +str(PosY)
+    Canevas.coords(Pion,PosX -9*zoom, PosY -9*zoom, PosX +9*zoom, PosY +9*zoom)
+    cost[0]=0    
+    for k in range(4):
+        cost[0]+=cost[k+1]*weight[k+1]
+    w.config(text='Cost = '+ str(cost[0]))
+
+
+def Clavier2(event):
     global PosX,PosY,cost,g
     touche = event.keysym
     cj=(PosX-30)/(20*zoom)
@@ -229,27 +311,30 @@ def Clavier(event):
              touche ='q'
     if touche == 'a' and li>0 and g[li-1,cj]>0:
         PosY -= zoom*20
-        cost[g[li-1,cj]]+=1        
+        cost[1]+=g[li-1,cj]        
     # deplacement vers le bas
     if touche == 'q' and li<nblignes-1 and g[li+1,cj]>0:
         PosY += zoom*20
-        cost[g[li+1,cj]]+=1
+        cost[1]+=g[li+1,cj] 
     # deplacement vers la droite
     if touche == 'm' and cj< nbcolonnes-1 and g[li,cj+1]>0:
-        PosX += zoom*20
-        cost[g[li,cj+1]]+=1
+        PosX += zoom*20        
+        cost[1]+=g[li,cj+1] 
     # deplacement vers la gauche
     if touche == 'l' and cj >0 and g[li,cj-1]>0:
         PosX -= zoom*20
-        cost[g[li,cj-1]]+=1
+        cost[1]+=g[li,cj-1] 
     # on dessine le pion a sa nouvelle position
     Canevas.coords(Pion,PosX -9*zoom, PosY -9*zoom, PosX +9*zoom, PosY +9*zoom)
     cost[0]=0    
     for k in range(4):
         cost[0]+=cost[k+1]*weight[k+1]
     w.config(text='Cost = '+ str(cost[0]))
-
-
+#    w1.config(text='vert = '+ str(cost[1]))
+#    w2.config(text='bleu = '+ str(cost[2]))
+#    w3.config(text='rouge = '+ str(cost[3]))
+#    w4.config(text='noir = '+ str(cost[4]))
+#      
 
 ################################################################################
 #
@@ -329,7 +414,8 @@ def politique(valeurs,grille):
 #
 ################################################################################
 
-""" GRAPHIQUE
+
+# GRAPHIQUE
 #Creation de la fenetre
 Mafenetre = Tk()
 Mafenetre.title('MDP')
@@ -342,6 +428,7 @@ for i in range(nblignes+1):
 for j in range(nbcolonnes+1):
     nj=zoom*20*j+20
     Canevas.create_line(nj, 20, nj, Hauteur-20)
+g = defineMaze(nblignes, nbcolonnes)
 colordraw(g,nblignes,nbcolonnes)
 
  
@@ -349,8 +436,7 @@ Canevas.focus_set()
 Canevas.bind('<Key>',Clavier)
 Canevas.pack(padx =5, pady =5)
 
-PosX = 20+10*zoom
-PosY = 20+10*zoom
+
 
 # Creation d'un widget Button (bouton Quitter)
 Button(Mafenetre, text ='Restart', command = initialize).pack(side=LEFT,padx=5,pady=5)
@@ -366,9 +452,10 @@ initialize()
 
 
 Mafenetre.mainloop()
-"""
 
+"""
 g = defineMaze(10,10)
 print g
 t = transition(g, DROITE, 0,0)
 print t
+"""
