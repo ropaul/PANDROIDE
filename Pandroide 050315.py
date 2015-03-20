@@ -208,13 +208,17 @@ def colordraw(g,nblignes,nbcolonnes):
         for j in range(nbcolonnes):          
             y =zoom*20*i+20
             x =zoom*20*j+20
-            if i == nblignes -1 and j == nbcolonnes -1 :
-                Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=mygreen,font = "Verdana 12 bold")
-            else :
-                if g[i,j]>0:            
-                    Canevas.create_oval(x+zoom*(10-3),y+zoom*(10-3),x+zoom*(10+3),y+zoom*(10+3),width=1,outline=color[g[i,j]],fill=color[g[i,j]])
+            if i == 0 and j == 0 :
+                Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana 12 bold")
+                        
+            else:
+                if i == nblignes -1 and j == nbcolonnes -1 :
+                    Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=myblack,font = "Verdana 12 bold")
                 else:
-                    Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
+                    if g[i,j]>0:            
+                        Canevas.create_oval(x+zoom*(10-3),y+zoom*(10-3),x+zoom*(10+3),y+zoom*(10+3),width=1,outline=color[g[i,j]],fill=color[g[i,j]])
+                    else:
+                        Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
 
 
            
