@@ -117,64 +117,64 @@ def defineMaze(nblignes,nbcolonnes):
 ##################################################A REVOIR (bords)
 def transition(g, direction, posX, posY):
     trans = {}
-    if direction == BAS and posX > 0:
+    if direction == GAUCHE and posX > 0:
         if g[posX-1, posY] != 0:
-            if g[posX-1, posY-1] == 0 and g[posX-1, posY+1]==0 or posY-1 < 0 and posY+1 > nbcolonnes-1:
+            if posY-1 < 0 and posY+1 > nbcolonnes-1 or g[posX-1, posY-1] == 0 and g[posX-1, posY+1]==0  :
                 trans[posX-1, posY] = 1
             else:
-                if g[posX-1, posY-1] == 0 and g[posX-1, posY+1]!=0 or posY-1 < 0 and posY+1 <= nbcolonnes-1:
+                if posY-1 < 0 and posY+1 <= nbcolonnes-1 or g[posX-1, posY-1] == 0 and g[posX-1, posY+1]!=0  :
                     trans[posX-1, posY] = (1 + probaTransition)/2
                     trans[posX-1, posY+1] = (1 - probaTransition)/2
                 else:
-                    if  g[posX-1, posY-1] != 0 and g[posX-1, posY+1] == 0 or posY-1 >= 0 and posY+1 > nbcolonnes-1:
+                    if  posY-1 >= 0 and posY+1 > nbcolonnes-1 or g[posX-1, posY-1] != 0 and g[posX-1, posY+1] == 0  :
                         trans[posX-1, posY] = (1 + probaTransition)/2
                         trans[posX-1, posY-1] = (1 - probaTransition)/2
                     else:
                         trans[posX-1, posY] = probaTransition
                         trans[posX-1, posY+1] = (1 - probaTransition)/2
                         trans[posX-1, posY-1] = (1 - probaTransition)/2
-    if direction == HAUT and posX < nblignes-1:
+    if direction == DROITE and posX < nblignes-1:
         if g[posX+1, posY] != 0:
-            if g[posX+1, posY-1] == 0 and g[posX+1, posY+1]==0 or posY-1 < 0 and posY+1 > nbcolonnes-1:
+            if posY-1 < 0 and posY+1 > nbcolonnes-1 or g[posX+1, posY-1] == 0 and g[posX+1, posY+1]==0  :
                 trans[posX+1, posY] = 1
             else:
-                if g[posX+1, posY-1] == 0 and g[posX+1, posY+1] !=0 or posY-1 < 0 and posY+1 <= nbcolonnes-1:
+                if  posY-1 < 0 and posY+1 <= nbcolonnes-1 or g[posX+1, posY-1] == 0 and g[posX+1, posY+1] !=0  :
                     trans[posX+1, posY] = (1 + probaTransition)/2
                     trans[posX+1, posY+1] = (1 - probaTransition)/2
                 else:
-                    if g[posX+1, posY-1] != 0 and g[posX+1, posY+1] ==0 or posY-1 >= 0 and posY+1 > nbcolonnes-1:
+                    if posY-1 >= 0 and posY+1 > nbcolonnes-1 or g[posX+1, posY-1] != 0 and g[posX+1, posY+1] ==0 :
                         trans[posX+1, posY] = (1 + probaTransition)/2
                         trans[posX+1, posY-1] = (1 - probaTransition)/2
                     else:
                         trans[posX+1, posY] = probaTransition
                         trans[posX+1, posY+1] = (1 - probaTransition)/2
                         trans[posX+1, posY-1] = (1 - probaTransition)/2
-    if direction == GAUCHE and posY > 0:
+    if direction == HAUT and posY > 0:
         if g[posX, posY-1] != 0:
-            if g[posX-1, posY-1] == 0 and g[posX+1, posY-1]==0 or posX-1 <0 and posX+1 > nblignes-1:
+            if  posX-1 <0 and posX+1 > nblignes-1 or g[posX-1, posY-1] == 0 and g[posX+1, posY-1]==0  :
                 trans[posX, posY-1] = 1
             else:
-                if g[posX-1, posY-1] == 0 and g[posX+1, posY-1]!=0 or posX-1 <0 and posX+1 <= nblignes-1:
+                if  posX-1 <0 and posX+1 <= nblignes-1 or g[posX-1, posY-1] == 0 and g[posX+1, posY-1]!=0  :
                     trans[posX, posY-1] = (1 + probaTransition)/2
                     trans[posX+1, posY-1] = (1 - probaTransition)/2
                 else:
-                    if g[posX-1, posY-1] != 0 and g[posX+1, posY-1]==0 or posX-1 >=0 and posX+1 > nblignes-1:
+                    if posX-1 >=0 and posX+1 > nblignes-1 or g[posX-1, posY-1] != 0 and g[posX+1, posY-1]==0  :
                         trans[posX, posY-1] = (1 + probaTransition)/2
                         trans[posX-1, posY-1] = (1 - probaTransition)/2
                     else:
                         trans[posX, posY-1] = probaTransition
                         trans[posX+1, posY-1] = (1 - probaTransition)/2
                         trans[posX-1, posY-1] = (1 - probaTransition)/2
-    if direction == DROITE and posY < nbcolonnes-1:
+    if direction == BAS and posY < nbcolonnes-1:
         if g[posX, posY+1] != 0:
-            if g[posX-1, posY+1] == 0 and g[posX+1, posY+1]==0 or posX-1 <0 and posX+1 > nblignes-1:
+            if posX-1 <0 and posX+1 > nblignes-1 or g[posX-1, posY+1] == 0 and g[posX+1, posY+1]==0  :
                 trans[posX, posY+1] = 1
             else:
-                if g[posX-1, posY+1] == 0 and g[posX+1, posY+1]!=0 or posX-1 <0 and posX+1 <= nblignes-1:
+                if posX-1 <0 and posX+1 <= nblignes-1 or g[posX-1, posY+1] == 0 and g[posX+1, posY+1]!=0  :
                     trans[posX, posY+1] = (1 + probaTransition)/2
                     trans[posX+1, posY+1] = (1 - probaTransition)/2
                 else:
-                    if g[posX-1, posY+1] != 0 and g[posX+1, posY+1]==0 or posX-1 >=0 and posX+1 > nblignes-1:
+                    if posX-1 >=0 and posX+1 > nblignes-1 or g[posX-1, posY+1] != 0 and g[posX+1, posY+1]==0 :
                         trans[posX, posY+1] = (1 + probaTransition)/2
                         trans[posX-1, posY+1] = (1 - probaTransition)/2
                     else:
@@ -255,6 +255,7 @@ def Clavier(event):
         print  'haut'        
 
         trans = transition (g,HAUT,li,cj)
+        print trans
         for t in trans:
             value += trans[t]
             
@@ -270,6 +271,7 @@ def Clavier(event):
         
         z=np.random.uniform(0,1)
         trans = transition (g,BAS,li,cj)
+        print trans        
         for t in trans:
             value += trans[t]
             print 'value=' + str(value)
@@ -286,6 +288,7 @@ def Clavier(event):
         print  'droite'
         z=np.random.uniform(0,1)
         trans = transition (g,DROITE,li,cj)
+        print trans        
         for t in trans:
             value += trans[t]
             if  value > z:
@@ -299,6 +302,7 @@ def Clavier(event):
         print  'gauche'
         z=np.random.uniform(0,1)
         trans = transition (g,GAUCHE,li,cj)
+        print trans
         for t in trans:
             value += trans[t]
             if  value > z:
@@ -309,8 +313,8 @@ def Clavier(event):
         #cost[g[li,cj-1]]+=1
     # on dessine le pion a sa nouvelle position
     print 'cj='+str(cj)+'  li='+str(li)
-    PosX = cj *20*zoom +20
-    PosY = li *20*zoom +20
+    PosX = cj *20*zoom +20+zoom*(10)
+    PosY = li *20*zoom +20+zoom*(10)
     posX= cj
     posY = li
     print 'PosX=' +str(PosX) + 'PosY=' +str(PosY)
@@ -438,7 +442,7 @@ def politique(valeurs,grille):
 #
 ################################################################################
 
-"""
+
 # GRAPHIQUE
 #Creation de la fenetre
 Mafenetre = Tk()
@@ -479,8 +483,8 @@ Mafenetre.mainloop()
 
 """
 g = defineMaze(10,10)
-g[0,1] =0
+g[1,0] =1
 print g
-t = transition(g, DROITE, 0,0)
+t = transition(g, DROITE, 3,3)
 print t
-#"""
+"""
