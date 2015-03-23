@@ -117,7 +117,7 @@ def defineMaze(nblignes,nbcolonnes):
 ##################################################A REVOIR (bords)
 def transition(g, direction, posX, posY):
     trans = {}
-    if direction == GAUCHE and posX > 0:
+    if direction == HAUT and posX > 0:
         if g[posX-1, posY] != 0:
             if posY-1 < 0 and posY+1 > nbcolonnes-1 or g[posX-1, posY-1] == 0 and g[posX-1, posY+1]==0  :
                 trans[posX-1, posY] = 1
@@ -133,7 +133,7 @@ def transition(g, direction, posX, posY):
                         trans[posX-1, posY] = probaTransition
                         trans[posX-1, posY+1] = (1 - probaTransition)/2
                         trans[posX-1, posY-1] = (1 - probaTransition)/2
-    if direction == DROITE and posX < nblignes-1:
+    if direction == BAS and posX < nblignes-1:
         if g[posX+1, posY] != 0:
             if posY-1 < 0 and posY+1 > nbcolonnes-1 or g[posX+1, posY-1] == 0 and g[posX+1, posY+1]==0  :
                 trans[posX+1, posY] = 1
@@ -149,7 +149,7 @@ def transition(g, direction, posX, posY):
                         trans[posX+1, posY] = probaTransition
                         trans[posX+1, posY+1] = (1 - probaTransition)/2
                         trans[posX+1, posY-1] = (1 - probaTransition)/2
-    if direction == HAUT and posY > 0:
+    if direction == GAUCHE and posY > 0:
         if g[posX, posY-1] != 0:
             if  posX-1 <0 and posX+1 > nblignes-1 or g[posX-1, posY-1] == 0 and g[posX+1, posY-1]==0  :
                 trans[posX, posY-1] = 1
@@ -165,7 +165,7 @@ def transition(g, direction, posX, posY):
                         trans[posX, posY-1] = probaTransition
                         trans[posX+1, posY-1] = (1 - probaTransition)/2
                         trans[posX-1, posY-1] = (1 - probaTransition)/2
-    if direction == BAS and posY < nbcolonnes-1:
+    if direction == DROITE and posY < nbcolonnes-1:
         if g[posX, posY+1] != 0:
             if posX-1 <0 and posX+1 > nblignes-1 or g[posX-1, posY+1] == 0 and g[posX+1, posY+1]==0  :
                 trans[posX, posY+1] = 1
@@ -442,7 +442,7 @@ def politique(valeurs,grille):
 #
 ################################################################################
 
-
+"""
 # GRAPHIQUE
 #Creation de la fenetre
 Mafenetre = Tk()
@@ -485,6 +485,9 @@ Mafenetre.mainloop()
 g = defineMaze(10,10)
 g[1,0] =1
 print g
-t = transition(g, DROITE, 3,3)
+t = transition(g, GAUCHE, 5,5)
 print t
-"""
+for tr in t :
+   # print "("+str(tr[1])+","+str(tr[0])+")"+" = "+str(g[tr[1],tr[0]])
+    #print str(tr)+" = "+str(g[tr[1],tr[0]])
+    print str(tr)+" = "+str(g[tr])
