@@ -27,8 +27,8 @@ prouge=0.15
 pnoire=0.10
 
 #taille de la grille
-nblignes=5
-nbcolonnes=5
+nblignes=3
+nbcolonnes=3
 
 #Probabilité d'aller effectivement dans la direction voulue
 probaTransition=0.8
@@ -111,76 +111,85 @@ def defineMaze(nblignes,nbcolonnes):
     return g
 
 
-#Calcule la loi de probabilité de transition pour une action direction et une position (posX, posY) données.
+#Calcule la loi de probabilité de transition pour une action direction et une position (i, j) données.
 #Retourne trans, la loi de probabilité sous la forme d'un dictionnaire
 #Note : si une position n'appartient pas au dictionnaire, alors la probabilité d'aller dans cette position est nulle.
-##################################################A REVOIR (bords)
-def transition(g, direction, posX, posY):
+##################################################HAUT testé, je teste le reste demain
+def transition(g, direction, i, j):
     trans = {}
-    if direction == GAUCHE and posX > 0:
-        if g[posX-1, posY] != 0:
-            if posY-1 < 0 and posY+1 > nbcolonnes-1 or g[posX-1, posY-1] == 0 and g[posX-1, posY+1]==0  :
-                trans[posX-1, posY] = 1
-            else:
-                if posY-1 < 0 and posY+1 <= nbcolonnes-1 or g[posX-1, posY-1] == 0 and g[posX-1, posY+1]!=0  :
-                    trans[posX-1, posY] = (1 + probaTransition)/2
-                    trans[posX-1, posY+1] = (1 - probaTransition)/2
+    if g[i,j] != 0:
+        if direction == GAUCHE and j > 0:
+            if g[i, j-1] != 0:
+                if (i-1 < 0 or g[i-1, j-1] == 0) and (i+1 > nblignes-1 or g[i+1, j-1]==0)  :
+                    trans[i, j-1] = 1
                 else:
-                    if  posY-1 >= 0 and posY+1 > nbcolonnes-1 or g[posX-1, posY-1] != 0 and g[posX-1, posY+1] == 0  :
-                        trans[posX-1, posY] = (1 + probaTransition)/2
-                        trans[posX-1, posY-1] = (1 - probaTransition)/2
+                    if i-1 < 0 or g[i-1,j-1] == 0:
+                    #if i-1 < 0 and posY+1 <= nbcolonnes-1 or g[posX-1, posY-1] == 0 and g[posX-1, posY+1]!=0  :
+                        trans[i, j-1] = (1 + probaTransition)/2
+                        trans[i+1, j-1] = (1 - probaTransition)/2
                     else:
-                        trans[posX-1, posY] = probaTransition
-                        trans[posX-1, posY+1] = (1 - probaTransition)/2
-                        trans[posX-1, posY-1] = (1 - probaTransition)/2
-    if direction == DROITE and posX < nblignes-1:
-        if g[posX+1, posY] != 0:
-            if posY-1 < 0 and posY+1 > nbcolonnes-1 or g[posX+1, posY-1] == 0 and g[posX+1, posY+1]==0  :
-                trans[posX+1, posY] = 1
-            else:
-                if  posY-1 < 0 and posY+1 <= nbcolonnes-1 or g[posX+1, posY-1] == 0 and g[posX+1, posY+1] !=0  :
-                    trans[posX+1, posY] = (1 + probaTransition)/2
-                    trans[posX+1, posY+1] = (1 - probaTransition)/2
+                        if i+1 > nblignes-1 or g[i+1,j-1] == 0:
+                        #if  posY-1 >= 0 and posY+1 > nbcolonnes-1 or g[posX-1, posY-1] != 0 and g[posX-1, posY+1] == 0  :
+                            trans[i, j-1] = (1 + probaTransition)/2
+                            trans[i-1, j-1] = (1 - probaTransition)/2
+                        else:
+                            trans[i, j-1] = probaTransition
+                            trans[i-1, j-1] = (1 - probaTransition)/2
+                            trans[i+1, j-1] = (1 - probaTransition)/2
+        if direction == DROITE and j < nbcolonnes-1:
+            if g[i, j+1] != 0:
+                if (i-1 < 0 or g[i-1, j+1] == 0) and (i+1 > nblignes-1 or g[i+1, j+1]==0):
+                    trans[i, j+1] = 1
                 else:
-                    if posY-1 >= 0 and posY+1 > nbcolonnes-1 or g[posX+1, posY-1] != 0 and g[posX+1, posY+1] ==0 :
-                        trans[posX+1, posY] = (1 + probaTransition)/2
-                        trans[posX+1, posY-1] = (1 - probaTransition)/2
+                    if i-1 < 0 or g[i-1,j+1] == 0:
+                    #if  posY-1 < 0 and posY+1 <= nbcolonnes-1 or g[posX+1, posY-1] == 0 and g[posX+1, posY+1] !=0  :
+                        trans[i, j+1] = (1 + probaTransition)/2
+                        trans[i+1, j+1] = (1 - probaTransition)/2
                     else:
-                        trans[posX+1, posY] = probaTransition
-                        trans[posX+1, posY+1] = (1 - probaTransition)/2
-                        trans[posX+1, posY-1] = (1 - probaTransition)/2
-    if direction == HAUT and posY > 0:
-        if g[posX, posY-1] != 0:
-            if  posX-1 <0 and posX+1 > nblignes-1 or g[posX-1, posY-1] == 0 and g[posX+1, posY-1]==0  :
-                trans[posX, posY-1] = 1
-            else:
-                if  posX-1 <0 and posX+1 <= nblignes-1 or g[posX-1, posY-1] == 0 and g[posX+1, posY-1]!=0  :
-                    trans[posX, posY-1] = (1 + probaTransition)/2
-                    trans[posX+1, posY-1] = (1 - probaTransition)/2
+                        if i+1 > nblignes-1 or g[i+1,j+1] == 0:
+                        #if posY-1 >= 0 and posY+1 > nbcolonnes-1 or g[posX+1, posY-1] != 0 and g[posX+1, posY+1] ==0 :
+                            trans[i, j+1] = (1 + probaTransition)/2
+                            trans[i-1, j+1] = (1 - probaTransition)/2
+                        else:
+                            trans[i, j+1] = probaTransition
+                            trans[i+1, j+1] = (1 - probaTransition)/2
+                            trans[i-1, j+1] = (1 - probaTransition)/2
+        if direction == HAUT and i > 0: 
+            if g[i-1, j] != 0:
+                if (j-1 < 0 or g[i-1, j-1] == 0) and (j+1 > nbcolonnes-1 or g[i-1, j+1] == 0):
+                    trans[i-1, j] = 1
                 else:
-                    if posX-1 >=0 and posX+1 > nblignes-1 or g[posX-1, posY-1] != 0 and g[posX+1, posY-1]==0  :
-                        trans[posX, posY-1] = (1 + probaTransition)/2
-                        trans[posX-1, posY-1] = (1 - probaTransition)/2
+                    if j-1 < 0 or g[i-1, j-1] == 0:
+                    #if  posX-1 <0 and posX+1 <= nblignes-1 or g[posX-1, posY-1] == 0 and g[posX+1, posY-1]!=0  :
+                        trans[i-1, j] = (1 + probaTransition)/2
+                        trans[i-1, j+1] = (1 - probaTransition)/2
                     else:
-                        trans[posX, posY-1] = probaTransition
-                        trans[posX+1, posY-1] = (1 - probaTransition)/2
-                        trans[posX-1, posY-1] = (1 - probaTransition)/2
-    if direction == BAS and posY < nbcolonnes-1:
-        if g[posX, posY+1] != 0:
-            if posX-1 <0 and posX+1 > nblignes-1 or g[posX-1, posY+1] == 0 and g[posX+1, posY+1]==0  :
-                trans[posX, posY+1] = 1
-            else:
-                if posX-1 <0 and posX+1 <= nblignes-1 or g[posX-1, posY+1] == 0 and g[posX+1, posY+1]!=0  :
-                    trans[posX, posY+1] = (1 + probaTransition)/2
-                    trans[posX+1, posY+1] = (1 - probaTransition)/2
+                        if j+1 > nbcolonnes-1 or g[i-1, j+1] == 0:
+                        #if posX-1 >=0 and posX+1 > nblignes-1 or g[posX-1, posY-1] != 0 and g[posX+1, posY-1]==0  :
+                            trans[i-1, j] = (1 + probaTransition)/2
+                            trans[i-1, j-1] = (1 - probaTransition)/2
+                        else:
+                            trans[i-1, j] = probaTransition
+                            trans[i-1, j-1] = (1 - probaTransition)/2
+                            trans[i-1, j+1] = (1 - probaTransition)/2
+        if direction == BAS and i < nblignes-1:
+            if g[i+1, j] != 0:
+                if (j-1 < 0 or g[i+1, j-1] == 0) and (j+1 > nbcolonnes-1 or g[i+1, j+1] == 0)  :
+                    trans[i+1, j] = 1
                 else:
-                    if posX-1 >=0 and posX+1 > nblignes-1 or g[posX-1, posY+1] != 0 and g[posX+1, posY+1]==0 :
-                        trans[posX, posY+1] = (1 + probaTransition)/2
-                        trans[posX-1, posY+1] = (1 - probaTransition)/2
+                    if j-1 < 0 or g[i+1, j-1] == 0:
+                    #if posX-1 <0 and posX+1 <= nblignes-1 or g[posX-1, posY+1] == 0 and g[posX+1, posY+1]!=0  :
+                        trans[i+1, j] = (1 + probaTransition)/2
+                        trans[i+1, j+1] = (1 - probaTransition)/2
                     else:
-                        trans[posX, posY+1] = probaTransition
-                        trans[posX+1, posY+1] = (1 - probaTransition)/2
-                        trans[posX-1, posY+1] = (1 - probaTransition)/2
+                        if j+1 > nbcolonnes-1 or g[i+1, j+1] == 0:
+                        #if posX-1 >=0 and posX+1 > nblignes-1 or g[posX-1, posY+1] != 0 and g[posX+1, posY+1]==0 :
+                            trans[i+1, j] = (1 + probaTransition)/2
+                            trans[i+1, j-1] = (1 - probaTransition)/2
+                        else:
+                            trans[i+1, j] = probaTransition
+                            trans[i+1, j+1] = (1 - probaTransition)/2
+                            trans[i+1, j-1] = (1 - probaTransition)/2
     return trans
 
 
@@ -442,7 +451,7 @@ def politique(valeurs,grille):
 #
 ################################################################################
 
-
+"""
 # GRAPHIQUE
 #Creation de la fenetre
 Mafenetre = Tk()
@@ -479,12 +488,14 @@ initialize()
 
 
 
-Mafenetre.mainloop()
+Mafenetre.mainloop()"""
 
-"""
-g = defineMaze(10,10)
-g[1,0] =1
+
+##g = defineMaze(10,10)
+##print g
+g = np.ones((nblignes,nbcolonnes), dtype=np.int)
+g[0,0] = 0
+g[1,2] = 0
 print g
-t = transition(g, DROITE, 3,3)
+t = transition(g, HAUT, 1, 2)
 print t
-"""
