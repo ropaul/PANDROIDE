@@ -33,6 +33,9 @@ nbcolonnes=3
 #Probabilité d'aller effectivement dans la direction voulue
 probaTransition=0.8
 
+#Visibilité du futur
+gamma = 0.8
+
 #poition initiale du robot dans la grille
 posX=0
 posY=0
@@ -87,15 +90,15 @@ def defineMaze(nblignes,nbcolonnes):
                 g[i,j]=0
             else:
                 if z < pblanc + pverte:
-                    g[i,j]=1
+                    g[i,j]=weight[1]
                 else:
                     if z < pblanc + pverte + pbleue:
-                        g[i,j]=2
+                        g[i,j]=weight[2]
                     else:
                         if z< pblanc + pverte + pbleue + prouge:
-                            g[i,j]=3
+                            g[i,j]=weight[3]
                         else:
-                            g[i,j]=4
+                            g[i,j]=weight[4]
     
     #A REMPLACER PAR UNE FONCTION DE TEST D'INTEGRITE DU LABYRINTHE
     g[0,0]=np.random.random_integers(3)
@@ -114,34 +117,19 @@ def defineMaze(nblignes,nbcolonnes):
 #Calcule la loi de probabilité de transition pour une action direction et une position (i, j) données.
 #Retourne trans, la loi de probabilité sous la forme d'un dictionnaire
 #Note : si une position n'appartient pas au dictionnaire, alors la probabilité d'aller dans cette position est nulle.
-##################################################HAUT testé, je teste le reste demain
 def transition(g, direction, i, j):
     trans = {}
-<<<<<<< HEAD
     if g[i,j] != 0:
         if direction == GAUCHE and j > 0:
             if g[i, j-1] != 0:
                 if (i-1 < 0 or g[i-1, j-1] == 0) and (i+1 > nblignes-1 or g[i+1, j-1]==0)  :
                     trans[i, j-1] = 1
-=======
-    if direction == HAUT and posX > 0:
-        if g[posX-1, posY] != 0:
-            if posY-1 < 0 and posY+1 > nbcolonnes-1 or g[posX-1, posY-1] == 0 and g[posX-1, posY+1]==0  :
-                trans[posX-1, posY] = 1
-            else:
-                if posY-1 < 0 and posY+1 <= nbcolonnes-1 or g[posX-1, posY-1] == 0 and g[posX-1, posY+1]!=0  :
-                    trans[posX-1, posY] = (1 + probaTransition)/2
-                    trans[posX-1, posY+1] = (1 - probaTransition)/2
->>>>>>> a89f69935711fd7cc49212ffe8434beaff29fe62
                 else:
                     if i-1 < 0 or g[i-1,j-1] == 0:
-                    #if i-1 < 0 and posY+1 <= nbcolonnes-1 or g[posX-1, posY-1] == 0 and g[posX-1, posY+1]!=0  :
                         trans[i, j-1] = (1 + probaTransition)/2
                         trans[i+1, j-1] = (1 - probaTransition)/2
                     else:
-<<<<<<< HEAD
                         if i+1 > nblignes-1 or g[i+1,j-1] == 0:
-                        #if  posY-1 >= 0 and posY+1 > nbcolonnes-1 or g[posX-1, posY-1] != 0 and g[posX-1, posY+1] == 0  :
                             trans[i, j-1] = (1 + probaTransition)/2
                             trans[i-1, j-1] = (1 - probaTransition)/2
                         else:
@@ -152,28 +140,12 @@ def transition(g, direction, i, j):
             if g[i, j+1] != 0:
                 if (i-1 < 0 or g[i-1, j+1] == 0) and (i+1 > nblignes-1 or g[i+1, j+1]==0):
                     trans[i, j+1] = 1
-=======
-                        trans[posX-1, posY] = probaTransition
-                        trans[posX-1, posY+1] = (1 - probaTransition)/2
-                        trans[posX-1, posY-1] = (1 - probaTransition)/2
-    if direction == BAS and posX < nblignes-1:
-        if g[posX+1, posY] != 0:
-            if posY-1 < 0 and posY+1 > nbcolonnes-1 or g[posX+1, posY-1] == 0 and g[posX+1, posY+1]==0  :
-                trans[posX+1, posY] = 1
-            else:
-                if  posY-1 < 0 and posY+1 <= nbcolonnes-1 or g[posX+1, posY-1] == 0 and g[posX+1, posY+1] !=0  :
-                    trans[posX+1, posY] = (1 + probaTransition)/2
-                    trans[posX+1, posY+1] = (1 - probaTransition)/2
->>>>>>> a89f69935711fd7cc49212ffe8434beaff29fe62
                 else:
                     if i-1 < 0 or g[i-1,j+1] == 0:
-                    #if  posY-1 < 0 and posY+1 <= nbcolonnes-1 or g[posX+1, posY-1] == 0 and g[posX+1, posY+1] !=0  :
                         trans[i, j+1] = (1 + probaTransition)/2
                         trans[i+1, j+1] = (1 - probaTransition)/2
                     else:
-<<<<<<< HEAD
                         if i+1 > nblignes-1 or g[i+1,j+1] == 0:
-                        #if posY-1 >= 0 and posY+1 > nbcolonnes-1 or g[posX+1, posY-1] != 0 and g[posX+1, posY+1] ==0 :
                             trans[i, j+1] = (1 + probaTransition)/2
                             trans[i-1, j+1] = (1 - probaTransition)/2
                         else:
@@ -184,28 +156,12 @@ def transition(g, direction, i, j):
             if g[i-1, j] != 0:
                 if (j-1 < 0 or g[i-1, j-1] == 0) and (j+1 > nbcolonnes-1 or g[i-1, j+1] == 0):
                     trans[i-1, j] = 1
-=======
-                        trans[posX+1, posY] = probaTransition
-                        trans[posX+1, posY+1] = (1 - probaTransition)/2
-                        trans[posX+1, posY-1] = (1 - probaTransition)/2
-    if direction == GAUCHE and posY > 0:
-        if g[posX, posY-1] != 0:
-            if  posX-1 <0 and posX+1 > nblignes-1 or g[posX-1, posY-1] == 0 and g[posX+1, posY-1]==0  :
-                trans[posX, posY-1] = 1
-            else:
-                if  posX-1 <0 and posX+1 <= nblignes-1 or g[posX-1, posY-1] == 0 and g[posX+1, posY-1]!=0  :
-                    trans[posX, posY-1] = (1 + probaTransition)/2
-                    trans[posX+1, posY-1] = (1 - probaTransition)/2
->>>>>>> a89f69935711fd7cc49212ffe8434beaff29fe62
                 else:
                     if j-1 < 0 or g[i-1, j-1] == 0:
-                    #if  posX-1 <0 and posX+1 <= nblignes-1 or g[posX-1, posY-1] == 0 and g[posX+1, posY-1]!=0  :
                         trans[i-1, j] = (1 + probaTransition)/2
                         trans[i-1, j+1] = (1 - probaTransition)/2
                     else:
-<<<<<<< HEAD
                         if j+1 > nbcolonnes-1 or g[i-1, j+1] == 0:
-                        #if posX-1 >=0 and posX+1 > nblignes-1 or g[posX-1, posY-1] != 0 and g[posX+1, posY-1]==0  :
                             trans[i-1, j] = (1 + probaTransition)/2
                             trans[i-1, j-1] = (1 - probaTransition)/2
                         else:
@@ -216,27 +172,12 @@ def transition(g, direction, i, j):
             if g[i+1, j] != 0:
                 if (j-1 < 0 or g[i+1, j-1] == 0) and (j+1 > nbcolonnes-1 or g[i+1, j+1] == 0)  :
                     trans[i+1, j] = 1
-=======
-                        trans[posX, posY-1] = probaTransition
-                        trans[posX+1, posY-1] = (1 - probaTransition)/2
-                        trans[posX-1, posY-1] = (1 - probaTransition)/2
-    if direction == DROITE and posY < nbcolonnes-1:
-        if g[posX, posY+1] != 0:
-            if posX-1 <0 and posX+1 > nblignes-1 or g[posX-1, posY+1] == 0 and g[posX+1, posY+1]==0  :
-                trans[posX, posY+1] = 1
-            else:
-                if posX-1 <0 and posX+1 <= nblignes-1 or g[posX-1, posY+1] == 0 and g[posX+1, posY+1]!=0  :
-                    trans[posX, posY+1] = (1 + probaTransition)/2
-                    trans[posX+1, posY+1] = (1 - probaTransition)/2
->>>>>>> a89f69935711fd7cc49212ffe8434beaff29fe62
                 else:
                     if j-1 < 0 or g[i+1, j-1] == 0:
-                    #if posX-1 <0 and posX+1 <= nblignes-1 or g[posX-1, posY+1] == 0 and g[posX+1, posY+1]!=0  :
                         trans[i+1, j] = (1 + probaTransition)/2
                         trans[i+1, j+1] = (1 - probaTransition)/2
                     else:
                         if j+1 > nbcolonnes-1 or g[i+1, j+1] == 0:
-                        #if posX-1 >=0 and posX+1 > nblignes-1 or g[posX-1, posY+1] != 0 and g[posX+1, posY+1]==0 :
                             trans[i+1, j] = (1 + probaTransition)/2
                             trans[i+1, j-1] = (1 - probaTransition)/2
                         else:
@@ -435,7 +376,7 @@ def Clavier2(event):
 
 def programmeprimal(grille, gamma):
     #Matrice des contraintes + second membre
-    A = np.zeros((nblignes*nbcolonnes, nblignes*nbcolonnes*4))
+    A = np.zeros((nblignes*nbcolonnes*4, nblignes*nbcolonnes))
     b = np.zeros(nblignes*nbcolonnes*4)
     for i in range(nblignes):
         for j in range(nbcolonnes):
@@ -445,10 +386,10 @@ def programmeprimal(grille, gamma):
                 if (i == (nblignes - 1) and j == (nbcolonnes -1)):
                     #A changer si on veut maximiser
                     b[(i*nbcolonnes+j)*4+k]=-1000
-                A[i*nbcolonnes+j][(i*nbcolonnes+j)*4+k]=1
+                A[(i*nbcolonnes+j)*4+k][i*nbcolonnes+j]=1
                 trans = transition(grille, k, j, i)
                 for t in trans:
-                    A[t[1]*nbcolonnes+t[0]][(i*nbcolonnes+j)*4+k]=gamma*trans[t]
+                    A[(i*nbcolonnes+j)*4+k][t[0]*nbcolonnes+t[1]]=-gamma*trans[t]
 
     #fonction objectif
     obj = np.zeros(nblignes*nbcolonnes)
@@ -476,21 +417,26 @@ def resolutionGurobiprimal(a,b,objectif):
     m.setObjective(obj,GRB.MAXIMIZE)
 
     # definition des contraintes
+    print 
     for i in range(nblignes*nbcolonnes*4):
-        m.addConstr(quicksum(a[i][j]*v[j] for j in nblignes*nbcolonnes) <= b[i], "Contrainte%d" % i)
+        m.addConstr(quicksum(a[i][j]*v[j] for j in range(nblignes*nbcolonnes)) <= b[i], "Contrainte%d" % i)
 
     # Resolution
     m.optimize()
 
     return v
-    
+
+#A revoir quand la résolution du PL marcheras
 def politique(valeurs,grille):
     pol = np.zeros((nblignes, nbcolonnes))
     for i in range (nblignes):
         for j in range (nbcolonnes):
             minimum = 100000
             for k in range (4):
-                temp= grille[j][i] + gamma * transition(grille, k, i,j)*valeurs[i*nblignes+j]
+                temp = grille[j][i]
+                trans = transition(grille, k, i, j)
+                for t in trans:
+                    temp += gamma * trans[t] * valeurs[t[0]*nblignes+t[1]]
                 if ( minimum > temp ):
                     minimum= temp
                     pol[i][j]= k
@@ -547,17 +493,17 @@ Mafenetre.mainloop()"""
 ##g = defineMaze(10,10)
 ##print g
 g = np.ones((nblignes,nbcolonnes), dtype=np.int)
-g[0,0] = 0
-g[1,2] = 0
-print g
-<<<<<<< HEAD
-t = transition(g, HAUT, 1, 2)
-print t
-=======
-t = transition(g, GAUCHE, 5,5)
-print t
-for tr in t :
-   # print "("+str(tr[1])+","+str(tr[0])+")"+" = "+str(g[tr[1],tr[0]])
-    #print str(tr)+" = "+str(g[tr[1],tr[0]])
-    print str(tr)+" = "+str(g[tr])
->>>>>>> a89f69935711fd7cc49212ffe8434beaff29fe62
+g[0,1] = 4
+g[0,2] = 4
+g[2,0] = 4
+g[2,1] = 4
+#print g
+(A, b, obj) = programmeprimal(g, gamma)
+##print A
+##print b
+##print obj
+v = resolutionGurobiprimal(A, b, obj)
+#print v
+#pol = politique(v, g)
+#print pol
+
