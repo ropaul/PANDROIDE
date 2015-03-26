@@ -209,19 +209,20 @@ def initialize():
 def colordraw(g,nblignes,nbcolonnes):
     for i in range(nblignes):
         for j in range(nbcolonnes):          
-            y =zoom*20*i+20
-            x =zoom*20*j+20
+            y =zoom*20*j+20
+            x =zoom*20*i+20
             if i == 0 and j == 0 :
                 Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana 12 bold")
-                        
             else:
                 if i == nblignes -1 and j == nbcolonnes -1 :
                     Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=myblack,font = "Verdana 12 bold")
                 else:
-                    if g[i,j]>0:            
-                        Canevas.create_oval(x+zoom*(10-3),y+zoom*(10-3),x+zoom*(10+3),y+zoom*(10+3),width=1,outline=color[g[i,j]],fill=color[g[i,j]])
-                    else:
+                    if g[i,j]==0: 
                         Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
+                    else:
+                        Canevas.create_oval(x+zoom*(10-3),y+zoom*(10-3),x+zoom*(10+3),y+zoom*(10+3),width=1,outline=color[g[i,j]],fill=color[g[i,j]])
+                   
+                        
 
 
            
@@ -238,8 +239,79 @@ def colordraw2(g,nblignes,nbcolonnes):
                 Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
 
 
+def Clavier (event):
+    global PosX,PosY,posX,posY,cost,g
+    touche = event.keysym
+    i = posX
+    j= posY
+    value = 0
+    z=np.random.uniform(0,1)
+    if touche == 'space':
+        if (j+i)%2==0:
+            touche = 'm'
+        else:
+             touche ='q'
+    if touche =="a" and i>0 and g[i-1,j]!=0:
+        print 'haut'
+        trans= transition (g,HAUT,i,j)
+        for t in trans:
+            value += trans[t]
+            if(value > z):
+                i=t[0]
+                j=t[1]
+                cost[g[i,j]] +=1
+                break
+    if touche =="q" and i< nblignes and g[i+1,j]!=0:
+        print 'haut'
+        trans= transition (g,BAS,i,j)
+        for t in trans:
+            value += trans[t]
+            if(value > z):
+                i=t[0]
+                j=t[1]
+                cost[g[i,j]] +=1
+                break
+    if touche =="l" and j>0 and g[i,j-1]!=0:
+        print 'gauche'
+        trans= transition (g,GAUCHE,i,j)
+        for t in trans:
+            value += trans[t]
+            if(value > z):
+                i=t[0]
+                j=t[1]
+                cost[g[i,j]] +=1
+                break
+    if touche =="m" and j< nbcolonnes and g[i,j+1]!=0:
+        print 'droit'
+        trans= transition (g,DROITE,i,j)
+        for t in trans:
+            value += trans[t]
+            if(value > z):
+                i=t[0]
+                j=t[1]
+                if (g[i,j]>0):
+                    cost[g[i,j]] +=1
+                break
+    print 'j='+str(j)+'  i='+str(i)
+    PosY = j *20*zoom +20+zoom*10
+    PosX = i *20*zoom +20+zoom*10
+    posY = j
+    posX = i
+    print 'PosX=' +str(PosX) + 'PosY=' +str(PosY)
+    Canevas.coords(Pion,PosY -9*zoom, PosX -9*zoom, PosY +9*zoom, PosX +9*zoom)
+    cost[0]=0    
+    for k in range(4):
+        cost[0]+=cost[k+1]*weight[k+1]
+    w.config(text='Cost = '+ str(cost[0]))
+                    
+        
+        
+                
+
+
+
 #Sert a bouger le pion dans l'interface
-def Clavier(event):
+def Clavier2(event):
     global PosX,PosY,posX,posY,cost,g
     touche = event.keysym
 #    cj=(PosX-30)/(20*zoom)
@@ -255,7 +327,7 @@ def Clavier(event):
         Canevas.coords(Pion,30 -9*zoom, 30 -9*zoom, 30 +9*zoom, 30 +9*zoom)
         return
     if touche == 'a' and li>0 and g[li-1,cj]>0:
-        print  'haut'        
+        print  'gauche'        
 
         trans = transition (g,HAUT,li,cj)
         print trans
@@ -270,7 +342,7 @@ def Clavier(event):
        # PosY -= zoom*20
         #cost[g[li-1,cj]]+=1        
     # deplacement vers le bas
-    if touche == 'q' and li<nblignes-1 and g[li+1,cj]>0:
+    if touche == 'm' and li<nblignes-1 and g[li+1,cj]>0:
         
         z=np.random.uniform(0,1)
         trans = transition (g,BAS,li,cj)
@@ -278,7 +350,7 @@ def Clavier(event):
         for t in trans:
             value += trans[t]
             print 'value=' + str(value)
-            print  'bas (' +str(cj)+ ' '+  str(li   )+')'+'(' +str(t[0])+ ' '+  str(t[1])+')'
+            print  'droit (' +str(cj)+ ' '+  str(li   )+')'+'(' +str(t[0])+ ' '+  str(t[1])+')'
             if   z< value:
                 print 'its alive !'
                 cj= t[0]
@@ -287,8 +359,8 @@ def Clavier(event):
         #PosY += zoom*20
         #cost[g[li+1,cj]]+=1
     # deplacement vers la droite
-    if touche == 'm' and cj< nbcolonnes-1 and g[li,cj+1]>0:
-        print  'droite'
+    if touche == 'q' and cj< nbcolonnes-1 and g[li,cj+1]>0:
+        print  'bas'
         z=np.random.uniform(0,1)
         trans = transition (g,DROITE,li,cj)
         print trans        
@@ -301,8 +373,8 @@ def Clavier(event):
         #PosX += zoom*20
         #cost[g[li,cj+1]]+=1
     # deplacement vers la gauche
-    if touche == 'l' and cj >0 and g[li,cj-1]>0:
-        print  'gauche'
+    if touche == 'a' and cj >0 and g[li,cj-1]>0:
+        print  'haut'
         z=np.random.uniform(0,1)
         trans = transition (g,GAUCHE,li,cj)
         print trans
@@ -328,7 +400,7 @@ def Clavier(event):
     w.config(text='Cost = '+ str(cost[0]))
 
 
-def Clavier2(event):
+def Clavier3(event):
     global PosX,PosY,cost,g
     touche = event.keysym
     cj=(PosX-30)/(20*zoom)
@@ -450,7 +522,7 @@ def politique(valeurs,grille):
 #
 ################################################################################
 
-"""
+
 # GRAPHIQUE
 #Creation de la fenetre
 Mafenetre = Tk()
@@ -487,7 +559,9 @@ initialize()
 
 
 
-Mafenetre.mainloop()"""
+Mafenetre.mainloop()
+
+"""
 
 
 ##g = defineMaze(10,10)
@@ -506,4 +580,4 @@ v = resolutionGurobiprimal(A, b, obj)
 #print v
 #pol = politique(v, g)
 #print pol
-
+"""
