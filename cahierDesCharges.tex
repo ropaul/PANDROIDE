@@ -1,0 +1,72 @@
+\documentclass[10pt]{article}
+
+\setlength{\topmargin}{-0.6cm} \setlength{\oddsidemargin}{0cm}
+\setlength{\evensidemargin}{0cm} \setlength{\textwidth}{16.2cm}
+\setlength{\textheight}{23.5cm}
+
+\usepackage{amssymb}
+\usepackage[OT1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+
+\newcommand{\ind}{$~~~~$}
+
+\begin{document}
+
+
+
+\noindent {\bf \Large Université Paris 6} \hfill 2014-2015\\
+{\sc MASTER ANDROIDE M1 -- PANDROIDE\\}
+Margot Calbrix et Yann Ropaul
+
+\vspace{1cm}
+
+\begin{center}
+{\large \bf Pandroide -- Cahier des charges\\~~\\
+Optimisation multicritère équitable dans un contexte incertain}
+\end{center}
+
+
+\vspace{0.5cm}
+
+
+\subsection*{Présentation du problème}
+
+On considère un robot devant se déplacer dans un labyrinthe, modélisé par une grille rectangulaire. Typiquement, il se situe au départ dans le coin supérieur gauche et doit se déplacer dans le coin inférieur droit. Dans chaque position, le robot peut accomplir quatre actions de déplacement élémentaire, notées $\rightarrow$, $\downarrow$, $\leftarrow$, $\uparrow$. Nous nous placerons dans un contexte incertain : ces actions auront donc des résultats dont les probabilités sont connues. Par exemple, l'action $\downarrow$ vers une case $(i,j)$ peut donner lieu à un déplacement vers la case $(i,j)$ avec une probabilité $p>0.5$, mais aussi à un déplacement vers la case $(i, j-1)$ ou la case $(i, j+1)$ avec la probabilité $\frac{1-p}{2}$. Si l'une des deux cases voisines de la case visée est inaccessible, alors la case $(i,j)$ sera atteinte avec la probabilité $\frac{1+p}{2}$ et la case voisine restante avec la probabilité $\frac{1-p}{2}$. Si la case visée n'est pas accessible, alors le robot restera sur place.\\
+Chaque case est caractérisée par un ensemble de $n$ valeurs sur un ensemble de critères $\{c_{1}, \dots, c_{n}\}$, représentant par exemple différentes ressources à préserver. Le but du robot est donc d'atteindre la case finale en empruntant un chemin qui minimise la consommation de ces ressources.\\ 
+%Selon l'avancement du projet, on pourra également considérer les problèmes suivants :
+%\begin{itemize}
+%\item Au lieu d'aller sur une case finale fixe, le robot doit atteindre une cible mouvante.
+%\item Le robot doit collecter différents objets placés sur la grille.
+%\end{itemize}
+
+\medskip
+\noindent Nous allons modéliser ce problème de planification à l'aide de processus décisionnels Markoviens :
+\begin{itemize}
+\item L'ensemble des états $S$ est composé des $x_{i,j}, \forall i \in \{1, \dots, n\} \forall j \in \{1, \dots, m\}$ (avec $n \times m$ la taille de la grille) représentant la situation `Le robot est dans la case $(i,j)$'. Il est à noter que, certaines cases étant des murs, les états correspondants seront inaccessibles.
+\item L'ensemble des actions $A$ est composé des quatre déplacements élémentaires $\{\rightarrow, \downarrow, \leftarrow, \uparrow\}$.
+\item La fonction de transition $T$, définie dans le paragraphe précédent.
+\item La fonction de récompense $R(s, a)$, définie par l'ensemble des coûts de la case $s$.
+\end{itemize}
+Nous allons nous placer dans un contexte d'optimisation équitable : la résolution s'attachera à proposer un vecteur d'espérance des critères Pareto-optimal le plus équilibré possible. Pour cela, nous implanterons trois fonctions d'optimisation équitable. On notera $V_i(\pi)$ l'espérance de la récompense sur le critère $i$ pour la politique $\pi$.
+\begin{description}
+\item[l'approche égalitariste] où l'on minimise le critère le plus coûteux $$\min_\pi \max_{i} V_i(\pi)$$
+\item[le regret minimax] où l'on cherche la solution réalisable la plus proche de la solution idéale $V^{*}$ : $$\min_\pi \max_{i} (V_i^{*}(\pi) - V_i(\pi))$$
+\item[OWA] où l'on minimise l'espérance de la somme des critères sur le chemin, en accordant plus de poids aux critères les plus lourds : $$\min_\pi \sum_{i=1}^{n} w_i V_{\sigma(i)}$$ où $w_1 \geq \dots \geq w_n$ et $V_{\sigma(1)} \geq \dots \geq V_{\sigma(n)}$
+\end{description}
+On pourra également implanter une fonction d'optimisation plus classique, telle que la minimisation de l'espérance de la somme des critères, afin de comparer les résultats obtenus avec ceux donnés par les fonctions d'optimisation équitables en terme de valeur de la solution et d'équité entre les critères.
+\medskip
+
+
+\subsection*{Outils techniques}
+
+Nous allons programmer en python. La résolution de processus décisionnels markoviens multiobjectifs se faisant par programmation mathématique, nous utiliserons le solveur Gurobi pour trouver nos politiques optimales.\\
+Nous allons développer deux outils :
+\begin{itemize}
+	\item un logiciel de visualisation des politiques, permettant d'engendrer aléatoirement des labyrinthes à quatre critères, de calculer puis d'afficher sur la grille les politiques demandées, de simuler le cheminement du robot et de laisser à l'utilisateur l'opportunité d'essayer de trouver un chemin optimal. 
+	\item un logiciel de tests, permettant de visualiser l'efficacité des différentes politiques sur l'ensemble des critères, ainsi que de tester l'impact de différents paramètres (nombres de critères, taille de la grille, valeur du facteur d'actualisation $\gamma$, distribution de probabilité $T$, ...) sur le temps de résolution et la qualité des solutions proposées.
+\end{itemize}
+
+
+\end{document}
