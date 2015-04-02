@@ -167,19 +167,27 @@ def afficheSolution(grille):
             if grille[i,j] == HAUT:
                 PosY = j *20*zoom +20+zoom*10
                 PosX = i *20*zoom +20+zoom*10
-                Canevas.create_image(PosY-zoom*10,PosX, image=haut) # image a centrer 
+                Canevas.create_line(PosY,PosX-zoom*7,PosY,PosX-zoom*12)
+                Canevas.create_line(PosY-zoom*2,PosX-zoom*10,PosY,PosX-zoom*12)
+                Canevas.create_line(PosY+zoom*2,PosX-zoom*10,PosY,PosX-zoom*12)
             if grille[i,j] == BAS:
                 PosY = j *20*zoom +20+zoom*10
                 PosX = i *20*zoom +20+zoom*10
-                Canevas.create_image(PosY+zoom*10,PosX, image=bas) # image a centrer 
+                Canevas.create_line(PosY,PosX+zoom*7,PosY,PosX+zoom*12)
+                Canevas.create_line(PosY-zoom*2,PosX+zoom*10,PosY,PosX+zoom*12)
+                Canevas.create_line(PosY+zoom*2,PosX+zoom*10,PosY,PosX+zoom*12)
             if grille[i,j] == GAUCHE:
                 PosY = j *20*zoom +20+zoom*10
                 PosX = i *20*zoom +20+zoom*10
-                Canevas.create_image(PosY,PosX-zoom*10, image=gauche) # image a centrer 
+                Canevas.create_line(PosY-zoom*7,PosX,PosY-zoom*12,PosX)
+                Canevas.create_line(PosY-zoom*10,PosX-zoom*2,PosY-zoom*12,PosX)
+                Canevas.create_line(PosY-zoom*10,PosX+zoom*2,PosY-zoom*12,PosX) 
             if grille[i,j] == DROITE:
                 PosY = j *20*zoom +20+zoom*10
                 PosX = i *20*zoom +20+zoom*10
-                Canevas.create_image(PosY,PosX+zoom*10, image=droit) # image a centrer 
+                Canevas.create_line(PosY+zoom*7,PosX,PosY+zoom*12,PosX)
+                Canevas.create_line(PosY+zoom*10,PosX-zoom*2,PosY+zoom*12,PosX)
+                Canevas.create_line(PosY+zoom*10,PosX+zoom*2,PosY+zoom*12,PosX) 
                 
 
 
