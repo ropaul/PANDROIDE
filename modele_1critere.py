@@ -24,8 +24,8 @@ prouge=0.15
 pnoire=0.10
 
 #taille de la grille
-nblignes=3
-nbcolonnes=3
+nblignes=5
+nbcolonnes=5
 
 #Probabilité d'aller effectivement dans la direction voulue
 probaTransition=0.5
@@ -223,6 +223,7 @@ def resolutionGurobiprimal(a,b,objectif):
 
     # Resolution
     m.optimize()
+    
 
     return v, m
 
