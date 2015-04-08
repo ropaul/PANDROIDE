@@ -28,10 +28,10 @@ nblignes=5
 nbcolonnes=5
 
 #Probabilité d'aller effectivement dans la direction voulue
-probaTransition=0.5
+probaTransition=1
 
 #Visibilité du futur
-gamma = 0.8
+gamma = 0.9
 
 #poition initiale du robot dans la grille
 posX=0
@@ -89,7 +89,7 @@ def defineMaze(nblignes,nbcolonnes):
     g[nblignes-1,nbcolonnes-2]=np.random.random_integers(3)
 
     #Case but
-    g[nblignes-1][nbcolonnes-1]=-1000
+    #g[nblignes-1][nbcolonnes-1]=-1000
     
     return g
 
@@ -198,6 +198,11 @@ def programmeprimal(grille, gamma):
 
     return (A, b, obj)
 
+##def mycallback(model, where):
+##    if where == GRB.Callback.MESSAGE:
+##        print "c'est moi"
+##        print model.qcbGet(GRB.Callback.MSG_STRING)
+
 def resolutionGurobiprimal(a,b,objectif):
     m = Model("PDM")     
         
@@ -223,9 +228,10 @@ def resolutionGurobiprimal(a,b,objectif):
 
     # Resolution
     m.optimize()
+    #tempsde résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
+    t = m.getAttr(GRB.Attr.Runtime) - 0.01
     
-
-    return v, m
+    return v, m, t
 
 
 def politique(valeurs,grille):
@@ -243,6 +249,71 @@ def politique(valeurs,grille):
                     pol[i][j] = k
     return pol
 
+def resolution(grille, gamma):
+    (A, b, obj) = programmeprimal(g, gamma)
+    v, m, t = resolutionGurobiprimal(A, b, obj)
+    pol = politique(v, g)
+    return pol
+
+
+################################################################################
+#
+#                            FONCTIONS DE TESTS
+#
+################################################################################
+
+def coutChemin(grille, politique):
+    cout = 0
+    i = 0
+    j = 0
+    #cout += grille[i][j]
+    #la première case ne coute rien
+    while i != grille.shape[0]-1 and j != grille.shape[1]-1:
+        if politique[i][j] == HAUT:
+            i -= 1
+        elif politique[i][j] == BAS:
+            i += 1
+        elif politique[i][j] == GAUCHE:
+            j -= 1
+        else: #politique[i][j] == DROITE
+            j += 1
+        cout += grille[i][j]
+    return cout
+
+#Teste la perte de capacité de l'algorithme à trouver une solution optimale
+#avec la probabilité de transition proba au lieu de 1 (plus court chemin trouvé)
+def comparePerformanceProba(nblignes, nbcolonnes, gamma, proba, nbIter):
+    moyDiff = 0
+    moyRatio = 0
+    tmp = probaTransition
+    for i in range(nbIter):
+        g = defineMaze(nblignes, nbcolonnes)
+        probaTransition = proba
+        cout = coutChemin(g, resolution(g, gamma))
+        probaTransition = 1
+        coutObj = coutChemin(g, resolution(g, gamma))
+        moyDiff += cout - coutObj
+        moyRatio += cout/coutObj
+    moyDiff /= nbIter
+    moyRatio /= nbIter
+    probaTransition = tmp
+    return moyDiff, moyRatio
+
+#Compare la qualité des solutions trouvées en fonction de gamma
+def comparePerformanceGamma(nblignes, nbcolonnes, nbIter, pas):
+    moy = [0 for i in np.arange(0, 1.001, pas)]
+    tmp = gamma
+    for i in range(nbIter):
+        g = defineMaze(nblignes, nbcolonnes)
+        for j in range(len(moy)):
+            gamma = j*pas
+            cout = coutChemin(g, resolution(g, gamma))
+            moy[j] += cout
+    for i in range(len(moy)):
+        moy[i] /= nbIter
+    return moy
+            
+
 
 
 ################################################################################
@@ -251,30 +322,25 @@ def politique(valeurs,grille):
 #
 ################################################################################
 
-"""
-##g = defineMaze(10,10)
-##print g
-g = np.ones((nblignes,nbcolonnes), dtype=np.int)
-g[0,1] = 4
-g[0,2] = 4
-g[2,0] = 4
-g[2,1] = 4
+
+g = defineMaze(nblignes, nbcolonnes)
 print g
+
 (A, b, obj) = programmeprimal(g, gamma)
-print "####"
-print A
-print b
-print obj
-
-v, m = resolutionGurobiprimal(A, b, obj)
-print v
-##for i in range(nblignes):
-##        s= []
-##        for j in range(nbcolonnes):
-##            print v[j].x
-##        print s
-
+v, m, t = resolutionGurobiprimal(A, b, obj)
+print "runtime"
+print t
+print "nbIter"
+print m.getAttr(GRB.Attr.IterCount)
+##print "stats"
+##print m.qcbGet(Callback.SPX_ITRCNT)
 pol = politique(v, g)
 print "pol :"
 print pol
-"""
+
+##pol = resolution(g, gamma)
+##print pol
+cout = coutChemin(g, pol)
+print cout
+
+
