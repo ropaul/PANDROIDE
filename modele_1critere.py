@@ -97,7 +97,7 @@ def defineMaze(nblignes,nbcolonnes):
 #Calcule la loi de probabilité de transition pour une action direction et une position (i, j) données.
 #Retourne trans, la loi de probabilité sous la forme d'un dictionnaire
 #Note : si une position n'appartient pas au dictionnaire, alors la probabilité d'aller dans cette position est nulle.
-def transition(g, direction, i, j):
+def transition(g, direction, i, j, probaTransition):
     trans = {}
     if g[i,j] != 0:
         if direction == GAUCHE and j > 0:
@@ -175,7 +175,7 @@ def transition(g, direction, i, j):
 ################################################################################
 
 
-def programmeprimal(grille, gamma):
+def programmeprimal(grille, gamma, proba):
     #Matrice des contraintes + second membre
     A = np.zeros((nblignes*nbcolonnes*4, nblignes*nbcolonnes))
     b = np.zeros(nblignes*nbcolonnes*4)
@@ -188,7 +188,7 @@ def programmeprimal(grille, gamma):
                     #A changer si on veut maximiser
                     b[(i*nbcolonnes+j)*4+k]=1000
                 A[(i*nbcolonnes+j)*4+k][i*nbcolonnes+j]=1
-                trans = transition(grille, k, i, j)
+                trans = transition(grille, k, i, j, proba)
                 for t in trans:
                     A[(i*nbcolonnes+j)*4+k][t[0]*nbcolonnes+t[1]]=-gamma*trans[t]
 
@@ -198,10 +198,6 @@ def programmeprimal(grille, gamma):
 
     return (A, b, obj)
 
-##def mycallback(model, where):
-##    if where == GRB.Callback.MESSAGE:
-##        print "c'est moi"
-##        print model.qcbGet(GRB.Callback.MSG_STRING)
 
 def resolutionGurobiprimal(a,b,objectif):
     m = Model("PDM")     
@@ -234,14 +230,14 @@ def resolutionGurobiprimal(a,b,objectif):
     return v, m, t
 
 
-def politique(valeurs,grille):
+def politique(valeurs, grille, proba, gamma):
     pol = np.zeros((nblignes, nbcolonnes))
     for i in range (nblignes):
         for j in range (nbcolonnes):
             maximum = 0
             for k in range (4):
                 temp = grille[j][i]
-                trans = transition(grille, k, i, j)
+                trans = transition(grille, k, i, j, proba)
                 for t in trans:
                     temp += gamma * trans[t] * valeurs[t[0]*nblignes+t[1]].x
                 if ( maximum < temp ):
@@ -249,10 +245,10 @@ def politique(valeurs,grille):
                     pol[i][j] = k
     return pol
 
-def resolution(grille, gamma):
-    (A, b, obj) = programmeprimal(g, gamma)
+def resolution(grille, gamma, proba):
+    (A, b, obj) = programmeprimal(grille, gamma, proba)
     v, m, t = resolutionGurobiprimal(A, b, obj)
-    pol = politique(v, g)
+    pol = politique(v, grille, proba, gamma)
     return pol
 
 
@@ -285,29 +281,25 @@ def coutChemin(grille, politique):
 def comparePerformanceProba(nblignes, nbcolonnes, gamma, proba, nbIter):
     moyDiff = 0
     moyRatio = 0
-    tmp = probaTransition
     for i in range(nbIter):
         g = defineMaze(nblignes, nbcolonnes)
-        probaTransition = proba
-        cout = coutChemin(g, resolution(g, gamma))
-        probaTransition = 1
-        coutObj = coutChemin(g, resolution(g, gamma))
+        cout = coutChemin(g, resolution(g, gamma, proba))
+        coutObj = coutChemin(g, resolution(g, gamma, 1))
         moyDiff += cout - coutObj
-        moyRatio += cout/coutObj
-    moyDiff /= nbIter
-    moyRatio /= nbIter
-    probaTransition = tmp
+        moyRatio += cout/float(coutObj)
+    moyDiff = moyDiff / float(nbIter)
+    moyRatio = moyRatio / float(nbIter)
     return moyDiff, moyRatio
 
 #Compare la qualité des solutions trouvées en fonction de gamma
-def comparePerformanceGamma(nblignes, nbcolonnes, nbIter, pas):
+def comparePerformanceGamma(nblignes, nbcolonnes, nbIter, pas, proba):
     moy = [0 for i in np.arange(0, 1.001, pas)]
     tmp = gamma
     for i in range(nbIter):
         g = defineMaze(nblignes, nbcolonnes)
         for j in range(len(moy)):
             gamma = j*pas
-            cout = coutChemin(g, resolution(g, gamma))
+            cout = coutChemin(g, resolution(g, gamma, proba))
             moy[j] += cout
     for i in range(len(moy)):
         moy[i] /= nbIter
@@ -326,21 +318,32 @@ def comparePerformanceGamma(nblignes, nbcolonnes, nbIter, pas):
 g = defineMaze(nblignes, nbcolonnes)
 print g
 
-(A, b, obj) = programmeprimal(g, gamma)
-v, m, t = resolutionGurobiprimal(A, b, obj)
-print "runtime"
-print t
-print "nbIter"
-print m.getAttr(GRB.Attr.IterCount)
-##print "stats"
-##print m.qcbGet(Callback.SPX_ITRCNT)
-pol = politique(v, g)
-print "pol :"
-print pol
-
-##pol = resolution(g, gamma)
+##(A, b, obj) = programmeprimal(g, gamma)
+##v, m, t = resolutionGurobiprimal(A, b, obj)
+##print "runtime"
+##print t
+##print "nbIter"
+##print m.getAttr(GRB.Attr.IterCount)
+##pol = politique(v, g)
+##print "pol :"
 ##print pol
+"""
+pol = resolution(g, gamma)
+print pol
 cout = coutChemin(g, pol)
+print "cout 1"
 print cout
+probaTransition = 0.1
+pol = resolution(g, gamma)
+print pol
+cout = coutChemin(g, pol)
+print "cout 2"
+print cout"""
+
+
+#Test fonction de test
+moyD, moyR = comparePerformanceProba(nblignes, nbcolonnes, gamma, 0.1, 10)
+print moyD
+print moyR
 
 
