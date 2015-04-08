@@ -24,9 +24,7 @@ zoom=4
 PosX = 20+10*zoom 
 PosY = 20+10*zoom
 
-# Creation d'un widget Canvas (pour la grille)
-Largeur = zoom*20*nbcolonnes+40
-Hauteur = zoom*20*nblignes+40
+
 
 # def des couleurs
 myred="#D20B18"
@@ -61,6 +59,10 @@ def initialize():
     posX = i
     Canevas.coords(Pion,PosX -9*zoom, PosY -9*zoom, PosX +9*zoom, PosY +9*zoom)
     w.config(text='Cost = '+ str(cost[0]))
+    w1.config(text='vert = '+ str(cost[1]))
+    w2.config(text='bleu = '+ str(cost[2]))
+    w3.config(text='rouge = '+ str(cost[3]))
+    w4.config(text='noir = '+ str(cost[4]))
 
 
 # dessine la grille avec des ovales
@@ -73,10 +75,10 @@ def colordraw(g,nblignes,nbcolonnes):
             y =zoom*20*j+20
             x =zoom*20*i+20
             if i == 0 and j == 0 :
-                Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana 12 bold")
+                Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
             else:
                 if i == nblignes -1 and j == nbcolonnes -1 :
-                    Canevas.create_text(y+zoom*10,x+zoom*10,text="BUT",fill=myblack,font = "Verdana 12 bold")
+                    Canevas.create_text(y+zoom*10,x+zoom*10,text="BUT",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
                 else:
                     if g[i,j]==0: 
                         Canevas.create_rectangle(y, x, y+zoom*20, x+zoom*20, fill=myblack)
@@ -114,7 +116,7 @@ def Clavier (event):
 #             touche ='q'
         touche = marcheAuto(i,j,pol)
         print "touche="+touche 
-    if touche =="a" and i>0 :
+    if (touche =="a"or touche== "Up") and i>0 :
         if g[i-1,j]!=0 :
             print 'haut'
             trans= transition (g,HAUT,i,j)
@@ -126,7 +128,7 @@ def Clavier (event):
                     if (g[i,j]>0):
                         cost[g[i,j]] +=1
                     break
-    if touche =="q" and i< nblignes -1:
+    if (touche =="q" or touche=="Down") and i< nblignes -1:
         if g[i+1,j]!=0 :
             print 'bas'
             trans= transition (g,BAS,i,j)
@@ -138,7 +140,7 @@ def Clavier (event):
                     if (g[i,j]>0):
                         cost[g[i,j]] +=1
                     break
-    if touche =="l" and j>0:
+    if (touche =="l" or touche=="Left") and j>0:
         if  g[i,j-1]!=0 :
             print 'gauche'
             trans= transition (g,GAUCHE,i,j)
@@ -150,7 +152,7 @@ def Clavier (event):
                     if (g[i,j]>0):
                         cost[g[i,j]] +=1
                     break
-    if touche =="m" and j< nbcolonnes-1 :
+    if (touche =="m" or touche== "Right") and j< nbcolonnes-1 :
         if g[i,j+1]!=0 :
             print 'droit'
             trans= transition (g,DROITE,i,j)
@@ -162,12 +164,12 @@ def Clavier (event):
                     if (g[i,j]>0):
                         cost[g[i,j]] +=1
                     break
-    print 'j='+str(j)+'  i='+str(i)
+#    print 'j='+str(j)+'  i='+str(i)
     PosY = j *20*zoom +20+zoom*10
     PosX = i *20*zoom +20+zoom*10
     posY = j
     posX = i
-    print 'PosX=' +str(PosX) + 'PosY=' +str(PosY)
+#    print 'PosX=' +str(PosX) + 'PosY=' +str(PosY)
     Canevas.coords(Pion,PosY -9*zoom, PosX -9*zoom, PosY +9*zoom, PosX +9*zoom)
     cost[0]=0    
     for k in range(4):
@@ -177,7 +179,27 @@ def Clavier (event):
     w2.config(text='bleu = '+ str(cost[2]))
     w3.config(text='rouge = '+ str(cost[3]))
     w4.config(text='noir = '+ str(cost[4]))
+#    if (i== nblignes-1 and j == nbcolonnes -1):
+#        gagner = Tk()
+#        gagner.title('Gagner')
+#        texte = Label(gagner, text='Vous avez gagné !',fg=myblack,font = "Verdana 12 bold")
+#        texte.pack()
+#        Button(gagner, text ='Quit', command = gagner.destroy).pack(side=BOTTOM,padx=5,pady=5)
+#        gagner.mainloop()
+#        
+    #pour qu'on puisse restart avec le bacspace
+    if touche == 'BackSpace':
+        initialize()
+    #pour qu'on quite le programme en appuyant sur esc
+    if touche == 'Escape':
+        Fenetre.destroy()
 
+def gagne():
+    initialize()
+    gagner.destroy()
+
+def gagneKey(event):
+    gagner()
 
 #fonction qui donne la direction lorsque l'on appuie sur espace                    
 def marcheAuto(i,j,pol):
@@ -249,7 +271,7 @@ def flechemixte (i,j ,pH,pB,pG,pD): #i et j les coord , pH,pB,pG les pourcentage
 
 #Sert a la premiere initialisation du labyrinthe. verifie si tous les choix demandé sont fait
 def choix():
-    global gamma, probaTransition,nblignes, nbcolonnes
+    global gamma, probaTransition,nblignes, nbcolonnes,zoom
     print   'nb  '+ str(nb.get()) 
 #    if ((liste.get() != "1" and liste.get() != "2"and liste.get() != "3")):
 #        
@@ -258,39 +280,57 @@ def choix():
 #        
 #        return
     if ( nb.get() != '' ):
-        valueCL= (nb.get())
+        valueL= (nb.get())
+    if ( nbprime.get() != '' ):
+        valueC= (nbprime.get())        
             
-        nblignes = valueCL
-        nbcolonnes = valueCL
+        nblignes = valueL
+        nbcolonnes = valueC
         
-        print "nblignes="+ str(nblignes)
-        print "nbcolonnes="+str(nbcolonnes)
-        if valueCL >0:# and valueCL < 5:
+        val = max(valueC,valueL)
+        
+        if val >0:# and valueCL < 5:
             zoom = 3
-        if valueCL >5 :#and valueCL < 10:
+        if val >5 :#and valueCL < 10:
             zoom = 2
-        if valueCL >=10:
+        if val >=10:
             zoom = 1
+        if val >=15:
+            zoom = 10.0/val
+        
             
     probaTransition= nb2.get()
     gamma = nb3.get()
+    print "probaTransition=" +  str(probaTransition)
+    print "gamma="+ str(gamma)
     init.destroy()
+    
+def choixEvent(event):
+    if event.keysym == 'Return':
+        choix();
 
 #initialise la fenetre d'initialisation
 def initFenetre() :
-    global nb, nb2 , nb3, init
+    global nb,nbprime, nb2 , nb3, init
     #création fenetre choix
     
     init.title('Choix')
     
-    champ_label = Label(init, text="Number of column and line")
+    champ_label = Label(init, text="Number of line")
     champ_label.pack()
     nb = IntVar()
     nb.set(5)
     # Création d'un widget Spinbox
-    boite = Spinbox(init,from_=2,to=10,increment=1,textvariable=nb,width=5)
+    boite = Spinbox(init,from_=2,to=42,increment=1,textvariable=nb,width=5)
     boite.pack(padx=30,pady=10)
     
+    champ_labelprime = Label(init, text="Number of column ")
+    champ_labelprime.pack()
+    nbprime = IntVar()
+    nbprime.set(5)
+    # Création d'un widget Spinbox
+    boiteprime = Spinbox(init,from_=2,to=42,increment=1,textvariable=nbprime,width=5)
+    boiteprime.pack(padx=30,pady=10)    
     
     champ_label2 = Label(init, text="proba de transition")
     champ_label2.pack()
@@ -313,14 +353,14 @@ def initFenetre() :
     #liste de choix de labyrhinte possible et le bouton de changement de maze
     Button(init, text ='Create the Maze', command = choix).pack(side=LEFT,padx=5,pady=5)
     
-    
+    init.bind('<Key>',choixEvent)
     init.mainloop()
     
     
-    valueCL= (nb.get())
-    print  type(valueCL)    
-    nblignes = valueCL
-    nbcolonnes = valueCL
+#    valueCL= (nb.get())
+#    print  type(valueCL)    
+#    nblignes = valueCL
+#    nbcolonnes = valueCL
 
 ################################################################################
 #
@@ -333,14 +373,19 @@ def initFenetre() :
 #Creation de la fenetre
 
 #init
+gagner = ""
 init = Tk()
+init.title('initialisation')
 nb = ""
+nbprime=""
 nb2 = ""
 nb3 = ""
 
 initFenetre()
 
-print "HoHoHo"
+# Creation d'un widget Canvas (pour la grille)
+Largeur = zoom*20*nbcolonnes+40
+Hauteur = zoom*20*nblignes+40
 
 Mafenetre = Tk()
 Mafenetre.title('MDP')
@@ -370,9 +415,9 @@ Button(Mafenetre, text ='Quit', command = Mafenetre.destroy).pack(side=LEFT,padx
 #Création de l'affichage des coûts
 w = Label(Mafenetre, text='cost = '+str(cost[0]),fg=mywalls,font = "Verdana 20 bold")
 w.pack(side=RIGHT) 
-w1 = Label(Mafenetre, text='vert = '+str(cost[1])+'a | ',fg=mygreen,font = "Verdana 12 bold")
+w1 = Label(Mafenetre, text='vert = '+str(cost[1])+' | ',fg=mygreen,font = "Verdana 12 bold")
 w1.pack(side=RIGHT)
-w2 = Label(Mafenetre, text='bleu = '+str(cost[2])+' z| ',fg=myblue,font = "Verdana 12 bold")
+w2 = Label(Mafenetre, text='bleu = '+str(cost[2])+' | ',fg=myblue,font = "Verdana 12 bold")
 w2.pack(side=RIGHT)
 w3 = Label(Mafenetre, text='rouge = '+str(cost[3])+' | ',fg=myred,font = "Verdana 12 bold")
 w3.pack(side=RIGHT)
@@ -382,17 +427,17 @@ w4.pack(side=RIGHT)
 Pion = Canevas.create_oval(PosX-10,PosY-10,PosX+10,PosY+10,width=2,outline='black',fill=myyellow)
 
 initialize()
-grille = np.ones((nblignes,nbcolonnes),int)+np.eye(nblignes,nbcolonnes)
-print "grille"
-print grille
+#grille = np.ones((nblignes,nbcolonnes),int)+np.eye(nblignes,nbcolonnes)
+#print "grille"
+#print grille
 
-#(A, b, obj) = programmeprimal(g, gamma)
-#v, m = resolutionGurobiprimal(A, b, obj)
-#print v
-#pol = politique(v, g)
-#print "pol :"
-#print pol
-#afficheSolution(pol)
+(A, b, obj) = programmeprimal(g, gamma)
+v, m = resolutionGurobiprimal(A, b, obj)
+print v
+pol = politique(v, g)
+print "pol :"
+print pol
+afficheSolution(pol)
 
 print "nblignes="+ str(nblignes)
 print "nbcolonnes="+str(nbcolonnes)
