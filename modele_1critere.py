@@ -231,6 +231,10 @@ def resolutionGurobiprimal(a,b,objectif):
 
 
 def politique(valeurs, grille, proba, gamma):
+    global nblignes,nbcolonnes
+    print "nblignes="+ str(nblignes)
+    print "nbcolonnes="+str(nbcolonnes)
+
     pol = np.zeros((nblignes, nbcolonnes))
     for i in range (nblignes):
         for j in range (nbcolonnes):
@@ -340,10 +344,10 @@ cout = coutChemin(g, pol)
 print "cout 2"
 print cout"""
 
-
+"""
 #Test fonction de test
 moyD, moyR = comparePerformanceProba(nblignes, nbcolonnes, gamma, 0.1, 10)
 print moyD
 print moyR
 
-
+"""

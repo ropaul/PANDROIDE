@@ -119,7 +119,7 @@ def Clavier (event):
     if (touche =="a"or touche== "Up") and i>0 :
         if g[i-1,j]!=0 :
             print 'haut'
-            trans= transition (g,HAUT,i,j)
+            trans= transition (g,HAUT,i,j,probaTransition)
             for t in trans:
                 value += trans[t]
                 if(value > z):
@@ -131,7 +131,7 @@ def Clavier (event):
     if (touche =="q" or touche=="Down") and i< nblignes -1:
         if g[i+1,j]!=0 :
             print 'bas'
-            trans= transition (g,BAS,i,j)
+            trans= transition (g,BAS,i,j,probaTransition)
             for t in trans:
                 value += trans[t]
                 if(value > z):
@@ -143,7 +143,7 @@ def Clavier (event):
     if (touche =="l" or touche=="Left") and j>0:
         if  g[i,j-1]!=0 :
             print 'gauche'
-            trans= transition (g,GAUCHE,i,j)
+            trans= transition (g,GAUCHE,i,j,probaTransition)
             for t in trans:
                 value += trans[t]
                 if(value > z):
@@ -155,7 +155,7 @@ def Clavier (event):
     if (touche =="m" or touche== "Right") and j< nbcolonnes-1 :
         if g[i,j+1]!=0 :
             print 'droit'
-            trans= transition (g,DROITE,i,j)
+            trans= transition (g,DROITE,i,j,probaTransition)
             for t in trans:
                 value += trans[t]
                 if(value > z):
@@ -224,27 +224,27 @@ def afficheSolution(grille):
                 if grille[i,j] == HAUT:
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY,PosX-zoom*7,PosY,PosX-zoom*12)
-                    Canevas.create_line(PosY-zoom*2,PosX-zoom*10,PosY,PosX-zoom*12)
-                    Canevas.create_line(PosY+zoom*2,PosX-zoom*10,PosY,PosX-zoom*12)
+                    Canevas.create_line(PosY,PosX-zoom*7,PosY,PosX-zoom*12,width=zoom/2)
+                    Canevas.create_line(PosY-zoom*2,PosX-zoom*10,PosY,PosX-zoom*12,width=zoom/2)
+                    Canevas.create_line(PosY+zoom*2,PosX-zoom*10,PosY,PosX-zoom*12,width=zoom/2)
                 if grille[i,j] == BAS:
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY,PosX+zoom*7,PosY,PosX+zoom*12)
-                    Canevas.create_line(PosY-zoom*2,PosX+zoom*10,PosY,PosX+zoom*12)
-                    Canevas.create_line(PosY+zoom*2,PosX+zoom*10,PosY,PosX+zoom*12)
+                    Canevas.create_line(PosY,PosX+zoom*7,PosY,PosX+zoom*12,width=zoom/2)
+                    Canevas.create_line(PosY-zoom*2,PosX+zoom*10,PosY,PosX+zoom*12,width=zoom/2)
+                    Canevas.create_line(PosY+zoom*2,PosX+zoom*10,PosY,PosX+zoom*12,width=zoom/2)
                 if grille[i,j] == GAUCHE:
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY-zoom*7,PosX,PosY-zoom*12,PosX)
-                    Canevas.create_line(PosY-zoom*10,PosX-zoom*2,PosY-zoom*12,PosX)
-                    Canevas.create_line(PosY-zoom*10,PosX+zoom*2,PosY-zoom*12,PosX) 
+                    Canevas.create_line(PosY-zoom*7,PosX,PosY-zoom*12,PosX,width=zoom/2)
+                    Canevas.create_line(PosY-zoom*10,PosX-zoom*2,PosY-zoom*12,PosX,width=zoom/2)
+                    Canevas.create_line(PosY-zoom*10,PosX+zoom*2,PosY-zoom*12,PosX,width=zoom/2) 
                 if grille[i,j] == DROITE:
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY+zoom*7,PosX,PosY+zoom*12,PosX)
-                    Canevas.create_line(PosY+zoom*10,PosX-zoom*2,PosY+zoom*12,PosX)
-                    Canevas.create_line(PosY+zoom*10,PosX+zoom*2,PosY+zoom*12,PosX) 
+                    Canevas.create_line(PosY+zoom*7,PosX,PosY+zoom*12,PosX,width=zoom/2)
+                    Canevas.create_line(PosY+zoom*10,PosX-zoom*2,PosY+zoom*12,PosX,width=zoom/2)
+                    Canevas.create_line(PosY+zoom*10,PosX+zoom*2,PosY+zoom*12,PosX,width=zoom/2) 
                 
                 
                 
@@ -431,10 +431,14 @@ initialize()
 #print "grille"
 #print grille
 
-(A, b, obj) = programmeprimal(g, gamma)
-v, m = resolutionGurobiprimal(A, b, obj)
+(A, b, obj) = programmeprimal(g, gamma,probaTransition)
+v, m,t = resolutionGurobiprimal(A, b, obj)
 print v
-pol = politique(v, g)
+print "nblignes="+ str(nblignes)
+print "nbcolonnes="+str(nbcolonnes)
+
+
+pol = politique(v, g,probaTransition,gamma)
 print "pol :"
 print pol
 afficheSolution(pol)
