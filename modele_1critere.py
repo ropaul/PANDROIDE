@@ -176,24 +176,26 @@ def transition(g, direction, i, j, probaTransition):
 
 
 def programmeprimal(grille, gamma, proba):
+    nbL=grille.shape[0]
+    nbC=grille.shape[1]
     #Matrice des contraintes + second membre
-    A = np.zeros((nblignes*nbcolonnes*4, nblignes*nbcolonnes))
-    b = np.zeros(nblignes*nbcolonnes*4)
-    for i in range(nblignes):
-        for j in range(nbcolonnes):
+    A = np.zeros((nbL*nbC*4, nbL*nbC))
+    b = np.zeros(nbL*nbC*4)
+    for i in range(nbL):
+        for j in range(nbC):
             for k in range (4):
-                b[(i*nbcolonnes+j)*4+k]=-grille[i][j]
+                b[(i*nbC+j)*4+k]=-grille[i][j]
                 #Valeur de la case d'arrivée
-                if (i == (nblignes - 1) and j == (nbcolonnes -1)):
+                if (i == (nbL - 1) and j == (nbC -1)):
                     #A changer si on veut maximiser
-                    b[(i*nbcolonnes+j)*4+k]=1000
-                A[(i*nbcolonnes+j)*4+k][i*nbcolonnes+j]=1
+                    b[(i*nbC+j)*4+k]=1000
+                A[(i*nbC+j)*4+k][i*nbC+j]=1
                 trans = transition(grille, k, i, j, proba)
                 for t in trans:
-                    A[(i*nbcolonnes+j)*4+k][t[0]*nbcolonnes+t[1]]=-gamma*trans[t]
+                    A[(i*nbC+j)*4+k][t[0]*nbC+t[1]]=-gamma*trans[t]
 
     #fonction objectif
-    obj = np.zeros(nblignes*nbcolonnes)
+    obj = np.zeros(nbL*nbC)
     obj[0] = 1
 
     return (A, b, obj)
@@ -224,26 +226,24 @@ def resolutionGurobiprimal(a,b,objectif):
 
     # Resolution
     m.optimize()
-    #tempsde résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
+    #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
     t = m.getAttr(GRB.Attr.Runtime) - 0.01
     
     return v, m, t
 
 
 def politique(valeurs, grille, proba, gamma):
-    global nblignes,nbcolonnes
-    print "nblignes="+ str(nblignes)
-    print "nbcolonnes="+str(nbcolonnes)
-
-    pol = np.zeros((nblignes, nbcolonnes))
-    for i in range (nblignes):
-        for j in range (nbcolonnes):
+    nbL=grille.shape[0]
+    nbC=grille.shape[1]
+    pol = np.zeros((nbL,nbC))
+    for i in range(nbL):
+        for j in range(nbC):
             maximum = 0
-            for k in range (4):
+            for k in range(4):
                 temp = grille[j][i]
                 trans = transition(grille, k, i, j, proba)
                 for t in trans:
-                    temp += gamma * trans[t] * valeurs[t[0]*nblignes+t[1]].x
+                    temp += gamma * trans[t] * valeurs[t[0]*nbL+t[1]].x
                 if ( maximum < temp ):
                     maximum = temp
                     pol[i][j] = k
@@ -344,10 +344,10 @@ cout = coutChemin(g, pol)
 print "cout 2"
 print cout"""
 
-"""
+
 #Test fonction de test
 moyD, moyR = comparePerformanceProba(nblignes, nbcolonnes, gamma, 0.1, 10)
 print moyD
 print moyR
 
-"""
+
