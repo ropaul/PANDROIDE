@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Mar 30 22:28:41 2015
+Created on Fri Apr 10 2015
 
 @author: Yann Ropaul & Margot Calbrix
 """
@@ -27,7 +27,7 @@ nbcolonnes=3
 nbcriteres=2
 
 #Probabilité d'aller effectivement dans la direction voulue
-probaTransition=0.8
+probaTransition=0.7
 
 #Visibilité du futur
 gamma = 0.9
@@ -149,6 +149,20 @@ def transition(g, direction, i, j, probaTransition, nbcriteres):
     return trans
 
 
+def politique(valeurs, grille):
+    nbL=grille.shape[0]
+    nbC=grille.shape[1]
+    pol = np.zeros((nbL,nbC,4))
+    for i in range(nbL):
+        for j in range(nbC):
+            for k in range(4):
+                pol[i][j][k] = valeurs[(i*nbC+j)*4+k].x
+            somme = sum(pol[i][j])
+            for k in range(4):
+                pol[i][j][k] /= somme
+    return pol
+
+
 
 ################################################################################
 #
@@ -164,7 +178,9 @@ def dualSomme(grille, gamma, proba, nbCriteres):
     b = np.zeros(nbL*nbC*(4+1))
     for i in range(nbL):
         for j in range(nbC):
-            b[i*nbC+j]=0
+            #b[i*nbC+j]=0
+            #test
+            b[i*nbC+j]=1
             for k in range(4):
                 A[i*nbC+j][(i*nbC+j)*4+k] = 1
                 A[nbL*nbC+((i*nbC+j)*4+k)][(i*nbC+j)*4+k]=1
@@ -173,7 +189,7 @@ def dualSomme(grille, gamma, proba, nbCriteres):
                 trans=transition(grille, k, i, j, proba, nbCriteres)
                 for t in trans:
                     A[t[0]*nbC+t[1]][(i*nbC+j)*4+k]=-gamma*trans[t]
-    b[0]=1
+    #b[0]=1
 
     #fonction objectif
     obj = np.zeros(nbL*nbC*4)
@@ -183,7 +199,7 @@ def dualSomme(grille, gamma, proba, nbCriteres):
                 obj[(i*nbC+j)*4+k] = sum(grille[i,j])
     #case d'arrivée
     for k in range(4):
-        obj[(nbL*nbC-1)*4+k] = -10000
+        obj[(nbL*nbC-1)*4+k] = -100
 
     return (A, b, obj)
                 
@@ -201,11 +217,11 @@ def gurobiMultiSomme(a, b, objectif, nblignes, nbcolonnes):
     obj = 0
     for i in range(len(objectif)):
         obj += objectif[i]*v[i]
-    m.setObjective(obj,GRB.MAXIMIZE)
+    m.setObjective(obj,GRB.MINIMIZE)
     #définition des contraintes
     
     for i in range(nblignes*nbcolonnes):
-        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) == b[i], "Contrainte%d" % i)
+        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) <= b[i], "Contrainte%d" % i)
     for i in range(nblignes*nbcolonnes,a.shape[0]):
         m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) >= b[i], "Contrainte%d" % i)
         
@@ -217,25 +233,91 @@ def gurobiMultiSomme(a, b, objectif, nblignes, nbcolonnes):
     return v, m, t
 
 
-def politiqueSomme(valeurs, grille):
-    nbL=grille.shape[0]
-    nbC=grille.shape[1]
-    pol = np.zeros((nbL,nbC,4))
-    for i in range(nbL):
-        for j in range(nbC):
-            for k in range(4):
-                pol[i][j][k] = valeurs[(i*nbC+j)*4+k].x
-            somme = sum(pol[i][j])
-            for k in range(4):
-                pol[i][j][k] /= somme
-    return pol
+
 
 def resolutionMultiSomme(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
     (A, b, obj) = dualSomme(grille, gamma, proba, nbCriteres)
     v, m, t = gurobiMultiSomme(A, b, obj, nblignes, nbcolonnes)
-    pol = politiqueSomme(v, grille)
+    pol = politique(v, grille)
     return pol
 
+
+
+################################################################################
+#
+#            FONCTIONS DE RESOLUTION (OBJECTIF = CRITERE EQUITABLE)
+#
+################################################################################
+
+def dualMinMax(grille, gamma, proba, nbCriteres):
+    nbL=grille.shape[0]
+    nbC=grille.shape[1]
+    #Matrice des contraintes + second membre
+    A = np.zeros((nbL*nbC*(4+1)+nbCriteres, nbL*nbC*4+1))
+    b = np.zeros(nbL*nbC*(4+1)+nbCriteres)
+    for i in range(nbL):
+        for j in range(nbC):
+            b[i*nbC+j]=1
+            for k in range(4):
+                A[i*nbC+j][(i*nbC+j)*4+k] = 1
+                A[nbL*nbC+((i*nbC+j)*4+k)][(i*nbC+j)*4+k]=1
+                b[nbL*nbC+((i*nbC+j)*4+k)]=0
+                #rajoute les -gamma sur les autres lignes
+                trans=transition(grille, k, i, j, proba, nbCriteres)
+                for t in trans:
+                    A[t[0]*nbC+t[1]][(i*nbC+j)*4+k]=-gamma*trans[t]
+                for n in range(nbCriteres):
+                    A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-grille[i][j][n]
+                    #test
+                    #A[nbL*nbC*5+n][(i*nbC+j)*4+k]=grille[i][j][n]
+    for n in range(nbCriteres):
+        A[nbL*nbC*5+n][nbL*nbC*4]=1
+        b[nbL*nbC*5+n]=0
+
+    #fonction objectif
+    obj = np.zeros(nbL*nbC*4+1)
+    obj[nbL*nbC*4]=1
+
+    return (A, b, obj)
+                
+                
+def gurobiMultiMinMax(a, b, objectif, nblignes, nbcolonnes):
+    m = Model("MOPDMeq")
+    #déclaration des variables de décision
+    v = []
+    for i in range(len(b)-1):
+        v.append(m.addVar(vtype=GRB.CONTINUOUS, lb=0, name="x%d" % (i+1)))
+    v.append(m.addVar(vtype=GRB.CONTINUOUS, lb=0, name="z"))
+    #màj du modèle pour intégrer les nouvelles variables
+    m.update()
+    #définition de l'objectif
+    obj = LinExpr()
+    obj = 0
+    for i in range(len(objectif)):
+        obj += objectif[i]*v[i]
+    m.setObjective(obj,GRB.MINIMIZE)
+    #définition des contraintes
+    
+    for i in range(nblignes*nbcolonnes):
+        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) <= b[i], "Contrainte%d" % i)
+    for i in range(nblignes*nbcolonnes,nblignes*nbcolonnes*5):
+        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) >= b[i], "Contrainte%d" % i)
+    for i in range(nblignes*nbcolonnes*5, a.shape[0]):
+        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) >= b[i], "Contrainte%d" % i)
+        
+    #résolution
+    m.optimize()
+    #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
+    t = m.getAttr(GRB.Attr.Runtime) - 0.01
+
+    return v, m, t
+
+
+def resolutionMultiMinMax(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
+    (A, b, obj) = dualMinMax(grille, gamma, proba, nbCriteres)
+    v, m, t = gurobiMultiMinMax(A, b, obj, nblignes, nbcolonnes)
+    pol = politique(v, grille)
+    return pol
 
             
 ################################################################################
@@ -247,28 +329,15 @@ def resolutionMultiSomme(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes)
 
 g=defineMaze(nblignes,nbcolonnes,nbcriteres)
 print g
-"""
-ON DIRAIT QUE CA FONCTIONNE
-t = transition(g, HAUT, 1, 1, probaTransition, 2)
-print "HAUT"
-print t
-t = transition(g, BAS, 1, 1, probaTransition, 2)
-print "BAS"
-print t
-t = transition(g, GAUCHE, 1, 1, probaTransition, 2)
-print "GAUCHE"
-print t
-t = transition(g, DROITE, 1, 1, probaTransition, 2)
-print "DROITE"
-print t
-"""
 
-(A, b, obj) = dualSomme(g, gamma, probaTransition, nbcriteres)
-print A
-print b
-print obj
+(A, b, obj) = dualMinMax(g, gamma, probaTransition, nbcriteres)
+##print A
+##print b
+##print obj
 v, m, t = gurobiMultiSomme(A, b, obj, nblignes, nbcolonnes)
-pol = politiqueSomme(v, g)
+##for i in range(len(v)):
+##    print v[i].x
+pol = politique(v, g)
 print pol
 
 

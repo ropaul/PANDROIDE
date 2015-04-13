@@ -98,34 +98,36 @@ def defineMaze(nblignes,nbcolonnes):
 #Retourne trans, la loi de probabilité sous la forme d'un dictionnaire
 #Note : si une position n'appartient pas au dictionnaire, alors la probabilité d'aller dans cette position est nulle.
 def transition(g, direction, i, j, probaTransition):
+    nbl=g.shape[0]
+    nbc=g.shape[1]
     trans = {}
     if g[i,j] != 0:
         if direction == GAUCHE and j > 0:
             if g[i, j-1] != 0:
-                if (i-1 < 0 or g[i-1, j-1] == 0) and (i+1 > nblignes-1 or g[i+1, j-1]==0)  :
+                if (i-1 < 0 or g[i-1, j-1] == 0) and (i+1 > nbl-1 or g[i+1, j-1]==0)  :
                     trans[i, j-1] = 1
                 else:
                     if i-1 < 0 or g[i-1,j-1] == 0:
                         trans[i, j-1] = (1 + probaTransition)/2
                         trans[i+1, j-1] = (1 - probaTransition)/2
                     else:
-                        if i+1 > nblignes-1 or g[i+1,j-1] == 0:
+                        if i+1 > nbl-1 or g[i+1,j-1] == 0:
                             trans[i, j-1] = (1 + probaTransition)/2
                             trans[i-1, j-1] = (1 - probaTransition)/2
                         else:
                             trans[i, j-1] = probaTransition
                             trans[i-1, j-1] = (1 - probaTransition)/2
                             trans[i+1, j-1] = (1 - probaTransition)/2
-        if direction == DROITE and j < nbcolonnes-1:
+        if direction == DROITE and j < nbc-1:
             if g[i, j+1] != 0:
-                if (i-1 < 0 or g[i-1, j+1] == 0) and (i+1 > nblignes-1 or g[i+1, j+1]==0):
+                if (i-1 < 0 or g[i-1, j+1] == 0) and (i+1 > nbl-1 or g[i+1, j+1]==0):
                     trans[i, j+1] = 1
                 else:
                     if i-1 < 0 or g[i-1,j+1] == 0:
                         trans[i, j+1] = (1 + probaTransition)/2
                         trans[i+1, j+1] = (1 - probaTransition)/2
                     else:
-                        if i+1 > nblignes-1 or g[i+1,j+1] == 0:
+                        if i+1 > nbl-1 or g[i+1,j+1] == 0:
                             trans[i, j+1] = (1 + probaTransition)/2
                             trans[i-1, j+1] = (1 - probaTransition)/2
                         else:
@@ -134,30 +136,30 @@ def transition(g, direction, i, j, probaTransition):
                             trans[i-1, j+1] = (1 - probaTransition)/2
         if direction == HAUT and i > 0: 
             if g[i-1, j] != 0:
-                if (j-1 < 0 or g[i-1, j-1] == 0) and (j+1 > nbcolonnes-1 or g[i-1, j+1] == 0):
+                if (j-1 < 0 or g[i-1, j-1] == 0) and (j+1 > nbc-1 or g[i-1, j+1] == 0):
                     trans[i-1, j] = 1
                 else:
                     if j-1 < 0 or g[i-1, j-1] == 0:
                         trans[i-1, j] = (1 + probaTransition)/2
                         trans[i-1, j+1] = (1 - probaTransition)/2
                     else:
-                        if j+1 > nbcolonnes-1 or g[i-1, j+1] == 0:
+                        if j+1 > nbc-1 or g[i-1, j+1] == 0:
                             trans[i-1, j] = (1 + probaTransition)/2
                             trans[i-1, j-1] = (1 - probaTransition)/2
                         else:
                             trans[i-1, j] = probaTransition
                             trans[i-1, j-1] = (1 - probaTransition)/2
                             trans[i-1, j+1] = (1 - probaTransition)/2
-        if direction == BAS and i < nblignes-1:
+        if direction == BAS and i < nbl-1:
             if g[i+1, j] != 0:
-                if (j-1 < 0 or g[i+1, j-1] == 0) and (j+1 > nbcolonnes-1 or g[i+1, j+1] == 0)  :
+                if (j-1 < 0 or g[i+1, j-1] == 0) and (j+1 > nbc-1 or g[i+1, j+1] == 0)  :
                     trans[i+1, j] = 1
                 else:
                     if j-1 < 0 or g[i+1, j-1] == 0:
                         trans[i+1, j] = (1 + probaTransition)/2
                         trans[i+1, j+1] = (1 - probaTransition)/2
                     else:
-                        if j+1 > nbcolonnes-1 or g[i+1, j+1] == 0:
+                        if j+1 > nbc-1 or g[i+1, j+1] == 0:
                             trans[i+1, j] = (1 + probaTransition)/2
                             trans[i+1, j-1] = (1 - probaTransition)/2
                         else:
