@@ -430,9 +430,10 @@ initialize()
 #grille = np.ones((nblignes,nbcolonnes),int)+np.eye(nblignes,nbcolonnes)
 #print "grille"
 #print grille
-
+print "g"
+print g
 (A, b, obj) = programmeprimal(g, gamma,probaTransition)
-v, m,t = resolutionGurobiprimal(A, b, obj)
+v, m,t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
 print v
 print "nblignes="+ str(nblignes)
 print "nbcolonnes="+str(nbcolonnes)

@@ -178,6 +178,8 @@ def transition(g, direction, i, j, probaTransition):
 def programmeprimal(grille, gamma, proba):
     nbL=grille.shape[0]
     nbC=grille.shape[1]
+    print "nblignes="+str(nbL)
+    print "nbcolonnes="+str(nbC)
     #Matrice des contraintes + second membre
     A = np.zeros((nbL*nbC*4, nbL*nbC))
     b = np.zeros(nbL*nbC*4)
@@ -201,12 +203,16 @@ def programmeprimal(grille, gamma, proba):
     return (A, b, obj)
 
 
-def resolutionGurobiprimal(a,b,objectif):
+def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
+    global nblignes , nbcolonnnes
     m = Model("PDM")     
-        
+    
+    print "nblignes="+ str(nblignes)
+    print "nbcolonnes="+str(nbcolonnes)
+    
     # declaration variables de decision
     v = []
-    for i in range(nblignes*nbcolonnes):
+    for i in range(nbL*nbC):
         v.append(m.addVar(vtype=GRB.CONTINUOUS, lb=0, name="v%d" % (i+1)))
     
     # maj du modele pour integrer les nouvelles variables
@@ -221,7 +227,7 @@ def resolutionGurobiprimal(a,b,objectif):
     m.setObjective(obj,GRB.MINIMIZE)
 
     # definition des contraintes
-    for i in range(nblignes*nbcolonnes*4):
+    for i in range(nbL*nbC*4):
         m.addConstr(quicksum(a[i][j]*v[j] for j in range(nblignes*nbcolonnes)) >= b[i], "Contrainte%d" % i)
 
     # Resolution
@@ -235,6 +241,8 @@ def resolutionGurobiprimal(a,b,objectif):
 def politique(valeurs, grille, proba, gamma):
     nbL=grille.shape[0]
     nbC=grille.shape[1]
+    print "nbl="+ str(nbL)
+    print "nbc="+ str(nbC)
     pol = np.zeros((nbL,nbC))
     for i in range(nbL):
         for j in range(nbC):
@@ -344,10 +352,24 @@ cout = coutChemin(g, pol)
 print "cout 2"
 print cout"""
 
-
+"""
 #Test fonction de test
 moyD, moyR = comparePerformanceProba(nblignes, nbcolonnes, gamma, 0.1, 10)
 print moyD
 print moyR
+"""
+nblignes = 8
+nbcolonnes =5
+
+g = defineMaze(nblignes, nbcolonnes)
+(A, b, obj) = programmeprimal(g, gamma,probaTransition)
+v, m,t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
+print "v"
+print v
+
+pol = politique(v, g,probaTransition,gamma)
+print "pol :"
+print pol
+
 
 
