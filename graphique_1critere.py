@@ -37,6 +37,13 @@ mywalls="#5E5E64"
 mywhite="#FFFFFF"
 color=[mywhite,mygreen,myblue,myred,myblack]
 
+#sert a l'initalisation
+nb = ""
+nbprime=""
+nb2 = ""
+nb3 = ""
+
+
 
 ################################################################################
 #
@@ -68,8 +75,6 @@ def initialize():
 # dessine la grille avec des ovales
 def colordraw(g,nblignes,nbcolonnes):
     
-    print "nblignes="+ str(nblignes)
-    print "nbcolonnes="+str(nbcolonnes)
     for i in range(nblignes):
         for j in range(nbcolonnes):          
             y =zoom*20*j+20
@@ -87,21 +92,7 @@ def colordraw(g,nblignes,nbcolonnes):
                    
                         
 
-
-           
-#Place des valeurs coloré dans le labyrinte                    
-def colordraw2(g,nblignes,nbcolonnes):
-    #Place les valeurs coloré dans le labyrinthe    
-    for i in range(nblignes):
-        for j in range(nbcolonnes):          
-            y =zoom*20*i+20
-            x =zoom*20*j+20
-            if g[i,j,0]>0: 
-                Canevas.create_text(x+zoom*(10),y+zoom*(10),font="1",text =g[i,j],fill=color[g[i,j,0]])
-            else:
-                Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
-
-
+#fonction servant a manipuler le pion dans la labirhynte
 def Clavier (event):
     global PosX,PosY,posX,posY,cost,g,pol
     touche = event.keysym
@@ -115,7 +106,6 @@ def Clavier (event):
 #        else:
 #             touche ='q'
         touche = marcheAuto(i,j,pol)
-        print "touche="+touche 
     if (touche =="a"or touche== "Up") and i>0 :
         if g[i-1,j]!=0 :
             print 'haut'
@@ -194,10 +184,13 @@ def Clavier (event):
     if touche == 'Escape':
         Fenetre.destroy()
 
+
+#fonction servant a detruire le pop-up de victoire
 def gagne():
     initialize()
     gagner.destroy()
 
+# comme gagne mais pour l'associer a un bouton
 def gagneKey(event):
     gagner()
 
@@ -216,7 +209,7 @@ def marcheAuto(i,j,pol):
     
     
         
-        
+# fonction servant a afficher la solution op donné par le PDM        
 def afficheSolution(grille):
     for i in range (nblignes):
         for j in range (nbcolonnes):
@@ -248,6 +241,7 @@ def afficheSolution(grille):
                 
                 
                 
+#fonction servant a afficher des solutions multicritère                
 def flechemixte (i,j ,pH,pB,pG,pD): #i et j les coord , pH,pB,pG les pourcentage de haut, bas , etc
     xi = i+zoom*pD*7 -zoom*pG*7
     yi = j+zoom*pH*7 -zoom*pD*7
@@ -372,15 +366,13 @@ def initFenetre() :
 # GRAPHIQUE
 #Creation de la fenetre
 
+
+#########################initialisation#############################
+
 #init
 gagner = ""
 init = Tk()
 init.title('initialisation')
-nb = ""
-nbprime=""
-nb2 = ""
-nb3 = ""
-
 initFenetre()
 
 # Creation d'un widget Canvas (pour la grille)
@@ -389,6 +381,10 @@ Hauteur = zoom*20*nblignes+40
 
 Mafenetre = Tk()
 Mafenetre.title('MDP')
+
+
+
+#######################creation de l'affichage#########################
 
 # ecriture du quadrillage et coloration
 Canevas = Canvas(Mafenetre, width = Largeur, height =Hauteur, bg =mywhite)
@@ -434,18 +430,15 @@ print "g"
 print g
 (A, b, obj) = programmeprimal(g, gamma,probaTransition)
 v, m,t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
-print v
-print "nblignes="+ str(nblignes)
-print "nbcolonnes="+str(nbcolonnes)
 
+
+################################affichage solution#########################################
 
 pol = politique(v, g,probaTransition,gamma)
 print "pol :"
 print pol
 afficheSolution(pol)
 
-print "nblignes="+ str(nblignes)
-print "nbcolonnes="+str(nbcolonnes)
 
 
 Mafenetre.mainloop()

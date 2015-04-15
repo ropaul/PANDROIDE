@@ -24,7 +24,7 @@ nblignes=3
 nbcolonnes=3
 
 #nombre de critères
-nbcriteres=2
+nbcriteres=4
 
 #Probabilité d'aller effectivement dans la direction voulue
 probaTransition=0.7
@@ -35,6 +35,9 @@ gamma = 0.9
 #poition initiale du robot dans la grille
 posX=0
 posY=0
+
+#cout de la grille
+cost= np.zeros(nbcriteres+1, dtype=np.int)
 
 # valeurs de la grille
 weight = range(1,10)
