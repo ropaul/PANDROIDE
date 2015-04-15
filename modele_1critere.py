@@ -230,7 +230,7 @@ def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
 
     # definition des contraintes
     for i in range(nbL*nbC*4):
-        m.addConstr(quicksum(a[i][j]*v[j] for j in range(nblignes*nbcolonnes)) >= b[i], "Contrainte%d" % i)
+        m.addConstr(quicksum(a[i][j]*v[j] for j in range(len(objectif))) >= b[i], "Contrainte%d" % i)
 
     # Resolution
     m.optimize()
@@ -250,10 +250,10 @@ def politique(valeurs, grille, proba, gamma):
         for j in range(nbC):
             maximum = 0
             for k in range(4):
-                temp = grille[j][i]
+                temp = grille[i][j]
                 trans = transition(grille, k, i, j, proba)
                 for t in trans:
-                    temp += gamma * trans[t] * valeurs[t[0]*nbL+t[1]].x
+                    temp += gamma * trans[t] * valeurs[t[0]*nbC+t[1]].x
                 if ( maximum < temp ):
                     maximum = temp
                     pol[i][j] = k
