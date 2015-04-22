@@ -8,6 +8,7 @@ Created on Fri Apr 10 2015
 from gurobipy import *
 import random
 import numpy as np
+import time
 
 ################################################################################
 #
@@ -20,8 +21,8 @@ import numpy as np
 pmur = 0.15
 
 #taille de la grille
-nblignes=3
-nbcolonnes=3
+nblignes=10
+nbcolonnes=10
 
 #nombre de critères
 nbcriteres=4
@@ -84,6 +85,8 @@ def defineMaze(nblignes,nbcolonnes,nbcriteres):
 def transition(g, direction, i, j, probaTransition, nbcriteres):
     trans = {}
     vzero = np.zeros(nbcriteres, dtype=np.int)
+    nbL=g.shape[0]
+    nbC=g.shape[1]
     if not np.array_equal(g[i,j], vzero):
         if direction == GAUCHE and j > 0:
             if  not np.array_equal(g[i, j-1], vzero):
@@ -94,23 +97,23 @@ def transition(g, direction, i, j, probaTransition, nbcriteres):
                         trans[i, j-1] = (1 + probaTransition)/2
                         trans[i+1, j-1] = (1 - probaTransition)/2
                     else:
-                        if i+1 > nblignes-1 or np.array_equal(g[i+1,j-1], vzero):
+                        if i+1 > nbL-1 or np.array_equal(g[i+1,j-1], vzero):
                             trans[i, j-1] = (1 + probaTransition)/2
                             trans[i-1, j-1] = (1 - probaTransition)/2
                         else:
                             trans[i, j-1] = probaTransition
                             trans[i-1, j-1] = (1 - probaTransition)/2
                             trans[i+1, j-1] = (1 - probaTransition)/2
-        if direction == DROITE and j < nbcolonnes-1:
+        if direction == DROITE and j < nbC-1:
             if not np.array_equal(g[i, j+1], vzero):
-                if (i-1 < 0 or np.array_equal(g[i-1, j+1], vzero)) and (i+1 > nblignes-1 or np.array_equal(g[i+1, j+1], vzero)):
+                if (i-1 < 0 or np.array_equal(g[i-1, j+1], vzero)) and (i+1 > nbL-1 or np.array_equal(g[i+1, j+1], vzero)):
                     trans[i, j+1] = 1
                 else:
                     if i-1 < 0 or np.array_equal(g[i-1,j+1], vzero):
                         trans[i, j+1] = (1 + probaTransition)/2
                         trans[i+1, j+1] = (1 - probaTransition)/2
                     else:
-                        if i+1 > nblignes-1 or np.array_equal(g[i+1,j+1], vzero):
+                        if i+1 > nbL-1 or np.array_equal(g[i+1,j+1], vzero):
                             trans[i, j+1] = (1 + probaTransition)/2
                             trans[i-1, j+1] = (1 - probaTransition)/2
                         else:
@@ -119,30 +122,30 @@ def transition(g, direction, i, j, probaTransition, nbcriteres):
                             trans[i-1, j+1] = (1 - probaTransition)/2
         if direction == HAUT and i > 0: 
             if not np.array_equal(g[i-1, j], vzero):
-                if (j-1 < 0 or np.array_equal(g[i-1, j-1], vzero)) and (j+1 > nbcolonnes-1 or np.array_equal(g[i-1, j+1], vzero)):
+                if (j-1 < 0 or np.array_equal(g[i-1, j-1], vzero)) and (j+1 > nbC-1 or np.array_equal(g[i-1, j+1], vzero)):
                     trans[i-1, j] = 1
                 else:
                     if j-1 < 0 or np.array_equal(g[i-1, j-1], vzero):
                         trans[i-1, j] = (1 + probaTransition)/2
                         trans[i-1, j+1] = (1 - probaTransition)/2
                     else:
-                        if j+1 > nbcolonnes-1 or np.array_equal(g[i-1, j+1], vzero):
+                        if j+1 > nbC-1 or np.array_equal(g[i-1, j+1], vzero):
                             trans[i-1, j] = (1 + probaTransition)/2
                             trans[i-1, j-1] = (1 - probaTransition)/2
                         else:
                             trans[i-1, j] = probaTransition
                             trans[i-1, j-1] = (1 - probaTransition)/2
                             trans[i-1, j+1] = (1 - probaTransition)/2
-        if direction == BAS and i < nblignes-1:
+        if direction == BAS and i < nbL-1:
             if not np.array_equal(g[i+1, j], vzero):
-                if (j-1 < 0 or np.array_equal(g[i+1, j-1], vzero)) and (j+1 > nbcolonnes-1 or np.array_equal(g[i+1, j+1], vzero)):
+                if (j-1 < 0 or np.array_equal(g[i+1, j-1], vzero)) and (j+1 > nbC-1 or np.array_equal(g[i+1, j+1], vzero)):
                     trans[i+1, j] = 1
                 else:
                     if j-1 < 0 or np.array_equal(g[i+1, j-1], vzero):
                         trans[i+1, j] = (1 + probaTransition)/2
                         trans[i+1, j+1] = (1 - probaTransition)/2
                     else:
-                        if j+1 > nbcolonnes-1 or np.array_equal(g[i+1, j+1], vzero):
+                        if j+1 > nbC-1 or np.array_equal(g[i+1, j+1], vzero):
                             trans[i+1, j] = (1 + probaTransition)/2
                             trans[i+1, j-1] = (1 - probaTransition)/2
                         else:
@@ -229,6 +232,7 @@ def gurobiMultiSomme(a, b, objectif, nblignes, nbcolonnes):
         m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) >= b[i], "Contrainte%d" % i)
         
     #résolution
+    
     m.optimize()
     #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
     t = m.getAttr(GRB.Attr.Runtime) - 0.01
@@ -270,7 +274,10 @@ def dualMinMax(grille, gamma, proba, nbCriteres):
                 for t in trans:
                     A[t[0]*nbC+t[1]][(i*nbC+j)*4+k]=-gamma*trans[t]
                 for n in range(nbCriteres):
-                    A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-grille[i][j][n]
+                    if i == nbL-1 and j == nbC-1:
+                        A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-1000
+                    else:
+                        A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-grille[i][j][n]
                     #test
                     #A[nbL*nbC*5+n][(i*nbC+j)*4+k]=grille[i][j][n]
     for n in range(nbCriteres):
@@ -280,6 +287,7 @@ def dualMinMax(grille, gamma, proba, nbCriteres):
     #fonction objectif
     obj = np.zeros(nbL*nbC*4+1)
     obj[nbL*nbC*4]=1
+    
 
     return (A, b, obj)
                 
@@ -298,18 +306,23 @@ def gurobiMultiMinMax(a, b, objectif, nblignes, nbcolonnes):
     obj = 0
     for i in range(len(objectif)):
         obj += objectif[i]*v[i]
-    m.setObjective(obj,GRB.MINIMIZE)
-    #définition des contraintes
+    m.setObjective(obj,GRB.MAXIMIZE)
     
+    #définition des contraintes
+    #CA PREND TROP DE TEMPS!!!!
+    t = time.time()
     for i in range(nblignes*nbcolonnes):
-        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) <= b[i], "Contrainte%d" % i)
+        #A VERIFIER : LEQUEL MARCHE MIEUX
+        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) == b[i], "Contrainte%d" % i)
+        #m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) <= b[i], "Contrainte%d" % i)
     for i in range(nblignes*nbcolonnes,nblignes*nbcolonnes*5):
         m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) >= b[i], "Contrainte%d" % i)
     for i in range(nblignes*nbcolonnes*5, a.shape[0]):
-        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) >= b[i], "Contrainte%d" % i)
-        
+        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) <= b[i], "Contrainte%d" % i)
+    print "time : " + str(time.time() - t)   
     #résolution
     m.optimize()
+    
     #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
     t = m.getAttr(GRB.Attr.Runtime) - 0.01
 
@@ -332,7 +345,14 @@ def resolutionMultiMinMax(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes
 
 g=defineMaze(nblignes,nbcolonnes,nbcriteres)
 print g
-
+#g = np.ones((2,2,2))
+#g[0,1,0]=0
+#g[1,0,1]=0
+#print g
+pol = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+#pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,2,2)
+print pol
+"""
 (A, b, obj) = dualSomme(g, gamma, probaTransition, nbcriteres)
 ##print A
 ##print b
@@ -341,7 +361,7 @@ v, m, t = gurobiMultiSomme(A, b, obj, nblignes, nbcolonnes)
 ##for i in range(len(v)):
 ##    print v[i].x
 pol = politique(v, g)
-print pol
+print pol"""
 
 
 ##pol = resolutionMultiSomme(g,gamma,probaTransition, nbcriteres, nblignes, nbcolonnes)
