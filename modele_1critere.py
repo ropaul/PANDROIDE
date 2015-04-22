@@ -52,6 +52,10 @@ GAUCHE = 2
 DROITE = 3
 
 
+# a mettre comme variable changeant.
+valBut = 100000
+
+
 
 ################################################################################
 #
@@ -180,8 +184,6 @@ def transition(g, direction, i, j, probaTransition):
 def programmeprimal(grille, gamma, proba):
     nbL=grille.shape[0]
     nbC=grille.shape[1]
-    print "nblignes="+str(nbL)
-    print "nbcolonnes="+str(nbC)
     #Matrice des contraintes + second membre
     A = np.zeros((nbL*nbC*4, nbL*nbC))
     b = np.zeros(nbL*nbC*4)
@@ -192,7 +194,7 @@ def programmeprimal(grille, gamma, proba):
                 #Valeur de la case d'arrivée
                 if (i == (nbL - 1) and j == (nbC -1)):
                     #A changer si on veut maximiser
-                    b[(i*nbC+j)*4+k]=1000
+                    b[(i*nbC+j)*4+k]= valBut
                 A[(i*nbC+j)*4+k][i*nbC+j]=1
                 trans = transition(grille, k, i, j, proba)
                 for t in trans:
@@ -208,9 +210,6 @@ def programmeprimal(grille, gamma, proba):
 def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
     global nblignes , nbcolonnnes
     m = Model("PDM")     
-    
-    print "nblignes="+ str(nblignes)
-    print "nbcolonnes="+str(nbcolonnes)
     
     # declaration variables de decision
     v = []
@@ -243,8 +242,6 @@ def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
 def politique(valeurs, grille, proba, gamma):
     nbL=grille.shape[0]
     nbC=grille.shape[1]
-    print "nbl="+ str(nbL)
-    print "nbc="+ str(nbC)
     pol = np.zeros((nbL,nbC))
     for i in range(nbL):
         for j in range(nbC):
@@ -360,6 +357,8 @@ moyD, moyR = comparePerformanceProba(nblignes, nbcolonnes, gamma, 0.1, 10)
 print moyD
 print moyR
 """
+
+"""
 nblignes = 8
 nbcolonnes =5
 
@@ -373,5 +372,5 @@ pol = politique(v, g,probaTransition,gamma)
 print "pol :"
 print pol
 
-
+"""
 

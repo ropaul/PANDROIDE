@@ -202,7 +202,7 @@ def dualSomme(grille, gamma, proba, nbCriteres):
                 obj[(i*nbC+j)*4+k] = sum(grille[i,j])
     #case d'arrivée
     for k in range(4):
-        obj[(nbL*nbC-1)*4+k] = -100
+        obj[(nbL*nbC-1)*4+k] = -100000
 
     return (A, b, obj)
                 
@@ -333,7 +333,7 @@ def resolutionMultiMinMax(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes
 g=defineMaze(nblignes,nbcolonnes,nbcriteres)
 print g
 
-(A, b, obj) = dualMinMax(g, gamma, probaTransition, nbcriteres)
+(A, b, obj) = dualSomme(g, gamma, probaTransition, nbcriteres)
 ##print A
 ##print b
 ##print obj

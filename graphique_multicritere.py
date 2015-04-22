@@ -102,7 +102,7 @@ def colordraw(g,nblignes,nbcolonnes,nbcritere):
 
 #fonction servant a manipuler le pion dans la labirhynte
 def Clavier (event):
-    global PosX,PosY,posX,posY,cost,g,pol
+    global PosX,PosY,posX,posY,cost,g,grilleSolution
     vzero = np.zeros(nbcriteres, dtype=np.int)
     touche = event.keysym
     i = posX
@@ -114,7 +114,7 @@ def Clavier (event):
 #            touche = 'm'
 #        else:
 #             touche ='q'
-        touche = marcheAuto(i,j,pol)
+        touche = marcheAuto(i,j,grilleSolution)
     if (touche =="a"or touche== "Up") and i>0 :
         if np.array_equal(g[i-1,j], vzero)==False:
             print 'haut'
@@ -125,7 +125,7 @@ def Clavier (event):
                     i=t[0]
                     j=t[1]
                     for k in range (nbcriteres) :
-                        cost[k] += g[i,j+1,k]
+                        cost[k] += g[i,j,k]
                     break
     if (touche =="q" or touche=="Down") and i< nblignes -1:
         if np.array_equal(g[i+1,j], vzero)==False :
@@ -137,7 +137,7 @@ def Clavier (event):
                     i=t[0]
                     j=t[1]
                     for k in range (nbcriteres) :
-                        cost[k] += g[i,j+1,k]
+                        cost[k] += g[i,j,k]
                     break
     if (touche =="l" or touche=="Left") and j>0:
         if  np.array_equal(g[i,j-1], vzero)==False :
@@ -184,8 +184,64 @@ def Clavier (event):
     #pour qu'on quite le programme en appuyant sur esc
     if touche == 'Esc':
         Fenetre.destroy()
+        
+        
+#fonction qui donne la direction lorsque l'on appuie sur espace                    
+def marcheAuto(i,j,pol):
+    if (i == nblignes-1 and  j == nbcolonnes-1) :
+        return " "
+    if pol[i,j] == HAUT:
+        return "a"
+    if pol[i,j] == BAS:
+        return "q"
+    if pol[i,j] == GAUCHE:
+        return "l"
+    if pol[i,j] == DROITE:
+        return "m"
+  
 
 
+def createGrilleSoluce(resultPL):
+    grille = np.zeros((resultPL.shape[0],resultPL.shape[1]))
+    for i in range (resultPL.shape[0]):
+        for j in range (resultPL.shape[1]):
+            for k in range(resultPL.shape[2]):
+                if resultPL[i][j][k] == 1:
+                    grille[i][j]= k
+    return grille
+       
+# fonction servant a afficher la solution op donné par le PDM        
+def afficheSolution(grille):
+    vzero = np.zeros(nbcriteres, dtype=np.int)
+    for i in range (nblignes):
+        for j in range (nbcolonnes):
+            print g[i,j]
+            if (i != nblignes-1 or  j != nbcolonnes-1) and np.array_equal(g[i,j], vzero)==False:
+                if grille[i,j] == HAUT:
+                    PosY = j *20*zoom +20+zoom*10
+                    PosX = i *20*zoom +20+zoom*10
+                    Canevas.create_line(PosY,PosX-zoom*7,PosY,PosX-zoom*12,width=zoom/2)
+                    Canevas.create_line(PosY-zoom*2,PosX-zoom*10,PosY,PosX-zoom*12,width=zoom/2)
+                    Canevas.create_line(PosY+zoom*2,PosX-zoom*10,PosY,PosX-zoom*12,width=zoom/2)
+                if grille[i,j] == BAS:
+                    PosY = j *20*zoom +20+zoom*10
+                    PosX = i *20*zoom +20+zoom*10
+                    Canevas.create_line(PosY,PosX+zoom*7,PosY,PosX+zoom*12,width=zoom/2)
+                    Canevas.create_line(PosY-zoom*2,PosX+zoom*10,PosY,PosX+zoom*12,width=zoom/2)
+                    Canevas.create_line(PosY+zoom*2,PosX+zoom*10,PosY,PosX+zoom*12,width=zoom/2)
+                if grille[i,j] == GAUCHE:
+                    PosY = j *20*zoom +20+zoom*10
+                    PosX = i *20*zoom +20+zoom*10
+                    Canevas.create_line(PosY-zoom*7,PosX,PosY-zoom*12,PosX,width=zoom/2)
+                    Canevas.create_line(PosY-zoom*10,PosX-zoom*2,PosY-zoom*12,PosX,width=zoom/2)
+                    Canevas.create_line(PosY-zoom*10,PosX+zoom*2,PosY-zoom*12,PosX,width=zoom/2) 
+                if grille[i,j] == DROITE:
+                    PosY = j *20*zoom +20+zoom*10
+                    PosX = i *20*zoom +20+zoom*10
+                    Canevas.create_line(PosY+zoom*7,PosX,PosY+zoom*12,PosX,width=zoom/2)
+                    Canevas.create_line(PosY+zoom*10,PosX-zoom*2,PosY+zoom*12,PosX,width=zoom/2)
+                    Canevas.create_line(PosY+zoom*10,PosX+zoom*2,PosY+zoom*12,PosX,width=zoom/2) 
+       
 
 
 
@@ -248,7 +304,7 @@ def initFenetre() :
     champ_label = Label(init, text="Number of line")
     champ_label.pack()
     nb = IntVar()
-    nb.set(5)
+    nb.set(3)
     # Création d'un widget Spinbox
     boite = Spinbox(init,from_=2,to=42,increment=1,textvariable=nb,width=5)
     boite.pack(padx=30,pady=10)
@@ -256,7 +312,7 @@ def initFenetre() :
     champ_labelprime = Label(init, text="Number of column ")
     champ_labelprime.pack()
     nbprime = IntVar()
-    nbprime.set(5)
+    nbprime.set(3)
     # Création d'un widget Spinbox
     boiteprime = Spinbox(init,from_=2,to=42,increment=1,textvariable=nbprime,width=5)
     boiteprime.pack(padx=30,pady=10)    
@@ -361,6 +417,25 @@ initialize()
 
 print "g"
 print g
+
+
+################################affichage solution#########################################
+(A, b, obj) = dualSomme(g, gamma,probaTransition,nbcriteres)
+
+print 'gamma=' +str(gamma)+ "   proba=" + str(probaTransition) 
+v, m,t = gurobiMultiSomme(A, b, obj,nblignes,nbcolonnes)
+
+pol = politique(v, g)
+print "pol :"
+print pol
+grilleSolution= createGrilleSoluce(pol)
+print 'grilleSolution'
+print grilleSolution
+
+afficheSolution(grilleSolution)
+
+
+
 Mafenetre.mainloop()
 
 

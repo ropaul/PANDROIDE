@@ -266,7 +266,6 @@ def flechemixte (i,j ,pH,pB,pG,pD): #i et j les coord , pH,pB,pG les pourcentage
 #Sert a la premiere initialisation du labyrinthe. verifie si tous les choix demandé sont fait
 def choix():
     global gamma, probaTransition,nblignes, nbcolonnes,zoom
-    print   'nb  '+ str(nb.get()) 
 #    if ((liste.get() != "1" and liste.get() != "2"and liste.get() != "3")):
 #        
 #        champ_erreur = Label(init, text="Erreur sur les entrer")
@@ -290,13 +289,11 @@ def choix():
         if val >=10:
             zoom = 1
         if val >=15:
-            zoom = 10.0/val
+            zoom = (30.0/val)
         
             
     probaTransition= nb2.get()
     gamma = nb3.get()
-    print "probaTransition=" +  str(probaTransition)
-    print "gamma="+ str(gamma)
     init.destroy()
     
 def choixEvent(event):
@@ -315,7 +312,7 @@ def initFenetre() :
     nb = IntVar()
     nb.set(5)
     # Création d'un widget Spinbox
-    boite = Spinbox(init,from_=2,to=42,increment=1,textvariable=nb,width=5)
+    boite = Spinbox(init,from_=3,to=42,increment=1,textvariable=nb,width=5)
     boite.pack(padx=30,pady=10)
     
     champ_labelprime = Label(init, text="Number of column ")
@@ -323,7 +320,7 @@ def initFenetre() :
     nbprime = IntVar()
     nbprime.set(5)
     # Création d'un widget Spinbox
-    boiteprime = Spinbox(init,from_=2,to=42,increment=1,textvariable=nbprime,width=5)
+    boiteprime = Spinbox(init,from_=3,to=42,increment=1,textvariable=nbprime,width=5)
     boiteprime.pack(padx=30,pady=10)    
     
     champ_label2 = Label(init, text="proba de transition")
@@ -423,16 +420,10 @@ w4.pack(side=RIGHT)
 Pion = Canevas.create_oval(PosX-10,PosY-10,PosX+10,PosY+10,width=2,outline='black',fill=myyellow)
 
 initialize()
-#grille = np.ones((nblignes,nbcolonnes),int)+np.eye(nblignes,nbcolonnes)
-#print "grille"
-#print grille
-print "g"
-print g
-(A, b, obj) = programmeprimal(g, gamma,probaTransition)
-v, m,t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
-
 
 ################################affichage solution#########################################
+(A, b, obj) = programmeprimal(g, gamma,probaTransition)
+v, m,t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
 
 pol = politique(v, g,probaTransition,gamma)
 print "pol :"
