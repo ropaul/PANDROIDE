@@ -428,8 +428,6 @@ v, m,t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
 pol = politique(v, g,probaTransition,gamma)
 print "pol :"
 print pol
-afficheSolution(pol)
-
 
 
 Mafenetre.mainloop()

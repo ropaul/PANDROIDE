@@ -348,10 +348,10 @@ print g
 #g = np.ones((2,2,2))
 #g[0,1,0]=0
 #g[1,0,1]=0
-#print g
-pol = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+##print g
+#pol = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
 #pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,2,2)
-print pol
+#print pol
 """
 (A, b, obj) = dualSomme(g, gamma, probaTransition, nbcriteres)
 ##print A

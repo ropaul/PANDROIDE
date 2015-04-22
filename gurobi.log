@@ -5796,3 +5796,107 @@ Iteration    Objective       Primal Inf.    Dual Inf.      Time
 
 Solved in 179 iterations and 0.01 seconds
 Optimal objective  6.180418450e+03
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:06:15 2015
+
+Optimize a model with 504 rows, 504 columns and 2934 nonzeros
+Coefficient statistics:
+  Matrix range    [1e-01, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 412 rows and 169 columns
+Presolve time: 0.04s
+Presolved: 92 rows, 335 columns, 2396 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   4.000000e+30   1.024000e+03      0s
+     113    1.7409050e+05   0.000000e+00   0.000000e+00      0s
+
+Solved in 113 iterations and 0.10 seconds
+Optimal objective  1.740905011e+05
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:12:10 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:14:18 2015
+
+Optimize a model with 504 rows, 504 columns and 2922 nonzeros
+Coefficient statistics:
+  Matrix range    [1e-01, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 413 rows and 174 columns
+Presolve time: 0.00s
+Presolved: 91 rows, 330 columns, 2375 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   4.000000e+30   1.024000e+03      0s
+     118    1.6299139e+05   0.000000e+00   0.000000e+00      0s
+
+Solved in 118 iterations and 0.00 seconds
+Optimal objective  1.629913936e+05
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:16:20 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:16:38 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:19:28 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:29:13 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:29:34 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:31:37 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:38:11 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:39:27 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:39:35 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:40:45 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:44:30 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:45:44 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:46:19 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:47:08 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:48:07 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:48:33 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:51:43 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:51:59 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:53:45 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:53:58 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Wed Apr 22 16:54:19 2015
+

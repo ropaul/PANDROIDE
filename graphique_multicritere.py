@@ -85,7 +85,7 @@ def colordraw(g,nblignes,nbcolonnes,nbcritere):
                 Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
             else:
                 if i == nblignes -1 and j == nbcolonnes -1 :
-                    Canevas.create_text(y+zoom*10,x+zoom*10,text="BUT",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+                    Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
                 else:        
                     if np.array_equal(g[i,j], vzero)==False:
                         Canevas.create_text(x+zoom*(10-5),y+zoom*(10-5),font="1",text =g[i,j,0],fill=color[1])
@@ -114,7 +114,7 @@ def Clavier (event):
 #            touche = 'm'
 #        else:
 #             touche ='q'
-        touche = marcheAuto(i,j,grilleSolution)
+        touche = marcheAutoMixte(i,j,grilleSolution)
     if (touche =="a"or touche== "Up") and i>0 :
         if np.array_equal(g[i-1,j], vzero)==False:
             print 'haut'
@@ -198,8 +198,36 @@ def marcheAuto(i,j,pol):
         return "l"
     if pol[i,j] == DROITE:
         return "m"
-  
 
+
+#donne la valeur de la touche pour l'indice associer (existe que pour marcheAutoMixte)
+def touchevalue (value):
+    if (i == nblignes-1 and  j == nbcolonnes-1) :
+        return " "
+    if value == HAUT:
+        return "a"
+    if value == BAS:
+        return "q"
+    if value == GAUCHE:
+        return "l"
+    if value == DROITE:
+        return "m"
+
+    
+    
+  
+        
+#fonction qui donne la direction lorsque l'on appuie sur espace (marce avec les politiques mixtes)                 
+def marcheAutoMixte(i,j,pol):
+     z=np.random.uniform(0,1)
+     value = 0;
+     for k in range(4):
+         value += pol[i,j,k]
+         if (z < value):
+             return touchevalue(k)
+    return " "
+    
+    
 
 def createGrilleSoluce(resultPL):
     grille = np.zeros((resultPL.shape[0],resultPL.shape[1]))
@@ -209,6 +237,17 @@ def createGrilleSoluce(resultPL):
                 if resultPL[i][j][k] == 1:
                     grille[i][j]= k
     return grille
+    
+    
+
+################################################################################
+#
+#                            AFFICHAGE SOLUTIONS
+#
+################################################################################
+
+    
+    
        
 # fonction servant a afficher la solution op donné par le PDM        
 def afficheSolution(grille):
@@ -241,6 +280,62 @@ def afficheSolution(grille):
                     Canevas.create_line(PosY+zoom*7,PosX,PosY+zoom*12,PosX,width=zoom/2)
                     Canevas.create_line(PosY+zoom*10,PosX-zoom*2,PosY+zoom*12,PosX,width=zoom/2)
                     Canevas.create_line(PosY+zoom*10,PosX+zoom*2,PosY+zoom*12,PosX,width=zoom/2) 
+                    
+
+
+#donne la valeur de l'épaisseur d'une fleche de direction pour la solution
+def grosseurfleche(valeur):
+    if valeur == 0:
+        return 0
+    if valeur < 0.33:
+        return 1
+    if valeur < 0.66:
+        return 2
+    return 3
+
+                    
+#affiches les solutions mixtes.
+#plus la fleche est grosse et plus la probabilité d'aller vers la case est grande                    
+def afficheSolutionMixte(grille):
+    ecart = 3
+    vzero = np.zeros(nbcriteres, dtype=np.int)
+    for i in range (nblignes):
+        for j in range (nbcolonnes):
+            if (i != nblignes-1 or  j != nbcolonnes-1) and np.array_equal(g[i,j], vzero)==False:
+                #fleche du haut
+                if grille[i,j,0] != 0:
+                    taille = zoom/2 * grosseurfleche(grille[i,j,0])
+                    PosY = j *20*zoom +20+zoom*10
+                    PosX = i *20*zoom +20+zoom*10
+                    Canevas.create_line(PosY+ecart*zoom,PosX-zoom*7,PosY+ecart*zoom,PosX-zoom*12,width=taille)
+                    Canevas.create_line(PosY-zoom*2+ecart*zoom,PosX-zoom*10,PosY+ecart*zoom,PosX-zoom*12,width=taille)
+                    Canevas.create_line(PosY+zoom*2+ecart*zoom,PosX-zoom*10,PosY+ecart*zoom,PosX-zoom*12,width=taille)
+                #fleche du bas    
+                if grille[i,j,1] != 0:
+                    taille = zoom/2 * grosseurfleche(grille[i,j,1])
+                    PosY = j *20*zoom +20+zoom*10
+                    PosX = i *20*zoom +20+zoom*10
+                    Canevas.create_line(PosY-ecart*zoom,PosX+zoom*7,PosY-ecart*zoom,PosX+zoom*12,width=taille)
+                    Canevas.create_line(PosY-zoom*2-ecart*zoom,PosX+zoom*10,PosY-ecart*zoom,PosX+zoom*12,width=taille)
+                    Canevas.create_line(PosY+zoom*2-ecart*zoom,PosX+zoom*10,PosY-ecart*zoom,PosX+zoom*12,width=taille)
+                #fleche du gauche    
+                if grille[i,j,2] != 0:
+                    taille = zoom/2 * grosseurfleche(grille[i,j,2])
+                    PosY = j *20*zoom +20+zoom*10
+                    PosX = i *20*zoom +20+zoom*10
+                    Canevas.create_line(PosY-zoom*7,PosX+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille)
+                    Canevas.create_line(PosY-zoom*10,PosX-zoom*2+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille)
+                    Canevas.create_line(PosY-zoom*10,PosX+zoom*2+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille) 
+                #fleche du droite
+                if grille[i,j,3] != 0:
+                    taille = zoom/2 * grosseurfleche(grille[i,j,3])
+                    PosY = j *20*zoom +20+zoom*10
+                    PosX = i *20*zoom +20+zoom*10
+                    Canevas.create_line(PosY+zoom*7,PosX-ecart*zoom,PosY+zoom*12,PosX-ecart*zoom,width=taille)
+                    Canevas.create_line(PosY+zoom*10,PosX-zoom*2-ecart*zoom,PosY+zoom*12,PosX-ecart*zoom,width=taille)
+                    Canevas.create_line(PosY+zoom*10,PosX+zoom*2-ecart*zoom,PosY+zoom*12,PosX-ecart*zoom,width=taille) 
+    
+    
        
 
 
@@ -420,19 +515,33 @@ print g
 
 
 ################################affichage solution#########################################
-(A, b, obj) = dualSomme(g, gamma,probaTransition,nbcriteres)
+#(A, b, obj) = dualSomme(g, gamma,probaTransition,nbcriteres)
+#
+#print 'gamma=' +str(gamma)+ "   proba=" + str(probaTransition) 
+#v, m,t = gurobiMultiSomme(A, b, obj,nblignes,nbcolonnes)
+#
+#pol = politique(v, g)
+#print "pol :"
+#print pol
+#grilleSolution= createGrilleSoluce(pol)
+#print 'grilleSolution'
+#print grilleSolution
+#afficheSolution(grilleSolution)
 
-print 'gamma=' +str(gamma)+ "   proba=" + str(probaTransition) 
-v, m,t = gurobiMultiSomme(A, b, obj,nblignes,nbcolonnes)
+#pol= [[[0,0.5,0,0.5],[0,0.5,0,0.5],[0,0.5,0,0.5]],[[0,0.5,0,0.5],[0,0.5,0,0.5],[0,0.5,0,0.5]],[[0,0.5,0,0.5],[0,0.5,0,0.5],[0,0.5,0,0.5]]]
 
-pol = politique(v, g)
-print "pol :"
-print pol
-grilleSolution= createGrilleSoluce(pol)
-print 'grilleSolution'
-print grilleSolution
+pol = np.zeros(((10,10,4)))
+for i in range(3):
+    for j in range (3):
+        pol[i,j,1]= 0.6
+        pol[i,j,3]= 0.2
+        pol[i,j,2]= 0.9
 
-afficheSolution(grilleSolution)
+afficheSolutionMixte(pol)
+
+
+
+
 
 
 
