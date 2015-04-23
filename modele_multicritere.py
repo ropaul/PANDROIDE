@@ -58,6 +58,7 @@ DROITE = 3
 ################################################################################
 
 #Parcourt la grille en largeur pour savoir si le but est accessible depuis le point de départ
+#PREND SUPER LONGTEMPS!
 def estFinissable(grille):
     explores = set()
     aexplorer = [(0,0)]
@@ -91,7 +92,8 @@ def defineMaze(nblignes,nbcolonnes,nbcriteres):
     for k in range(nbcriteres):
         g[0,0,k] = random.choice(weight)
         g[nblignes-1,nbcolonnes-1,k] = random.choice(weight)
-        
+
+    """    
     while not estFinissable(g):
         g= np.zeros((nblignes,nbcolonnes,nbcriteres), dtype=np.int)
         for i in range(nblignes):
@@ -105,7 +107,7 @@ def defineMaze(nblignes,nbcolonnes,nbcriteres):
         
         for k in range(nbcriteres):
             g[0,0,k] = random.choice(weight)
-            g[nblignes-1,nbcolonnes-1,k] = random.choice(weight)
+            g[nblignes-1,nbcolonnes-1,k] = random.choice(weight)"""
     
     return g
 
@@ -189,6 +191,8 @@ def transition(g, direction, i, j, probaTransition, nbcriteres):
 def politique(valeurs, grille):
     nbL=grille.shape[0]
     nbC=grille.shape[1]
+    print grille.shape
+    print len(valeurs)
     pol = np.zeros((nbL,nbC,4))
     for i in range(nbL):
         for j in range(nbC):
@@ -245,7 +249,7 @@ def gurobiMultiSomme(a, b, objectif, nblignes, nbcolonnes):
     m = Model("MOPDM")
     #déclaration des variables de décision
     v = []
-    for i in range(len(b)):
+    for i in range(len(objectif)):
         v.append(m.addVar(vtype=GRB.CONTINUOUS, lb=0, name="x%d" % (i+1)))
     #màj du modèle pour intégrer les nouvelles variables
     m.update()
@@ -255,13 +259,13 @@ def gurobiMultiSomme(a, b, objectif, nblignes, nbcolonnes):
     for i in range(len(objectif)):
         obj += objectif[i]*v[i]
     m.setObjective(obj,GRB.MINIMIZE)
+
     #définition des contraintes
-    
     for i in range(nblignes*nbcolonnes):
-        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) <= b[i], "Contrainte%d" % i)
+        m.addConstr(LinExpr(a[i], v) <= b[i], "Contrainte%d" % i)
     for i in range(nblignes*nbcolonnes,a.shape[0]):
-        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) >= b[i], "Contrainte%d" % i)
-        
+        m.addConstr(LinExpr(a[i], v) >= b[i], "Contrainte%d" % i)
+    
     #résolution
     
     m.optimize()
@@ -306,11 +310,11 @@ def dualMinMax(grille, gamma, proba, nbCriteres):
                     A[t[0]*nbC+t[1]][(i*nbC+j)*4+k]=-gamma*trans[t]
                 for n in range(nbCriteres):
                     if i == nbL-1 and j == nbC-1:
-                        A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-100
+                        A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-1000
                     else:
                         A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-grille[i][j][n]
-                    #test
-                    #A[nbL*nbC*5+n][(i*nbC+j)*4+k]=grille[i][j][n]
+                        #test
+                        #A[nbL*nbC*5+n][(i*nbC+j)*4+k]=grille[i][j][n]
     for n in range(nbCriteres):
         A[nbL*nbC*5+n][nbL*nbC*4]=1
         b[nbL*nbC*5+n]=0
@@ -327,7 +331,7 @@ def gurobiMultiMinMax(a, b, objectif, nblignes, nbcolonnes):
     m = Model("MOPDMeq")
     #déclaration des variables de décision
     v = []
-    for i in range(len(b)-1):
+    for i in range(len(objectif)-1):
         v.append(m.addVar(vtype=GRB.CONTINUOUS, lb=0, name="x%d" % (i+1)))
     v.append(m.addVar(vtype=GRB.CONTINUOUS, lb=0, name="z"))
     #màj du modèle pour intégrer les nouvelles variables
@@ -338,19 +342,19 @@ def gurobiMultiMinMax(a, b, objectif, nblignes, nbcolonnes):
     for i in range(len(objectif)):
         obj += objectif[i]*v[i]
     m.setObjective(obj,GRB.MAXIMIZE)
-    
+
     #définition des contraintes
-    #CA PREND TROP DE TEMPS!!!!
+    #TEST : plus de problème de temps
     t = time.time()
     for i in range(nblignes*nbcolonnes):
         #A VERIFIER : LEQUEL MARCHE MIEUX
-        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) == b[i], "Contrainte%d" % i)
-        #m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) <= b[i], "Contrainte%d" % i)
+        m.addConstr(LinExpr(a[i], v) == b[i], "Contrainte%d" % i)
+        #m.addConstr(LinExpr(a[i],v) <= b[i], "Contrainte%d" % i)
     for i in range(nblignes*nbcolonnes,nblignes*nbcolonnes*5):
-        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) >= b[i], "Contrainte%d" % i)
+        m.addConstr(LinExpr(a[i], v) >= b[i], "Contrainte%d" % i)
     for i in range(nblignes*nbcolonnes*5, a.shape[0]):
-        m.addConstr(quicksum(a[i][j]*v[j] for j in range(a.shape[1])) <= b[i], "Contrainte%d" % i)
-    print "time : " + str(time.time() - t)   
+        m.addConstr(LinExpr(a[i], v) <= b[i], "Contrainte%d" % i)
+    print "time : " + str(time.time() - t)
     #résolution
     m.optimize()
     
@@ -374,16 +378,17 @@ def resolutionMultiMinMax(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes
 ################################################################################
 
 
-#g=defineMaze(nblignes,nbcolonnes,nbcriteres)
-#print g
-g = np.zeros((3,3,2))
-g[0,0,0]=1
-g[0,1,0]=1
-g[0,2,0]=1
-g[1,0,0]=1
-g[1,1,0]=1
-g[2,0,0]=1
-g[2,2,0]=1
+g=defineMaze(nblignes,nbcolonnes,nbcriteres)
+print g
+#print estFinissable(g)
+##g = np.zeros((3,3,2))
+##g[0,0,0]=1
+##g[0,1,0]=1
+##g[0,2,0]=1
+##g[1,0,0]=1
+##g[1,1,0]=1
+##g[2,0,0]=1
+##g[2,2,0]=1
 ##g[0,1,0]=0
 ##g[0,1,1]=40
 ##g[0,2,0]=0
@@ -396,8 +401,8 @@ g[2,2,0]=1
 ##g[2,0,0]=40
 ##g[2,1,1]=0
 ##g[2,1,0]=40
-print g
-print estFinissable(g)
+##print g
+##print estFinissable(g)
 #pol = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
 #pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,3,3)
 #print pol
@@ -413,5 +418,5 @@ pol = politique(v, g)
 print pol"""
 
 
-##pol = resolutionMultiSomme(g,gamma,probaTransition, nbcriteres, nblignes, nbcolonnes)
-##print pol
+pol = resolutionMultiSomme(g,gamma,probaTransition, nbcriteres, nblignes, nbcolonnes)
+print pol

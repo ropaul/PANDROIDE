@@ -229,7 +229,8 @@ def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
 
     # definition des contraintes
     for i in range(nbL*nbC*4):
-        m.addConstr(quicksum(a[i][j]*v[j] for j in range(len(objectif))) >= b[i], "Contrainte%d" % i)
+        m.addConstr(LinExpr(a[i], v) >= b[i], "Contrainte%d" % i)
+        #m.addConstr(quicksum(a[i][j]*v[j] for j in range(len(objectif))) >= b[i], "Contrainte%d" % i)
 
     # Resolution
     m.optimize()
