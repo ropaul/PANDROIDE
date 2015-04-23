@@ -28,10 +28,10 @@ nbcolonnes=10
 nbcriteres=4
 
 #Probabilité d'aller effectivement dans la direction voulue
-probaTransition=0.7
+probaTransition=1
 
 #Visibilité du futur
-gamma = 0.9
+gamma = 0.5
 
 #poition initiale du robot dans la grille
 posX=0
@@ -57,6 +57,24 @@ DROITE = 3
 #
 ################################################################################
 
+#Parcourt la grille en largeur pour savoir si le but est accessible depuis le point de départ
+def estFinissable(grille):
+    explores = set()
+    aexplorer = [(0,0)]
+    while not not aexplorer: #tant que aexplorer n'est pas vide
+        case = aexplorer.pop(0)
+        explores.add(case)
+        for d in range(4):
+            trans = transition(grille, d, case[0], case[1], 1, grille.shape[2])
+            for t in trans:
+                if t == (grille.shape[0]-1, grille.shape[1]-1):
+                    return True
+                if not (t in explores):
+                    aexplorer.append(t)
+    return False
+    
+    
+
 #Définit un labyrinthe de nblignes lignes et nbcolonnes colonnes
 #Retourne g, le labyrinthe (sous la forme d'un tableau à trois dimensions)
 def defineMaze(nblignes,nbcolonnes,nbcriteres):
@@ -70,11 +88,24 @@ def defineMaze(nblignes,nbcolonnes,nbcriteres):
             if z > pmur:
                 for k in range (nbcriteres):
                     g[i,j,k] = random.choice(weight)
-    
-    #AJOUTER UNE FONCTION DE TEST D'INTEGRITE DU LABYRINTHE
     for k in range(nbcriteres):
         g[0,0,k] = random.choice(weight)
         g[nblignes-1,nbcolonnes-1,k] = random.choice(weight)
+        
+    while not estFinissable(g):
+        g= np.zeros((nblignes,nbcolonnes,nbcriteres), dtype=np.int)
+        for i in range(nblignes):
+            for j in range(nbcolonnes):
+                z=np.random.uniform(0,1)
+                if z < pmur:
+                    g[i,j] = np.zeros(nbcriteres, dtype=np.int)
+                if z > pmur:
+                    for k in range (nbcriteres):
+                        g[i,j,k] = random.choice(weight)
+        
+        for k in range(nbcriteres):
+            g[0,0,k] = random.choice(weight)
+            g[nblignes-1,nbcolonnes-1,k] = random.choice(weight)
     
     return g
 
@@ -275,7 +306,7 @@ def dualMinMax(grille, gamma, proba, nbCriteres):
                     A[t[0]*nbC+t[1]][(i*nbC+j)*4+k]=-gamma*trans[t]
                 for n in range(nbCriteres):
                     if i == nbL-1 and j == nbC-1:
-                        A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-1000
+                        A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-100
                     else:
                         A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-grille[i][j][n]
                     #test
@@ -343,14 +374,32 @@ def resolutionMultiMinMax(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes
 ################################################################################
 
 
-g=defineMaze(nblignes,nbcolonnes,nbcriteres)
+#g=defineMaze(nblignes,nbcolonnes,nbcriteres)
+#print g
+g = np.zeros((3,3,2))
+g[0,0,0]=1
+g[0,1,0]=1
+g[0,2,0]=1
+g[1,0,0]=1
+g[1,1,0]=1
+g[2,0,0]=1
+g[2,2,0]=1
+##g[0,1,0]=0
+##g[0,1,1]=40
+##g[0,2,0]=0
+##g[0,2,1]=40
+##g[1,0,1]=0
+##g[1,0,0]=40
+##g[1,2,1]=40
+##g[1,2,0]=0
+##g[2,0,1]=0
+##g[2,0,0]=40
+##g[2,1,1]=0
+##g[2,1,0]=40
 print g
-#g = np.ones((2,2,2))
-#g[0,1,0]=0
-#g[1,0,1]=0
-##print g
+print estFinissable(g)
 #pol = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
-#pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,2,2)
+#pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,3,3)
 #print pol
 """
 (A, b, obj) = dualSomme(g, gamma, probaTransition, nbcriteres)
