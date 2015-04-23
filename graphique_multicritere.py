@@ -11,6 +11,7 @@ from Tkinter import *
 from gurobipy import *
 import random
 import numpy as np
+import math
 
 
 
@@ -37,25 +38,32 @@ myyellow="#F9FB70"
 myblack="#2D2B2B"
 mywalls="#5E5E64"
 mywhite="#FFFFFF"
-color=[mywhite,mygreen,myblue,myred,myblack]
+mygold="#FFD700"
+mypurple="#C722E1"
+myazur="#A3F7F2"
+mygrey="#C0C0C0"
+mymaroon="#800000"
+
+color=[mywhite,mygreen,myblue,myred,myblack,mygold,mypurple,myazur,mygrey,mymaroon]
+colorname= ["mywhite","green","blue","red","black","gold","purple","azur","grey","maroon"]
 
 
 ################################################################################
 #
-#                            FONCTIONS GRAPHIQUES
+#                               INITIALISATION
 #
 ################################################################################
-
 
 
 
 def initialize():
     global cost,posX,posY,PosX,PosY
-# position initiale du robot
-    
+    # cout et affichage
+    '''
     for k in range(5):
         cost[k]=0
-# cout et affichage
+    '''
+    # position initiale du robot
     i=0
     j=0
     PosY = j *20*zoom +20+zoom*10
@@ -63,17 +71,312 @@ def initialize():
     posY = j
     posX = i
     Canevas.coords(Pion,PosX -9*zoom, PosY -9*zoom, PosX +9*zoom, PosY +9*zoom)
+    '''
     w.config(text='Cost = '+ str(cost[0]))
     w1.config(text='vert = '+ str(cost[1]))
     w2.config(text='bleu = '+ str(cost[2]))
     w3.config(text='rouge = '+ str(cost[3]))
     w4.config(text='noir = '+ str(cost[4]))
+    '''
+    cost[0]=0
+    w.config(text='Cost = '+ str(cost[0]))
+    for i in range (nbcriteres):
+        cost[i+1]=0
+        labels[i].config(text= colorname[i+1]+'='+str(cost[i+1])+' | ')
+
+#Sert a la premiere initialisation du labyrinthe. verifie si tous les choix demandé sont fait
+def choix():
+    global gamma, probaTransition,nblignes, nbcolonnes,zoom,nbcriteres
+#    if ((liste.get() != "1" and liste.get() != "2"and liste.get() != "3")):
+#        
+#        champ_erreur = Label(init, text="Erreur sur les entrer")
+#        champ_erreur.pack()      
+#        return
+    if ( nb.get() != '' ):
+        valueL= (nb.get())
+    if ( nbprime.get() != '' ):
+        valueC= (nbprime.get())        
+            
+        nblignes = valueL
+        nbcolonnes = valueC
+        
+        valueCritere=(critere.get())
+        nbcriteres=    valueCritere
+        
+        val = max(valueC,valueL)
+        
+        if val >0:# and valueCL < 5:
+            zoom = 4
+        if val >5 :#and valueCL < 10:
+            zoom = 3
+        if val >=10:
+            zoom = 2
+        if val >=15:
+            zoom = 10.0/val         
+    probaTransition= nb2.get()
+    gamma = nb3.get()
+    init.destroy()
+    
+def choixEvent(event):
+    if event.keysym == 'Return':
+        choix();
+
+#initialise la fenetre d'initialisation
+def initFenetre() :
+    global nb,nbprime, nb2 , nb3,critere, init, liste
+    #création fenetre choix
+    
+    init.title('Choix')
+    
+    champ_label = Label(init, text="Number of line")
+    champ_label.pack()
+    nb = IntVar()
+    nb.set(3)
+    # Création d'un widget Spinbox
+    boite = Spinbox(init,from_=2,to=42,increment=1,textvariable=nb,width=5)
+    boite.pack(padx=30,pady=10)
+    
+    champ_labelprime = Label(init, text="Number of column ")
+    champ_labelprime.pack()
+    nbprime = IntVar()
+    nbprime.set(3)
+    # Création d'un widget Spinbox
+    boiteprime = Spinbox(init,from_=2,to=42,increment=1,textvariable=nbprime,width=5)
+    boiteprime.pack(padx=30,pady=10)
 
 
+    champ_labelcritere = Label(init, text="number of criterion")
+    champ_labelcritere.pack()
+    critere = IntVar()
+    critere.set(4)
+    # Création d'un widget Spinbox
+    boitecritere = Spinbox(init,from_=1,to=9,increment=1,textvariable=critere,width=5)
+    boitecritere.pack(padx=30,pady=10)        
+    
+    champ_label2 = Label(init, text="transition probability")
+    champ_label2.pack()
+    nb2 = DoubleVar()
+    nb2.set(0.8)
+    # Création d'un widget Spinbox
+    boite2 = Spinbox(init,from_=0,to=1,increment=0.05,textvariable=nb2,width=5)
+    boite2.pack(padx=30,pady=10)    
+    
+    
+    champ_label3 = Label(init, text="value of gamma")
+    champ_label3.pack()
+    nb3 =DoubleVar()
+    nb3.set(0.8)
+    # Création d'un widget Spinbox
+    boite3 = Spinbox(init,from_=0,to=1,increment=0.05,textvariable=nb3,width=5)
+    boite3.pack(padx=30,pady=10)   
+    
+    champ_label3 = Label(init, text=" policy's choice")
+    champ_label3.pack()
+    liste= StringVar()
+    liste.set("1")
+    choix1 = Radiobutton(init, text= "multicriterion sum", variable = liste, value="1",font = "Verdana 10 bold")
+    choix2 = Radiobutton(init, text= " min max criterion", variable = liste, value="2",font = "Verdana 10 bold")
+    choix1.pack(side=TOP)
+    choix2.pack(side=TOP)
+    
+    
+    #liste de choix de labyrhinte possible et le bouton de changement de maze
+    Button(init, text ='Create the Maze', command = choix).pack(side=LEFT,padx=5,pady=5)
+    
+    init.bind('<Key>',choixEvent)
+    init.mainloop()
+    
+    
+def politiquelancher():
+    global liste
+    if liste.get()=="1":
+        return resolutionMultiSomme(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+    if liste.get()=="2":
+        return resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+            
+    
+def colordrawlancher(value):
+    if value == 1:
+        colordrawMulti1(g,nblignes,nbcolonnes)
+        return
+    if value == 2:
+        colordrawMulti2(g,nblignes,nbcolonnes)
+        return
+    if value == 3:
+        colordrawMulti3(g,nblignes,nbcolonnes)
+        return
+    if value == 4:
+        colordrawMulti4(g,nblignes,nbcolonnes)
+        return
+    if value == 5:
+        colordrawMulti5(g,nblignes,nbcolonnes)
+        return
+    if value == 6:
+        colordrawMulti6(g,nblignes,nbcolonnes)
+        return
+    if value == 7:
+        colordrawMulti7(g,nblignes,nbcolonnes)
+        return
+    if value == 8:
+        colordrawMulti8(g,nblignes,nbcolonnes)
+        return
+    if value == 9:
+        colordrawMulti9(g,nblignes,nbcolonnes)
+        return
+        
 
 
+################################################################################
+#
+#                            AFFICHAGES COUT DES CIRTERES
+#
+################################################################################
+
+# pour un nombre de critere : 9
 #Place pour chaque couleur un cout différents choisit alétoirement. Ici le choix de la couleur ne sert que pour choisir si il y a mur ou pas. 
-def colordraw(g,nblignes,nbcolonnes,nbcritere):    
+def colordrawMulti9(g,nblignes,nbcolonnes):    
+    #Place les différents couts dans l'affichage 
+    vzero = np.zeros(nbcriteres, dtype=np.int)
+    for i in range(nblignes):
+        for j in range(nbcolonnes):          
+            y =zoom*20*i+20
+            x =zoom*20*j+20
+            
+            if i == 0 and j == 0 :
+                Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+            else:
+                if i == nblignes -1 and j == nbcolonnes -1 :
+                    Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+                else:        
+                    if np.array_equal(g[i,j], vzero)==False:
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10-5),font="1",text =g[i,j,0],fill=color[1])
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10+5),font="1",text =g[i,j,1],fill=color[2])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10-5),font="1",text =g[i,j,2],fill=color[3])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10+5),font="1",text =g[i,j,3],fill=color[4])
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10-5),font="1",text =g[i,j,4],fill=color[5])
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10+5),font="1",text =g[i,j,5],fill=color[6])
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10),font="1",text =g[i,j,6],fill=color[7])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10),font="1",text =g[i,j,7],fill=color[8])
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10),font="1",text =g[i,j,7],fill=color[9])
+                    else:
+                        Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
+
+
+
+# pour un nombre de critere : 8
+#Place pour chaque couleur un cout différents choisit alétoirement. Ici le choix de la couleur ne sert que pour choisir si il y a mur ou pas. 
+def colordrawMulti8(g,nblignes,nbcolonnes):    
+    #Place les différents couts dans l'affichage 
+    vzero = np.zeros(nbcriteres, dtype=np.int)
+    for i in range(nblignes):
+        for j in range(nbcolonnes):          
+            y =zoom*20*i+20
+            x =zoom*20*j+20
+            
+            if i == 0 and j == 0 :
+                Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+            else:
+                if i == nblignes -1 and j == nbcolonnes -1 :
+                    Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+                else:        
+                    if np.array_equal(g[i,j], vzero)==False:
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10-5),font="1",text =g[i,j,0],fill=color[1])
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10+5),font="1",text =g[i,j,1],fill=color[2])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10-5),font="1",text =g[i,j,2],fill=color[3])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10+5),font="1",text =g[i,j,3],fill=color[4])
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10-5),font="1",text =g[i,j,4],fill=color[5])
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10+5),font="1",text =g[i,j,5],fill=color[6])
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10),font="1",text =g[i,j,6],fill=color[7])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10),font="1",text =g[i,j,7],fill=color[8])
+                    else:
+                        Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
+                        
+
+# pour un nombre de critere : 7
+#Place pour chaque couleur un cout différents choisit alétoirement. Ici le choix de la couleur ne sert que pour choisir si il y a mur ou pas. 
+def colordrawMulti7(g,nblignes,nbcolonnes):    
+    #Place les différents couts dans l'affichage 
+    vzero = np.zeros(nbcriteres, dtype=np.int)
+    for i in range(nblignes):
+        for j in range(nbcolonnes):          
+            y =zoom*20*i+20
+            x =zoom*20*j+20
+            
+            if i == 0 and j == 0 :
+                Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+            else:
+                if i == nblignes -1 and j == nbcolonnes -1 :
+                    Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+                else:        
+                    if np.array_equal(g[i,j], vzero)==False:
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10-5),font="1",text =g[i,j,0],fill=color[1])
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10+5),font="1",text =g[i,j,1],fill=color[2])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10-5),font="1",text =g[i,j,2],fill=color[3])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10+5),font="1",text =g[i,j,3],fill=color[4])
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10-5),font="1",text =g[i,j,4],fill=color[5])
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10+5),font="1",text =g[i,j,5],fill=color[6])
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10),font="1",text =g[i,j,6],fill=color[7])
+                    else:
+                        Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
+
+
+# pour un nombre de critere : 6
+#Place pour chaque couleur un cout différents choisit alétoirement. Ici le choix de la couleur ne sert que pour choisir si il y a mur ou pas. 
+def colordrawMulti6(g,nblignes,nbcolonnes):    
+    #Place les différents couts dans l'affichage 
+    vzero = np.zeros(nbcriteres, dtype=np.int)
+    for i in range(nblignes):
+        for j in range(nbcolonnes):          
+            y =zoom*20*i+20
+            x =zoom*20*j+20
+            
+            if i == 0 and j == 0 :
+                Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+            else:
+                if i == nblignes -1 and j == nbcolonnes -1 :
+                    Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+                else:        
+                    if np.array_equal(g[i,j], vzero)==False:
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10-5),font="1",text =g[i,j,0],fill=color[1])
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10+5),font="1",text =g[i,j,1],fill=color[2])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10-5),font="1",text =g[i,j,2],fill=color[3])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10+5),font="1",text =g[i,j,3],fill=color[4])
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10-5),font="1",text =g[i,j,4],fill=color[5])
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10+5),font="1",text =g[i,j,5],fill=color[6])
+                    else:
+                        Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
+                        
+                        
+
+# pour un nombre de critere : 5
+#Place pour chaque couleur un cout différents choisit alétoirement. Ici le choix de la couleur ne sert que pour choisir si il y a mur ou pas. 
+def colordrawMulti5(g,nblignes,nbcolonnes):    
+    #Place les différents couts dans l'affichage 
+    vzero = np.zeros(nbcriteres, dtype=np.int)
+    for i in range(nblignes):
+        for j in range(nbcolonnes):          
+            y =zoom*20*i+20
+            x =zoom*20*j+20
+            
+            if i == 0 and j == 0 :
+                Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+            else:
+                if i == nblignes -1 and j == nbcolonnes -1 :
+                    Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+                else:        
+                    if np.array_equal(g[i,j], vzero)==False:
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10-5),font="1",text =g[i,j,0],fill=color[1])
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10+5),font="1",text =g[i,j,1],fill=color[2])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10-5),font="1",text =g[i,j,2],fill=color[3])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10+5),font="1",text =g[i,j,3],fill=color[4])
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10-5),font="1",text =g[i,j,4],fill=color[5])
+                    else:
+                        Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
+
+
+# pour un nombre de critere : 4
+#Place pour chaque couleur un cout différents choisit alétoirement. Ici le choix de la couleur ne sert que pour choisir si il y a mur ou pas. 
+def colordrawMulti4(g,nblignes,nbcolonnes):    
     #Place les différents couts dans l'affichage 
     vzero = np.zeros(nbcriteres, dtype=np.int)
     for i in range(nblignes):
@@ -98,11 +401,89 @@ def colordraw(g,nblignes,nbcolonnes,nbcritere):
 
 
 
+# pour un nombre de critere : 3
+#Place pour chaque couleur un cout différents choisit alétoirement. Ici le choix de la couleur ne sert que pour choisir si il y a mur ou pas. 
+def colordrawMulti3(g,nblignes,nbcolonnes):    
+    #Place les différents couts dans l'affichage 
+    vzero = np.zeros(nbcriteres, dtype=np.int)
+    for i in range(nblignes):
+        for j in range(nbcolonnes):          
+            y =zoom*20*i+20
+            x =zoom*20*j+20
+            
+            if i == 0 and j == 0 :
+                Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+            else:
+                if i == nblignes -1 and j == nbcolonnes -1 :
+                    Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+                else:        
+                    if np.array_equal(g[i,j], vzero)==False:
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10+5),font="1",text =g[i,j,0],fill=color[1])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10+5),font="1",text =g[i,j,1],fill=color[2])
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10-5),font="1",text =g[i,j,2],fill=color[3])
+                    else:
+                        Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
+
+
+
+# pour un nombre de critere : 2
+#Place pour chaque couleur un cout différents choisit alétoirement. Ici le choix de la couleur ne sert que pour choisir si il y a mur ou pas. 
+def colordrawMulti2(g,nblignes,nbcolonnes):    
+    #Place les différents couts dans l'affichage 
+    vzero = np.zeros(nbcriteres, dtype=np.int)
+    for i in range(nblignes):
+        for j in range(nbcolonnes):          
+            y =zoom*20*i+20
+            x =zoom*20*j+20
+            
+            if i == 0 and j == 0 :
+                Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+            else:
+                if i == nblignes -1 and j == nbcolonnes -1 :
+                    Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+                else:        
+                    if np.array_equal(g[i,j], vzero)==False:
+                        Canevas.create_text(x+zoom*(10-5),y+zoom*(10),font="1",text =g[i,j,0],fill=color[1])
+                        Canevas.create_text(x+zoom*(10+5),y+zoom*(10),font="1",text =g[i,j,1],fill=color[2])
+                    else:
+                        Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
+
+
+# pour un nombre de critere : 1
+#Place pour chaque couleur un cout différents choisit alétoirement. Ici le choix de la couleur ne sert que pour choisir si il y a mur ou pas. 
+def colordrawMulti1(g,nblignes,nbcolonnes):    
+    #Place les différents couts dans l'affichage 
+    vzero = np.zeros(nbcriteres, dtype=np.int)
+    for i in range(nblignes):
+        for j in range(nbcolonnes):          
+            y =zoom*20*i+20
+            x =zoom*20*j+20
+            
+            if i == 0 and j == 0 :
+                Canevas.create_text(x+zoom*10,y+zoom*10,text="DEPART",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+            else:
+                if i == nblignes -1 and j == nbcolonnes -1 :
+                    Canevas.create_text(x+zoom*10,y+zoom*10,text="BUT",fill=myblack,font = "Verdana "+str(int(10*zoom/3))+" bold")
+                else:        
+                    if np.array_equal(g[i,j], vzero)==False:
+                        Canevas.create_text(x+zoom*(10),y+zoom*(10),font="1",text =g[i,j,0],fill=color[1])
+                    else:
+                        Canevas.create_rectangle(x, y, x+zoom*20, y+zoom*20, fill=myblack)
+
+
+
+
+
+################################################################################
+#
+#                            GESTION DEPLACEMENT
+#
+################################################################################
 
 
 #fonction servant a manipuler le pion dans la labirhynte
 def Clavier (event):
-    global PosX,PosY,posX,posY,cost,g,grilleSolution
+    global PosX,PosY,posX,posY,cost,g,politique
     vzero = np.zeros(nbcriteres, dtype=np.int)
     touche = event.keysym
     i = posX
@@ -114,7 +495,7 @@ def Clavier (event):
 #            touche = 'm'
 #        else:
 #             touche ='q'
-        touche = marcheAutoMixte(i,j,grilleSolution)
+        touche = marcheAutoMixte(i,j,politique)
     if (touche =="a"or touche== "Up") and i>0 :
         if np.array_equal(g[i-1,j], vzero)==False:
             print 'haut'
@@ -124,8 +505,9 @@ def Clavier (event):
                 if(value > z):
                     i=t[0]
                     j=t[1]
-                    for k in range (nbcriteres) :
-                        cost[k] += g[i,j,k]
+                    if (i!= nblignes-1 or j != nbcolonnes -1):
+                        for k in range (nbcriteres) :
+                            cost[k+1] += g[i,j,k]
                     break
     if (touche =="q" or touche=="Down") and i< nblignes -1:
         if np.array_equal(g[i+1,j], vzero)==False :
@@ -136,8 +518,9 @@ def Clavier (event):
                 if(value > z):
                     i=t[0]
                     j=t[1]
-                    for k in range (nbcriteres) :
-                        cost[k] += g[i,j,k]
+                    if (i!= nblignes-1 or j != nbcolonnes -1):
+                        for k in range (nbcriteres) :
+                            cost[k+1] += g[i,j,k]
                     break
     if (touche =="l" or touche=="Left") and j>0:
         if  np.array_equal(g[i,j-1], vzero)==False :
@@ -148,8 +531,9 @@ def Clavier (event):
                 if(value > z):
                     i=t[0]
                     j=t[1]
-                    for k in range (nbcriteres) :
-                        cost[k] += g[i,j,k]
+                    if (i!= nblignes-1 or j != nbcolonnes -1):
+                        for k in range (nbcriteres) :
+                            cost[k+1] += g[i,j,k]
                     break
     if (touche =="m" or touche== "Right") and j< nbcolonnes-1 :
         if np.array_equal(g[i,j+1], vzero)==False:
@@ -160,8 +544,9 @@ def Clavier (event):
                 if(value > z):
                     i=t[0]
                     j=t[1]
-                    for k in range (nbcriteres) :
-                        cost[k] += g[i,j,k]
+                    if (i!= nblignes-1 or j != nbcolonnes -1):
+                        for k in range (nbcriteres) :
+                            cost[k+1] += g[i,j,k]
                     break
 #    print 'j='+str(j)+'  i='+str(i)
     PosY = j *20*zoom +20+zoom*10
@@ -170,14 +555,21 @@ def Clavier (event):
     posX = i
 #    print 'PosX=' +str(PosX) + 'PosY=' +str(PosY)
     Canevas.coords(Pion,PosY -9*zoom, PosX -9*zoom, PosY +9*zoom, PosX +9*zoom)
-    cost[0]=0    
+    cost[0]=0  
+    '''
     for k in range(4):
         cost[0]+=cost[k+1]*weight[k+1]
     w.config(text='Cost = '+ str(cost[0]))
     w1.config(text='vert = '+ str(cost[1]))
     w2.config(text='bleu = '+ str(cost[2]))
     w3.config(text='rouge = '+ str(cost[3]))
-    w4.config(text='noir = '+ str(cost[4]))       
+    w4.config(text='noir = '+ str(cost[4])) 
+    '''
+    for k in range(nbcriteres ):
+        cost[0]+=cost[k+1]
+        w.config(text='Cost = '+ str(cost[0]))
+        labels[k].config(text= colorname[k+1]+'='+str(cost[k+1])+' | ')
+        
     #pour qu'on puisse restart avec le bacspace
     if touche == 'BackSpace':
         initialize()
@@ -185,6 +577,12 @@ def Clavier (event):
     if touche == 'Esc':
         Fenetre.destroy()
         
+
+################################################################################
+#
+#                            MARCHE AUTOMATIQUE
+#
+################################################################################
         
 #fonction qui donne la direction lorsque l'on appuie sur espace                    
 def marcheAuto(i,j,pol):
@@ -201,34 +599,34 @@ def marcheAuto(i,j,pol):
 
 
 #donne la valeur de la touche pour l'indice associer (existe que pour marcheAutoMixte)
-def touchevalue (value):
+def touchevalue (i,j,value):
     if (i == nblignes-1 and  j == nbcolonnes-1) :
         return " "
-    if value == HAUT:
+    if value == HAUT:        
         return "a"
-    if value == BAS:
+    if value == BAS:        
         return "q"
-    if value == GAUCHE:
+    if value == GAUCHE:        
         return "l"
-    if value == DROITE:
+    if value == DROITE:       
         return "m"
 
     
     
   
         
-#fonction qui donne la direction lorsque l'on appuie sur espace (marce avec les politiques mixtes)                 
+#fonction qui donne la direction lorsque l'on appuie sur espace (marche avec les politiques mixtes)                 
 def marcheAutoMixte(i,j,pol):
-     z=np.random.uniform(0,1)
-     value = 0;
-     for k in range(4):
-         value += pol[i,j,k]
-         if (z < value):
-             return touchevalue(k)
+    z=np.random.uniform(0,1)
+    value = 0;
+    for k in range(4):
+        value += pol[i,j,k] 
+        if (z < value):
+            return touchevalue(i,j,k)
     return " "
     
     
-
+#prend la grille multicritere (mais avec solution pure) et la transforme en une grille solution monocritere
 def createGrilleSoluce(resultPL):
     grille = np.zeros((resultPL.shape[0],resultPL.shape[1]))
     for i in range (resultPL.shape[0]):
@@ -249,12 +647,11 @@ def createGrilleSoluce(resultPL):
     
     
        
-# fonction servant a afficher la solution op donné par le PDM        
+# fonction servant a afficher la solution  donné par le PDM monocritere        
 def afficheSolution(grille):
     vzero = np.zeros(nbcriteres, dtype=np.int)
     for i in range (nblignes):
         for j in range (nbcolonnes):
-            print g[i,j]
             if (i != nblignes-1 or  j != nbcolonnes-1) and np.array_equal(g[i,j], vzero)==False:
                 if grille[i,j] == HAUT:
                     PosY = j *20*zoom +20+zoom*10
@@ -303,35 +700,35 @@ def afficheSolutionMixte(grille):
         for j in range (nbcolonnes):
             if (i != nblignes-1 or  j != nbcolonnes-1) and np.array_equal(g[i,j], vzero)==False:
                 #fleche du haut
-                if grille[i,j,0] != 0:
+                if grille[i,j,0] != 0 :#or  not math.isnan(grille[i,j,0]):
                     taille = zoom/2 * grosseurfleche(grille[i,j,0])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY+ecart*zoom,PosX-zoom*7,PosY+ecart*zoom,PosX-zoom*12,width=taille)
+                    Canevas.create_line(PosY+ecart*zoom,PosX-zoom*7,PosY+ecart*zoom,PosX-zoom*12.5,width=taille)
                     Canevas.create_line(PosY-zoom*2+ecart*zoom,PosX-zoom*10,PosY+ecart*zoom,PosX-zoom*12,width=taille)
                     Canevas.create_line(PosY+zoom*2+ecart*zoom,PosX-zoom*10,PosY+ecart*zoom,PosX-zoom*12,width=taille)
                 #fleche du bas    
-                if grille[i,j,1] != 0:
+                if grille[i,j,1] != 0 :#or  not math.isnan(grille[i,j,0]):
                     taille = zoom/2 * grosseurfleche(grille[i,j,1])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY-ecart*zoom,PosX+zoom*7,PosY-ecart*zoom,PosX+zoom*12,width=taille)
+                    Canevas.create_line(PosY-ecart*zoom,PosX+zoom*7,PosY-ecart*zoom,PosX+zoom*12.5,width=taille)
                     Canevas.create_line(PosY-zoom*2-ecart*zoom,PosX+zoom*10,PosY-ecart*zoom,PosX+zoom*12,width=taille)
                     Canevas.create_line(PosY+zoom*2-ecart*zoom,PosX+zoom*10,PosY-ecart*zoom,PosX+zoom*12,width=taille)
                 #fleche du gauche    
-                if grille[i,j,2] != 0:
+                if grille[i,j,2] != 0 :#or  not math.isnan(grille[i,j,0]):
                     taille = zoom/2 * grosseurfleche(grille[i,j,2])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY-zoom*7,PosX+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille)
+                    Canevas.create_line(PosY-zoom*7,PosX+ecart*zoom,PosY-zoom*12.5,PosX+ecart*zoom,width=taille)
                     Canevas.create_line(PosY-zoom*10,PosX-zoom*2+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille)
                     Canevas.create_line(PosY-zoom*10,PosX+zoom*2+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille) 
                 #fleche du droite
-                if grille[i,j,3] != 0:
+                if grille[i,j,3] != 0 :#or  not math.isnan(grille[i,j,0]):
                     taille = zoom/2 * grosseurfleche(grille[i,j,3])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY+zoom*7,PosX-ecart*zoom,PosY+zoom*12,PosX-ecart*zoom,width=taille)
+                    Canevas.create_line(PosY+zoom*7,PosX-ecart*zoom,PosY+zoom*12.5,PosX-ecart*zoom,width=taille)
                     Canevas.create_line(PosY+zoom*10,PosX-zoom*2-ecart*zoom,PosY+zoom*12,PosX-ecart*zoom,width=taille)
                     Canevas.create_line(PosY+zoom*10,PosX+zoom*2-ecart*zoom,PosY+zoom*12,PosX-ecart*zoom,width=taille) 
     
@@ -342,105 +739,7 @@ def afficheSolutionMixte(grille):
 
 
 
-################################################################################
-#
-#                               INITIALISATION
-#
-################################################################################
 
-
-#Sert a la premiere initialisation du labyrinthe. verifie si tous les choix demandé sont fait
-def choix():
-    global gamma, probaTransition,nblignes, nbcolonnes,zoom
-    print   'nb  '+ str(nb.get()) 
-#    if ((liste.get() != "1" and liste.get() != "2"and liste.get() != "3")):
-#        
-#        champ_erreur = Label(init, text="Erreur sur les entrer")
-#        champ_erreur.pack()
-#        
-#        return
-    if ( nb.get() != '' ):
-        valueL= (nb.get())
-    if ( nbprime.get() != '' ):
-        valueC= (nbprime.get())        
-            
-        nblignes = valueL
-        nbcolonnes = valueC
-        
-        val = max(valueC,valueL)
-        
-        if val >0:# and valueCL < 5:
-            zoom = 3
-        if val >5 :#and valueCL < 10:
-            zoom = 2
-        if val >=10:
-            zoom = 1
-        if val >=15:
-            zoom = 10.0/val
-        
-            
-    probaTransition= nb2.get()
-    gamma = nb3.get()
-    print "probaTransition=" +  str(probaTransition)
-    print "gamma="+ str(gamma)
-    init.destroy()
-    
-def choixEvent(event):
-    if event.keysym == 'Return':
-        choix();
-
-#initialise la fenetre d'initialisation
-def initFenetre() :
-    global nb,nbprime, nb2 , nb3, init
-    #création fenetre choix
-    
-    init.title('Choix')
-    
-    champ_label = Label(init, text="Number of line")
-    champ_label.pack()
-    nb = IntVar()
-    nb.set(3)
-    # Création d'un widget Spinbox
-    boite = Spinbox(init,from_=2,to=42,increment=1,textvariable=nb,width=5)
-    boite.pack(padx=30,pady=10)
-    
-    champ_labelprime = Label(init, text="Number of column ")
-    champ_labelprime.pack()
-    nbprime = IntVar()
-    nbprime.set(3)
-    # Création d'un widget Spinbox
-    boiteprime = Spinbox(init,from_=2,to=42,increment=1,textvariable=nbprime,width=5)
-    boiteprime.pack(padx=30,pady=10)    
-    
-    champ_label2 = Label(init, text="proba de transition")
-    champ_label2.pack()
-    nb2 = DoubleVar()
-    nb2.set(0.8)
-    # Création d'un widget Spinbox
-    boite2 = Spinbox(init,from_=0,to=1,increment=0.05,textvariable=nb2,width=5)
-    boite2.pack(padx=30,pady=10)    
-    
-    
-    champ_label3 = Label(init, text="gamma")
-    champ_label3.pack()
-    nb3 =DoubleVar()
-    nb3.set(0.8)
-    # Création d'un widget Spinbox
-    boite3 = Spinbox(init,from_=0,to=1,increment=0.05,textvariable=nb3,width=5)
-    boite3.pack(padx=30,pady=10)    
-    
-    
-    #liste de choix de labyrhinte possible et le bouton de changement de maze
-    Button(init, text ='Create the Maze', command = choix).pack(side=LEFT,padx=5,pady=5)
-    
-    init.bind('<Key>',choixEvent)
-    init.mainloop()
-    
-    
-#    valueCL= (nb.get())
-#    print  type(valueCL)    
-#    nblignes = valueCL
-#    nbcolonnes = valueCL
 
 ################################################################################
 #
@@ -460,6 +759,8 @@ nb = ""
 nbprime=""
 nb2 = ""
 nb3 = ""
+critere=""
+liste=""
 
 initFenetre()
 
@@ -480,10 +781,17 @@ for i in range(nblignes+1):
 for j in range(nbcolonnes+1):
     nj=zoom*20*j+20
     Canevas.create_line(nj, 20, nj, Hauteur-20)
+    
+#creation de la grille de poid des critere
 g = defineMaze(nblignes, nbcolonnes,  nbcriteres)
-colordraw(g,nblignes,nbcolonnes,nbcriteres)
 
- 
+#affichage des poids des cirteres
+'''
+colordrawMulti9(g,nblignes,nbcolonnes)
+'''
+colordrawlancher(nbcriteres)
+
+#initilaise les touches du clavier 
 Canevas.focus_set()
 Canevas.bind('<Key>',Clavier)
 Canevas.pack(padx =5, pady =5)
@@ -495,6 +803,7 @@ Button(Mafenetre, text ='Restart', command = initialize).pack(side=LEFT,padx=5,p
 Button(Mafenetre, text ='Quit', command = Mafenetre.destroy).pack(side=LEFT,padx=5,pady=5)
 
 #Création de l'affichage des coûts
+'''
 w = Label(Mafenetre, text='cost = '+str(cost[0]),fg=mywalls,font = "Verdana 20 bold")
 w.pack(side=RIGHT) 
 w1 = Label(Mafenetre, text='vert = '+str(cost[1])+' | ',fg=mygreen,font = "Verdana 12 bold")
@@ -505,6 +814,15 @@ w3 = Label(Mafenetre, text='rouge = '+str(cost[3])+' | ',fg=myred,font = "Verdan
 w3.pack(side=RIGHT)
 w4 = Label(Mafenetre, text='noir = '+str(cost[4])+' | ',fg=myblack,font = "Verdana 12 bold")
 w4.pack(side=RIGHT) 
+'''
+
+
+w = Label(Mafenetre, text='cost = '+str(cost[0]),fg=mywalls,font = "Verdana 15 bold")
+w.pack(side=RIGHT) 
+labels =[]
+for i in range (nbcriteres):
+    labels.append(Label(Mafenetre, text= colorname[i+1]+'='+str(cost[i+1])+' | ',fg=color[i+1],font = "Verdana 10 bold"))
+    labels[i].pack(side=RIGHT)
 
 Pion = Canevas.create_oval(PosX-10,PosY-10,PosX+10,PosY+10,width=2,outline='black',fill=myyellow)
 
@@ -515,29 +833,37 @@ print g
 
 
 ################################affichage solution#########################################
+
+#
 #(A, b, obj) = dualSomme(g, gamma,probaTransition,nbcriteres)
 #
 #print 'gamma=' +str(gamma)+ "   proba=" + str(probaTransition) 
 #v, m,t = gurobiMultiSomme(A, b, obj,nblignes,nbcolonnes)
 #
-#pol = politique(v, g)
+#politique = politique(v, g)
 #print "pol :"
-#print pol
-#grilleSolution= createGrilleSoluce(pol)
+#print politique
+#grilleSolution= createGrilleSoluce(politique)
 #print 'grilleSolution'
 #print grilleSolution
-#afficheSolution(grilleSolution)
+#afficheSolutionMixte(politique)
+
+politique = politiquelancher()
+print "politique"
+print politique
+afficheSolutionMixte(politique)
+
 
 #pol= [[[0,0.5,0,0.5],[0,0.5,0,0.5],[0,0.5,0,0.5]],[[0,0.5,0,0.5],[0,0.5,0,0.5],[0,0.5,0,0.5]],[[0,0.5,0,0.5],[0,0.5,0,0.5],[0,0.5,0,0.5]]]
 
-pol = np.zeros(((10,10,4)))
-for i in range(3):
-    for j in range (3):
-        pol[i,j,1]= 0.6
-        pol[i,j,3]= 0.2
-        pol[i,j,2]= 0.9
-
-afficheSolutionMixte(pol)
+#pol = np.zeros(((10,10,4)))
+#for i in range(3):
+#    for j in range (3):
+#        pol[i,j,1]= 0.6
+#        pol[i,j,3]= 0.2
+#        pol[i,j,2]= 0.9
+#
+#afficheSolutionMixte(pol)
 
 
 
