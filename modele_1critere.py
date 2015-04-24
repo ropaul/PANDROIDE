@@ -52,16 +52,29 @@ GAUCHE = 2
 DROITE = 3
 
 
-# a mettre comme variable changeant.
-valBut = 100000
-
-
 
 ################################################################################
 #
 #                           FONCTIONS DE DEFINITION DU PROBLEME
 #
 ################################################################################
+
+#Parcourt la grille en largeur pour savoir si le but est accessible depuis le point de départ
+def estFinissable(grille):
+    explores = set()
+    aexplorer = [(0,0)]
+    explores.add((0,0))
+    while not not aexplorer: #tant que aexplorer n'est pas vide
+        case = aexplorer.pop(0)
+        for d in range(4):
+            trans = transition(grille, d, case[0], case[1], 1)
+            for t in trans:
+                if t == (grille.shape[0]-1, grille.shape[1]-1):
+                    return True
+                if not (t in explores):
+                    aexplorer.append(t)
+                    explores.add(t)
+    return False
 
 #Définit un labyrinthe de nblignes lignes et nbcolonnes colonnes
 #Retourne g, le labyrinthe (sous la forme d'un tableau à deux dimensions)
@@ -83,17 +96,32 @@ def defineMaze(nblignes,nbcolonnes):
                             g[i,j]=weight[3]
                         else:
                             g[i,j]=weight[4]
-    
-    #A REMPLACER PAR UNE FONCTION DE TEST D'INTEGRITE DU LABYRINTHE
-    g[0,0]=np.random.random_integers(3)
-    g[0,1]=np.random.random_integers(3)
-    g[2,0]=np.random.random_integers(3)     
-    g[nblignes-1,nbcolonnes-1]=np.random.random_integers(3)
-    g[nblignes-2,nbcolonnes-1]=np.random.random_integers(3)
-    g[nblignes-1,nbcolonnes-2]=np.random.random_integers(3)
+    g[0,0]=random.choice(weight[1:])    
+    g[nblignes-1,nbcolonnes-1]=random.choice(weight[1:])
 
-    #Case but
-    #g[nblignes-1][nbcolonnes-1]=-1000
+    while not estFinissable(g):
+        g= np.zeros((nblignes,nbcolonnes), dtype=np.int)
+        for i in range(nblignes):
+            for j in range(nbcolonnes):
+                z=np.random.uniform(0,1)
+                if z < pblanc:
+                    g[i,j]=0
+                else:
+                    if z < pblanc + pverte:
+                        g[i,j]=weight[1]
+                    else:
+                        if z < pblanc + pverte + pbleue:
+                            g[i,j]=weight[2]
+                        else:
+                            if z< pblanc + pverte + pbleue + prouge:
+                                g[i,j]=weight[3]
+                            else:
+                                g[i,j]=weight[4]
+        g[0,0]=random.choice(weight[1:])    
+        g[nblignes-1,nbcolonnes-1]=random.choice(weight[1:])
+
+    
+
     
     return g
 
@@ -172,7 +200,8 @@ def transition(g, direction, i, j, probaTransition):
                             trans[i+1, j-1] = (1 - probaTransition)/2
     return trans
 
-
+def valBut(nblignes, nbcolonnes):
+    return nblignes*nbcolonnes*20
 
 ################################################################################
 #
@@ -194,7 +223,7 @@ def programmeprimal(grille, gamma, proba):
                 #Valeur de la case d'arrivée
                 if (i == (nbL - 1) and j == (nbC -1)):
                     #A changer si on veut maximiser
-                    b[(i*nbC+j)*4+k]= valBut
+                    b[(i*nbC+j)*4+k]= valBut(nbL, nbC)
                 A[(i*nbC+j)*4+k][i*nbC+j]=1
                 trans = transition(grille, k, i, j, proba)
                 for t in trans:
@@ -203,6 +232,8 @@ def programmeprimal(grille, gamma, proba):
     #fonction objectif
     obj = np.zeros(nbL*nbC)
     obj[0] = 1
+    #test
+    #obj = np.ones(nbL*nbC)
 
     return (A, b, obj)
 
@@ -219,10 +250,7 @@ def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
     # maj du modele pour integrer les nouvelles variables
     m.update()
 
-    obj = LinExpr();
-    obj =0
-    for i in range(len(objectif)):
-        obj += objectif[i]*v[i]
+    obj = LinExpr(objectif, v)
 
     # definition de l'objectif
     m.setObjective(obj,GRB.MINIMIZE)
@@ -230,8 +258,7 @@ def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
     # definition des contraintes
     for i in range(nbL*nbC*4):
         m.addConstr(LinExpr(a[i], v) >= b[i], "Contrainte%d" % i)
-        #m.addConstr(quicksum(a[i][j]*v[j] for j in range(len(objectif))) >= b[i], "Contrainte%d" % i)
-
+        
     # Resolution
     m.optimize()
     #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
@@ -239,7 +266,8 @@ def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
     
     return v, m, t
 
-
+#À partir du résultat du PL, calcule une politique
+#/!\ donne des puits des fois, quand plusieurs cases adjacentes ont la même valeur
 def politique(valeurs, grille, proba, gamma):
     nbL=grille.shape[0]
     nbC=grille.shape[1]
@@ -328,7 +356,29 @@ def comparePerformanceGamma(nblignes, nbcolonnes, nbIter, pas, proba):
 
 
 g = defineMaze(nblignes, nbcolonnes)
+""" Exemple de grille avec puits
+g=np.ones((nblignes, nbcolonnes), dtype=int)
+g[0,1]=2
+g[0,2]=2
+g[0,3]=0
+g[0,4]=2
+g[1,1]=3
+g[1,2]=4
+g[1,3]=4
+g[2,0]=3
+g[2,3]=2
+g[3,0]=2
+g[3,1]=2
+g[3,2]=3
+g[3,4]=2
+g[4,1]=4
+g[4,3]=3"""
 print g
+(A, b, obj) = programmeprimal(g, gamma,probaTransition)
+v, m, t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
+pol = politique(v, g,probaTransition,gamma)
+print "pol :"
+print pol
 
 ##(A, b, obj) = programmeprimal(g, gamma)
 ##v, m, t = resolutionGurobiprimal(A, b, obj)

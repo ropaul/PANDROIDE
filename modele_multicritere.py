@@ -58,13 +58,12 @@ DROITE = 3
 ################################################################################
 
 #Parcourt la grille en largeur pour savoir si le but est accessible depuis le point de départ
-#PREND SUPER LONGTEMPS!
 def estFinissable(grille):
     explores = set()
     aexplorer = [(0,0)]
+    explores.add((0,0))
     while not not aexplorer: #tant que aexplorer n'est pas vide
         case = aexplorer.pop(0)
-        explores.add(case)
         for d in range(4):
             trans = transition(grille, d, case[0], case[1], 1, grille.shape[2])
             for t in trans:
@@ -72,6 +71,7 @@ def estFinissable(grille):
                     return True
                 if not (t in explores):
                     aexplorer.append(t)
+                    explores.add(t)
     return False
     
     
@@ -92,8 +92,7 @@ def defineMaze(nblignes,nbcolonnes,nbcriteres):
     for k in range(nbcriteres):
         g[0,0,k] = random.choice(weight)
         g[nblignes-1,nbcolonnes-1,k] = random.choice(weight)
-
-    """    
+   
     while not estFinissable(g):
         g= np.zeros((nblignes,nbcolonnes,nbcriteres), dtype=np.int)
         for i in range(nblignes):
@@ -107,7 +106,7 @@ def defineMaze(nblignes,nbcolonnes,nbcriteres):
         
         for k in range(nbcriteres):
             g[0,0,k] = random.choice(weight)
-            g[nblignes-1,nbcolonnes-1,k] = random.choice(weight)"""
+            g[nblignes-1,nbcolonnes-1,k] = random.choice(weight)
     
     return g
 
@@ -203,7 +202,8 @@ def politique(valeurs, grille):
                 pol[i][j][k] /= somme
     return pol
 
-
+def valBut(nblignes, nbcolonnes):
+    return nblignes*nbcolonnes*20
 
 ################################################################################
 #
@@ -240,7 +240,7 @@ def dualSomme(grille, gamma, proba, nbCriteres):
                 obj[(i*nbC+j)*4+k] = sum(grille[i,j])
     #case d'arrivée
     for k in range(4):
-        obj[(nbL*nbC-1)*4+k] = -100000
+        obj[(nbL*nbC-1)*4+k] = -valBut(nbL,nbC)
 
     return (A, b, obj)
                 
@@ -380,7 +380,7 @@ def resolutionMultiMinMax(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes
 
 g=defineMaze(nblignes,nbcolonnes,nbcriteres)
 print g
-#print estFinissable(g)
+print estFinissable(g)
 ##g = np.zeros((3,3,2))
 ##g[0,0,0]=1
 ##g[0,1,0]=1
@@ -418,5 +418,5 @@ pol = politique(v, g)
 print pol"""
 
 
-pol = resolutionMultiSomme(g,gamma,probaTransition, nbcriteres, nblignes, nbcolonnes)
-print pol
+#pol = resolutionMultiSomme(g,gamma,probaTransition, nbcriteres, nblignes, nbcolonnes)
+#print pol
