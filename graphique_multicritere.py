@@ -134,7 +134,7 @@ def initFenetre() :
     nb.set(3)
     # Création d'un widget Spinbox
     boite = Spinbox(init,from_=2,to=42,increment=1,textvariable=nb,width=5)
-    boite.pack(padx=30,pady=10)
+    boite.pack(padx=30,pady=10,side=LEFT)
     
     champ_labelprime = Label(init, text="Number of column ")
     champ_labelprime.pack()
@@ -142,7 +142,7 @@ def initFenetre() :
     nbprime.set(3)
     # Création d'un widget Spinbox
     boiteprime = Spinbox(init,from_=2,to=42,increment=1,textvariable=nbprime,width=5)
-    boiteprime.pack(padx=30,pady=10)
+    boiteprime.pack(padx=30,pady=10,side=LEFT)
 
 
     champ_labelcritere = Label(init, text="number of criterion")
@@ -151,7 +151,7 @@ def initFenetre() :
     critere.set(4)
     # Création d'un widget Spinbox
     boitecritere = Spinbox(init,from_=1,to=9,increment=1,textvariable=critere,width=5)
-    boitecritere.pack(padx=30,pady=10)        
+    boitecritere.pack(padx=30,pady=10,side=LEFT)        
     
     champ_label2 = Label(init, text="transition probability")
     champ_label2.pack()
@@ -159,7 +159,7 @@ def initFenetre() :
     nb2.set(0.8)
     # Création d'un widget Spinbox
     boite2 = Spinbox(init,from_=0,to=1,increment=0.05,textvariable=nb2,width=5)
-    boite2.pack(padx=30,pady=10)    
+    boite2.pack(padx=30,pady=10,side=RIGHT)    
     
     
     champ_label3 = Label(init, text="value of gamma")
@@ -168,7 +168,7 @@ def initFenetre() :
     nb3.set(0.8)
     # Création d'un widget Spinbox
     boite3 = Spinbox(init,from_=0,to=1,increment=0.05,textvariable=nb3,width=5)
-    boite3.pack(padx=30,pady=10)   
+    boite3.pack(padx=30,pady=10,side=RIGHT)   
     
     champ_label3 = Label(init, text=" policy's choice")
     champ_label3.pack()
@@ -176,8 +176,8 @@ def initFenetre() :
     liste.set("1")
     choix1 = Radiobutton(init, text= "multicriterion sum", variable = liste, value="1",font = "Verdana 10 bold")
     choix2 = Radiobutton(init, text= " min max criterion", variable = liste, value="2",font = "Verdana 10 bold")
-    choix1.pack(side=TOP)
-    choix2.pack(side=TOP)
+    choix1.pack(side=RIGHT)
+    choix2.pack(side=RIGHT)
     
     
     #liste de choix de labyrhinte possible et le bouton de changement de maze
@@ -700,7 +700,7 @@ def afficheSolutionMixte(grille):
         for j in range (nbcolonnes):
             if (i != nblignes-1 or  j != nbcolonnes-1) and np.array_equal(g[i,j], vzero)==False:
                 #fleche du haut
-                if grille[i,j,0] != 0 :#or  not math.isnan(grille[i,j,0]):
+                if grille[i,j,0] != 0 and  not math.isnan(grille[i,j,0]):
                     taille = zoom/2 * grosseurfleche(grille[i,j,0])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
@@ -708,7 +708,7 @@ def afficheSolutionMixte(grille):
                     Canevas.create_line(PosY-zoom*2+ecart*zoom,PosX-zoom*10,PosY+ecart*zoom,PosX-zoom*12,width=taille)
                     Canevas.create_line(PosY+zoom*2+ecart*zoom,PosX-zoom*10,PosY+ecart*zoom,PosX-zoom*12,width=taille)
                 #fleche du bas    
-                if grille[i,j,1] != 0 :#or  not math.isnan(grille[i,j,0]):
+                if grille[i,j,1] != 0 and  not math.isnan(grille[i,j,1]):
                     taille = zoom/2 * grosseurfleche(grille[i,j,1])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
@@ -716,7 +716,7 @@ def afficheSolutionMixte(grille):
                     Canevas.create_line(PosY-zoom*2-ecart*zoom,PosX+zoom*10,PosY-ecart*zoom,PosX+zoom*12,width=taille)
                     Canevas.create_line(PosY+zoom*2-ecart*zoom,PosX+zoom*10,PosY-ecart*zoom,PosX+zoom*12,width=taille)
                 #fleche du gauche    
-                if grille[i,j,2] != 0 :#or  not math.isnan(grille[i,j,0]):
+                if grille[i,j,2] != 0 and  not math.isnan(grille[i,j,2]):
                     taille = zoom/2 * grosseurfleche(grille[i,j,2])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
@@ -724,7 +724,7 @@ def afficheSolutionMixte(grille):
                     Canevas.create_line(PosY-zoom*10,PosX-zoom*2+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille)
                     Canevas.create_line(PosY-zoom*10,PosX+zoom*2+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille) 
                 #fleche du droite
-                if grille[i,j,3] != 0 :#or  not math.isnan(grille[i,j,0]):
+                if grille[i,j,3] != 0 and  not math.isnan(grille[i,j,3]):
                     taille = zoom/2 * grosseurfleche(grille[i,j,3])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
