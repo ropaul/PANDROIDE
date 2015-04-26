@@ -203,7 +203,7 @@ def politique(valeurs, grille):
     return pol
 
 def valBut(nblignes, nbcolonnes):
-    return nblignes*nbcolonnes*20
+    return nblignes*nbcolonnes*100
 
 ################################################################################
 #
@@ -377,34 +377,34 @@ def resolutionMultiMinMax(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes
 #
 ################################################################################
 
-
-g=defineMaze(nblignes,nbcolonnes,nbcriteres)
-print g
-print estFinissable(g)
-##g = np.zeros((3,3,2))
-##g[0,0,0]=1
-##g[0,1,0]=1
-##g[0,2,0]=1
-##g[1,0,0]=1
-##g[1,1,0]=1
-##g[2,0,0]=1
-##g[2,2,0]=1
-##g[0,1,0]=0
-##g[0,1,1]=40
-##g[0,2,0]=0
-##g[0,2,1]=40
-##g[1,0,1]=0
-##g[1,0,0]=40
-##g[1,2,1]=40
-##g[1,2,0]=0
-##g[2,0,1]=0
-##g[2,0,0]=40
-##g[2,1,1]=0
-##g[2,1,0]=40
-##print g
-##print estFinissable(g)
-#pol = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
-#pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,3,3)
+#
+#g=defineMaze(nblignes,nbcolonnes,nbcriteres)
+#print g
+#print estFinissable(g)
+#g = np.zeros((3,3,2))
+#g[0,0,0]=1
+#g[0,1,0]=1
+#g[0,2,0]=1
+#g[1,0,0]=1
+#g[1,1,0]=1
+#g[2,0,0]=1
+#g[2,2,0]=1
+#g[0,1,0]=0
+#g[0,1,1]=40
+#g[0,2,0]=0
+#g[0,2,1]=40
+#g[1,0,1]=0
+#g[1,0,0]=40
+#g[1,2,1]=40
+#g[1,2,0]=0
+#g[2,0,1]=0
+#g[2,0,0]=40
+#g[2,1,1]=0
+#g[2,1,0]=40
+#print g
+###print estFinissable(g)
+##pol = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+#pol = resolutionMultiSomme(g, gamma, probaTransition, 2,3,3)
 #print pol
 """
 (A, b, obj) = dualSomme(g, gamma, probaTransition, nbcriteres)

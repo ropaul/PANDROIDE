@@ -2,7 +2,7 @@
 """
 Created on Wed Apr 15 15:52:20 2015
 
-@author: teddy
+@author: Yann Ropaul & Margot Calbrix
 """
 
 #from modele_1critere import *
@@ -112,7 +112,7 @@ def choix():
         if val >=10:
             zoom = 2
         if val >=15:
-            zoom = 10.0/val         
+            zoom = (val -10)/10         
     probaTransition= nb2.get()
     gamma = nb3.get()
     init.destroy()
@@ -134,7 +134,7 @@ def initFenetre() :
     nb.set(3)
     # Création d'un widget Spinbox
     boite = Spinbox(init,from_=2,to=42,increment=1,textvariable=nb,width=5)
-    boite.pack(padx=30,pady=10,side=LEFT)
+    boite.pack(padx=30,pady=10)
     
     champ_labelprime = Label(init, text="Number of column ")
     champ_labelprime.pack()
@@ -142,7 +142,7 @@ def initFenetre() :
     nbprime.set(3)
     # Création d'un widget Spinbox
     boiteprime = Spinbox(init,from_=2,to=42,increment=1,textvariable=nbprime,width=5)
-    boiteprime.pack(padx=30,pady=10,side=LEFT)
+    boiteprime.pack(padx=30,pady=10)
 
 
     champ_labelcritere = Label(init, text="number of criterion")
@@ -151,7 +151,7 @@ def initFenetre() :
     critere.set(4)
     # Création d'un widget Spinbox
     boitecritere = Spinbox(init,from_=1,to=9,increment=1,textvariable=critere,width=5)
-    boitecritere.pack(padx=30,pady=10,side=LEFT)        
+    boitecritere.pack(padx=30,pady=10)        
     
     champ_label2 = Label(init, text="transition probability")
     champ_label2.pack()
@@ -159,7 +159,7 @@ def initFenetre() :
     nb2.set(0.8)
     # Création d'un widget Spinbox
     boite2 = Spinbox(init,from_=0,to=1,increment=0.05,textvariable=nb2,width=5)
-    boite2.pack(padx=30,pady=10,side=RIGHT)    
+    boite2.pack(padx=30,pady=10)    
     
     
     champ_label3 = Label(init, text="value of gamma")
@@ -168,7 +168,7 @@ def initFenetre() :
     nb3.set(0.8)
     # Création d'un widget Spinbox
     boite3 = Spinbox(init,from_=0,to=1,increment=0.05,textvariable=nb3,width=5)
-    boite3.pack(padx=30,pady=10,side=RIGHT)   
+    boite3.pack(padx=30,pady=10)   
     
     champ_label3 = Label(init, text=" policy's choice")
     champ_label3.pack()
@@ -176,8 +176,8 @@ def initFenetre() :
     liste.set("1")
     choix1 = Radiobutton(init, text= "multicriterion sum", variable = liste, value="1",font = "Verdana 10 bold")
     choix2 = Radiobutton(init, text= " min max criterion", variable = liste, value="2",font = "Verdana 10 bold")
-    choix1.pack(side=RIGHT)
-    choix2.pack(side=RIGHT)
+    choix1.pack()
+    choix2.pack()
     
     
     #liste de choix de labyrhinte possible et le bouton de changement de maze
@@ -752,6 +752,9 @@ def afficheSolutionMixte(grille):
 #Creation de la fenetre
 
 #########################initialisation#############################
+
+#variable pour initialisation , ne pas y faire attention 
+''' a renommer'''
 gagner = ""
 init = Tk()
 init.title('initialisation')
@@ -815,8 +818,8 @@ w3.pack(side=RIGHT)
 w4 = Label(Mafenetre, text='noir = '+str(cost[4])+' | ',fg=myblack,font = "Verdana 12 bold")
 w4.pack(side=RIGHT) 
 '''
-
-
+cost= np.zeros(nbcriteres+1, dtype=np.int)
+#Création de l'affichage des coûts
 w = Label(Mafenetre, text='cost = '+str(cost[0]),fg=mywalls,font = "Verdana 15 bold")
 w.pack(side=RIGHT) 
 labels =[]
@@ -830,6 +833,8 @@ initialize()
 
 print "g"
 print g
+
+
 
 
 ################################affichage solution#########################################
