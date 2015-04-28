@@ -28,10 +28,10 @@ nbcolonnes=10
 nbcriteres=4
 
 #Probabilité d'aller effectivement dans la direction voulue
-probaTransition=1
+probaTransition=0.9
 
 #Visibilité du futur
-gamma = 0.5
+gamma = 0.9
 
 #poition initiale du robot dans la grille
 posX=0
@@ -190,8 +190,6 @@ def transition(g, direction, i, j, probaTransition, nbcriteres):
 def politique(valeurs, grille):
     nbL=grille.shape[0]
     nbC=grille.shape[1]
-    print grille.shape
-    print len(valeurs)
     pol = np.zeros((nbL,nbC,4))
     for i in range(nbL):
         for j in range(nbC):
@@ -295,11 +293,53 @@ def dualMinMax(grille, gamma, proba, nbCriteres):
     nbL=grille.shape[0]
     nbC=grille.shape[1]
     #Matrice des contraintes + second membre
-    A = np.zeros((nbL*nbC*(4+1)+nbCriteres, nbL*nbC*4+1))
-    b = np.zeros(nbL*nbC*(4+1)+nbCriteres)
+    A = np.zeros(((nbL*nbC+1)*(4+1)+nbCriteres, nbL*nbC*4+1+4))
+    b = np.zeros((nbL*nbC+1)*(4+1)+nbCriteres)
+    b[0]=1
     for i in range(nbL):
         for j in range(nbC):
-            b[i*nbC+j]=1
+            #b[i*nbC+j]=1./(nbL*nbC)
+            for k in range(4):
+                A[i*nbC+j][(i*nbC+j)*4+k] = 1
+                A[nbL*nbC+1+((i*nbC+j)*4+k)][(i*nbC+j)*4+k]=1
+                if i != nbL-1 or j != nbC-1:
+                    #rajoute les -gamma sur les autres lignes
+                    trans=transition(grille, k, i, j, proba, nbCriteres)
+                    for t in trans:
+                        A[t[0]*nbC+t[1]][(i*nbC+j)*4+k]=-gamma*trans[t]
+                for n in range(nbCriteres):
+                    if i == nbL-1 and j == nbC-1:
+                        A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=-valBut(nbL,nbC)
+                    else:
+                        if not trans: # si trans est vide
+                            A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=0
+                        else:
+                            A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=-grille[i][j][n]
+    #contraintes sur l'état puits
+    for i in range(4):
+        A[nbL*nbC][nbL*nbC*4+i]=1-gamma
+        A[nbL*nbC][(nbL*nbC-1)*4+i]=-gamma
+        A[nbL*nbC+1+nbL*nbC*4+i][nbL*nbC*4+i]=1
+    for n in range(nbCriteres):
+        A[(nbL*nbC+1)*5+n][(nbL*nbC+1)*4]=1
+
+    #fonction objectif
+    obj = np.zeros(nbL*nbC*4+1+4)
+    obj[nbL*nbC*4+4]=1
+    
+    return (A, b, obj)
+
+""" Vielle version (sans état puits à la fin)
+def dualMinMax(grille, gamma, proba, nbCriteres):
+    nbL=grille.shape[0]
+    nbC=grille.shape[1]
+    #Matrice des contraintes + second membre
+    A = np.zeros((nbL*nbC*(4+1)+nbCriteres, nbL*nbC*4+1))
+    b = np.zeros(nbL*nbC*(4+1)+nbCriteres)
+    b[0]=1
+    for i in range(nbL):
+        for j in range(nbC):
+            #b[i*nbC+j]=1
             for k in range(4):
                 A[i*nbC+j][(i*nbC+j)*4+k] = 1
                 A[nbL*nbC+((i*nbC+j)*4+k)][(i*nbC+j)*4+k]=1
@@ -312,19 +352,17 @@ def dualMinMax(grille, gamma, proba, nbCriteres):
                     if i == nbL-1 and j == nbC-1:
                         A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-1000
                     else:
-                        A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-grille[i][j][n]
-                        #test
-                        #A[nbL*nbC*5+n][(i*nbC+j)*4+k]=grille[i][j][n]
+                        if not trans: # si trans est vide
+                            A[nbL*nbC*5+n][(i*nbC+j)*4+k]=0
+                        else:
+                            A[nbL*nbC*5+n][(i*nbC+j)*4+k]=-grille[i][j][n]
     for n in range(nbCriteres):
         A[nbL*nbC*5+n][nbL*nbC*4]=1
         b[nbL*nbC*5+n]=0
-
     #fonction objectif
     obj = np.zeros(nbL*nbC*4+1)
     obj[nbL*nbC*4]=1
-    
-
-    return (A, b, obj)
+    return (A, b, obj)"""
                 
                 
 def gurobiMultiMinMax(a, b, objectif, nblignes, nbcolonnes):
@@ -342,10 +380,8 @@ def gurobiMultiMinMax(a, b, objectif, nblignes, nbcolonnes):
     for i in range(len(objectif)):
         obj += objectif[i]*v[i]
     m.setObjective(obj,GRB.MAXIMIZE)
-
+    """
     #définition des contraintes
-    #TEST : plus de problème de temps
-    t = time.time()
     for i in range(nblignes*nbcolonnes):
         #A VERIFIER : LEQUEL MARCHE MIEUX
         m.addConstr(LinExpr(a[i], v) == b[i], "Contrainte%d" % i)
@@ -353,10 +389,19 @@ def gurobiMultiMinMax(a, b, objectif, nblignes, nbcolonnes):
     for i in range(nblignes*nbcolonnes,nblignes*nbcolonnes*5):
         m.addConstr(LinExpr(a[i], v) >= b[i], "Contrainte%d" % i)
     for i in range(nblignes*nbcolonnes*5, a.shape[0]):
+        m.addConstr(LinExpr(a[i], v) <= b[i], "Contrainte%d" % i)"""
+    #définition des contraintes
+    for i in range(nblignes*nbcolonnes+1):
+        #A VERIFIER : LEQUEL MARCHE MIEUX
+        m.addConstr(LinExpr(a[i], v) == b[i], "Contrainte%d" % i)
+        #m.addConstr(LinExpr(a[i],v) <= b[i], "Contrainte%d" % i)
+    for i in range(nblignes*nbcolonnes+1,(nblignes*nbcolonnes+1)*5):
+        m.addConstr(LinExpr(a[i], v) >= b[i], "Contrainte%d" % i)
+    for i in range((nblignes*nbcolonnes+1)*5, a.shape[0]):
         m.addConstr(LinExpr(a[i], v) <= b[i], "Contrainte%d" % i)
-    print "time : " + str(time.time() - t)
     #résolution
     m.optimize()
+    
     
     #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
     t = m.getAttr(GRB.Attr.Runtime) - 0.01
@@ -380,32 +425,51 @@ def resolutionMultiMinMax(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes
 #
 #g=defineMaze(nblignes,nbcolonnes,nbcriteres)
 #print g
-#print estFinissable(g)
-#g = np.zeros((3,3,2))
-#g[0,0,0]=1
-#g[0,1,0]=1
-#g[0,2,0]=1
-#g[1,0,0]=1
-#g[1,1,0]=1
-#g[2,0,0]=1
-#g[2,2,0]=1
-#g[0,1,0]=0
-#g[0,1,1]=40
-#g[0,2,0]=0
-#g[0,2,1]=40
-#g[1,0,1]=0
-#g[1,0,0]=40
-#g[1,2,1]=40
-#g[1,2,0]=0
-#g[2,0,1]=0
-#g[2,0,0]=40
-#g[2,1,1]=0
-#g[2,1,0]=40
-#print g
-###print estFinissable(g)
-##pol = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
-#pol = resolutionMultiSomme(g, gamma, probaTransition, 2,3,3)
-#print pol
+
+g = np.zeros((3,3,2))
+g[0,0,0]=1
+g[0,0,1]=1
+g[0,1,0]=1
+g[0,2,0]=1
+g[1,0,0]=1
+g[1,1,0]=1
+g[1,1,1]=1
+g[2,0,0]=1
+g[2,2,0]=1
+g[2,2,1]=1
+g[0,1,0]=0
+g[0,1,1]=40
+g[0,2,0]=0
+g[0,2,1]=40
+g[1,0,1]=0
+g[1,0,0]=40
+g[1,2,1]=40
+g[1,2,0]=0
+g[2,0,1]=0
+g[2,0,0]=40
+g[2,1,1]=0
+g[2,1,0]=40
+print g
+pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,3,3)
+print pol
+
+"""
+#Test PL
+g = np.ones((2,2,2))
+g[0,1,0]=0
+g[1,0,1]=0
+print g
+A, b, obj = dualMinMax(g, gamma, probaTransition, 2)
+print A
+print b
+print obj
+v, m, t = gurobiMultiMinMax(A, b, obj, 2, 2)
+print v
+pol = politique(v, g)
+#pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,2,2)
+print pol"""
+
+
 """
 (A, b, obj) = dualSomme(g, gamma, probaTransition, nbcriteres)
 ##print A
