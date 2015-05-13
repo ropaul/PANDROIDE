@@ -30,7 +30,7 @@ def valTrans(g,i,j,direction,critere):
     #si en haut
     if (direction == 0 ):
         if(i <=0 ):
-            return 0
+            return 10000
         else :
             if (i-1 == nbl-1 and j==nbc -1):
                 return valBut(nbl,nbc)
@@ -39,7 +39,7 @@ def valTrans(g,i,j,direction,critere):
     #si en bas
     if (direction == 1 ):
         if(i >= nbl-1 ):
-            return 0
+            return 10000
         else :
             if (i +1== nbl -1 and j==nbc -1):
                 return valBut(nbl,nbc)
@@ -48,7 +48,7 @@ def valTrans(g,i,j,direction,critere):
     #si a gauche
     if (direction == 2 ):
         if(j <=0 ):
-            return 0
+            return 10000
         else :
             if (i == nbl -1 and j-1==nbc -1):
                 return valBut(nbl,nbc)
@@ -57,7 +57,7 @@ def valTrans(g,i,j,direction,critere):
     #si en haut
     if (direction == 3 ):
         if(j >= nbc -1 ):
-            return 0
+            return 10000
         else :
             if (i == nbl -1 and j+1==nbc -1):
                 return valBut(nbl,nbc)
@@ -66,7 +66,7 @@ def valTrans(g,i,j,direction,critere):
     
     
 def valBut(nblignes, nbcolonnes):
-    return nblignes*nbcolonnes*1000
+    return -1*nblignes*nbcolonnes*50
     
 
 
@@ -114,7 +114,7 @@ def dualMinMax2(grille, gamma, proba, nbcritere):
             for j in range(nbc):
                 for k in range (4):
                     #les premieres lignes des contrainte , une contrainte par critere (d'ou le l)
-                    a[l][(i*nbc+j)*4+k]=-1* valTrans(grille,i,j,k,l) #-1* grille[i,j,l]
+                    a[l][(i*nbc+j)*4+k]=1* valTrans(grille,i,j,k,l) #-1* grille[i,j,l]
                     #second memebre a zero
                     b[l]= 0
     #la contrainte principale
@@ -176,10 +176,27 @@ def gurobiMultiMinMax2(a, b, objectif, nblignes, nbcolonnes):
         #m.addConstr(LinExpr(a[i],v) <= b[i], "Contrainte%d" % i)
     for i in range(nbcriteres,nblignes*nbcolonnes+nbcriteres):
         m.addConstr(LinExpr(a[i], v) == b[i], "Contrainte%d" % i)
-    for i in range(nblignes*nbcolonnes+nbcriteres, a.shape[0]-1):
+    for i in range(nblignes*nbcolonnes+nbcriteres, a.shape[0]):
         m.addConstr(LinExpr(a[i], v) >= b[i], "Contrainte%d" % i)
    #résolution
     m.optimize()
+    print "*****************************************"
+    for i in range (nbl*nbc*4):
+        print "x"+str(i/4 +1)+"= "+str(v[i].x)
+    print a[0]
+    print a[1]
+    z1=0
+    z2=0
+    for i in range((nbl *nbc)*4):
+        z1+= a[0][i]*v[i].x
+        z2+= a[1][i]*v[i].x
+    print "z1"
+    print z1
+    print "z2"
+    print z2
+    print "z"
+    print v[nbl*nbc*4].x
+    print "************************************************"
     
     #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
     t = m.getAttr(GRB.Attr.Runtime) - 0.01
@@ -195,7 +212,7 @@ def resolutionMultiMinMax2(grille, gamma, proba, nbCriteres, nblignes, nbcolonne
     print "v"
     print v
     pol = politique2(v, grille)
-    return pol
+    return pol,v
 
             
 ################################################################################
@@ -224,7 +241,7 @@ def dualMinMax2v2(grille, gamma, proba, nbcritere):
             for j in range(nbc):
                 for k in range (4):
                     #les premieres lignes des contrainte , une contrainte par critere (d'ou le l)
-                    a[l][(i*nbc+j)*4+k]=-1* valTrans(grille,i,j,k,l) #-1* grille[i,j,l]
+                    a[l][(i*nbc+j)*4+k]=1* valTrans(grille,i,j,k,l) #-1* grille[i,j,l]
                     #second memebre a zero
                     b[l]= 0
     #la contrainte principale
@@ -240,13 +257,14 @@ def dualMinMax2v2(grille, gamma, proba, nbcritere):
                      a[nbcritere+nbc*i+j][(i*nbc+j)*4+k]=01
                 #rajoute les -gamma sur les autres lignes
                 trans=transition(grille, k, i, j, proba, nbcriteres)
-                for t in trans:
-                    iprime = t[0]
-                    jprime= t[1]
-                    ''' if (iprime == nbl-1 and jprime==nbc -1):
-                        a[nbcritere+nbc*iprime+jprime][(i*nbc+j)*4+k]=  0 
-                    else:'''
-                    a[nbcritere+nbc*iprime+jprime][(i*nbc+j)*4+k]= -1* gamma * trans[t] 
+                if (i != nbl-1 and j!=nbc -1):
+                    for t in trans:
+                        iprime = t[0]
+                        jprime= t[1]
+                        ''' if (iprime == nbl-1 and jprime==nbc -1):
+                            a[nbcritere+nbc*iprime+jprime][(i*nbc+j)*4+k]=  0 
+                        else:'''
+                        a[nbcritere+nbc*iprime+jprime][(i*nbc+j)*4+k]= -1* gamma * trans[t] 
     #seul la premiere case a un u(s) a 1                 
     b[nbcritere]=1
     #Xsa > 0            
@@ -259,7 +277,7 @@ def dualMinMax2v2(grille, gamma, proba, nbcritere):
         b[nbcritere+(nbl*nbc)*(4+1)+i]=0
     #gestion de l'état puits
     for i in range (4):
-        a[nbcritere+ ((nbl*nbc)+1)*(4+1)-1][(nbc*nbl)*4+i]= 1
+        a[nbcritere+ ((nbl*nbc)+1)*(4+1)-1][(nbc*nbl)*4+1+i]= 1-gamma
         a[nbcritere+ ((nbl*nbc)+1)*(4+1)-1][(nbc*nbl-1)*4+i]= -gamma
         
     return (a, b, obj)        
@@ -303,6 +321,24 @@ def gurobiMultiMinMax2v2(a, b, objectif, nblignes, nbcolonnes):
     m.optimize()
     
     
+    print "*****************************************"
+    for i in range (nbl*nbc*4):
+        print "x"+str(i/4 +1)+"= "+str(v[i].x)
+    print a[0]
+    print a[1]
+    z1=0
+    z2=0
+    for i in range((nbl *nbc)*4):
+        z1+= a[0][i]*v[i].x
+        z2+= a[1][i]*v[i].x
+    print "z1"
+    print z1
+    print "z2"
+    print z2
+    print "z"
+    print v[nbl*nbc*4].x
+    print "************************************************"
+   
     #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
     t = m.getAttr(GRB.Attr.Runtime) - 0.01
     
@@ -319,7 +355,7 @@ def resolutionMultiMinMax2v2(grille, gamma, proba, nbCriteres, nblignes, nbcolon
     print "v"
     print v
     pol = politique2(v, grille)
-    return pol
+    return pol,v
  
             
 ################################################################################
@@ -328,84 +364,103 @@ def resolutionMultiMinMax2v2(grille, gamma, proba, nbCriteres, nblignes, nbcolon
 #
 ################################################################################
   
-     
-#g = np.zeros((4,4,2))
+
+
+#nbl=3
+#nbc=3
+#nbcri=2     
+#g = np.zeros((3,3,2))
 #g[0,0,0]=1
-#g[0,1,0]=1
-#g[0,2,0]=1
-#g[1,0,0]=1
-#g[1,1,0]=1
-#g[2,0,0]=1
-#g[2,2,0]=1
 #g[0,1,0]=0
-#g[0,1,1]=40
 #g[0,2,0]=0
+#g[1,0,0]=40
+#g[1,1,0]=1
+#g[1,2,0]=0
+#g[2,0,0]=40
+#g[2,1,0]=0
+#g[2,2,0]=1
+#g[0,0,1]=1
+#g[0,1,1]=40
 #g[0,2,1]=40
 #g[1,0,1]=0
-#g[1,0,0]=40
+#g[1,1,1]=1
 #g[1,2,1]=40
-#g[1,2,0]=0
 #g[2,0,1]=0
-#g[2,0,0]=40
 #g[2,1,1]=0
 #g[2,1,0]=40
-#print g
+#g[2,2,1]=1
+
      
-     
+nbl=4
+nbc=4
+nbcri=2     
 g = np.zeros((4,4,2))
 g[0,0,0]=1
 g[0,1,0]=40
 g[0,2,0]=40
 g[0,3,0]=40
 g[1,0,0]=0
-g[1,1,0]=1000
-g[1,2,0]=1000
+g[1,1,0]=100
+g[1,2,0]=100
 g[1,3,0]=40
 g[2,0,0]=0
-g[2,1,0]=1000
-g[2,2,0]=1000
+g[2,1,0]=100
+g[2,2,0]=100
 g[2,3,0]=40
 g[3,0,0]=0
 g[3,1,0]=0
 g[3,2,0]=0
-g[3,3,0]=1000
-g[0,0,1]=1000
+g[3,3,0]=1
+g[0,0,1]=1
 g[0,1,1]=0
 g[0,2,1]=0
 g[0,3,1]=0
 g[1,0,1]=40
-g[1,1,1]=1000
-g[1,2,1]=1000
+g[1,1,1]=100
+g[1,2,1]=100
 g[1,3,1]=0
 g[2,0,1]=40
-g[2,1,1]=1000
-g[2,2,1]=1000
+g[2,1,1]=100
+g[2,2,1]=100
 g[2,3,1]=0
 g[3,0,1]=40
 g[3,1,1]=40
 g[3,2,1]=40
-g[3,3,1]=40
+g[3,3,1]=1
 
-print g     
+     
      
 ##print estFinissable(g)
 #pol = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
 
-nbl=4
-nbc=4
-nbcri=2
+#nbl=4
+#nbc=4
+#nbcri=2
 #g = defineMaze(nbl,nbc,nbcri)
 
+print "g"
 print g
 
+(A, b, obj) = dualMinMax2v2(g, gamma, probaTransition, 2)
+for i in range (A.shape[0]):
+    print A[i]
+
+
 gamma= 0.8
-probaTransition=0.5
-pol = resolutionMultiMinMax2(g, gamma, probaTransition, nbcri,nbl,nbc)
+probaTransition=0.8
+pol,v = resolutionMultiMinMax2v2(g, gamma, probaTransition, nbcri,nbl,nbc)
 print "c'est bien mon truc"
 print pol
-#(A, b, obj) = dualMinMax2v2(g, gamma, probaTransition, 2)
-#for i in range (A.shape[0]):
-#    print A[i]
+
+#z1=0
+#z2=0
+#for i in range((nbl *nbc)*4):
+#    z1+= A[0]*v[i].x
+#    z2+= A[1]*v[i].x
+#print "z1"
+#print z1
+#print "z2"
+#print z2
         
 #print "b"  
 #print b     

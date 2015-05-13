@@ -7,6 +7,7 @@ Created on Wed Apr 15 15:52:20 2015
 
 #from modele_1critere import *
 from modele_multicritere import *
+from minmax_multicritere import *
 from Tkinter import *
 from gurobipy import *
 import random
@@ -192,7 +193,7 @@ def politiquelancher():
     if liste.get()=="1":
         return resolutionMultiSomme(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
     if liste.get()=="2":
-        return resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+        return resolutionMultiMinMax2(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
             
     
 def colordrawlancher(value):
