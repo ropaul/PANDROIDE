@@ -28,7 +28,7 @@ nblignes=5
 nbcolonnes=5
 
 #Probabilité d'aller effectivement dans la direction voulue
-probaTransition=1
+probaTransition=0.8
 
 #Visibilité du futur
 gamma = 0.9
@@ -64,7 +64,7 @@ def estFinissable(grille):
     explores = set()
     aexplorer = [(0,0)]
     explores.add((0,0))
-    while not not aexplorer: #tant que aexplorer n'est pas vide
+    while aexplorer: #tant que aexplorer n'est pas vide
         case = aexplorer.pop(0)
         for d in range(4):
             trans = transition(grille, d, case[0], case[1], 1)
@@ -119,9 +119,6 @@ def defineMaze(nblignes,nbcolonnes):
                                 g[i,j]=weight[4]
         g[0,0]=random.choice(weight[1:])    
         g[nblignes-1,nbcolonnes-1]=random.choice(weight[1:])
-
-    
-
     
     return g
 
@@ -209,7 +206,124 @@ def valBut(nblignes, nbcolonnes):
 #
 ################################################################################
 
+def programmeprimal(grille, gamma, proba):
+    nbL=grille.shape[0]
+    nbC=grille.shape[1]
+    #Matrice des contraintes + second membre
+    A = np.zeros(((nbL*nbC+1)*4, nbL*nbC+1))
+    b = np.zeros((nbL*nbC+1)*4)
+    for i in range(nbL):
+        for j in range(nbC):
+            for k in range(4):
+                b[(i*nbC+j)*4+k] = -grille[i][j]
+                A[(i*nbC+j)*4+k][i*nbC+j] = 1
+                #Case d'arrivée
+                if (i == (nbL-1) and j == (nbC-1)):
+                    #A changer si on veut maximiser
+                    b[(i*nbC+j)*4+k] = valBut(nbL, nbC)
+                    A[(i*nbC+j)*4+k][nbL*nbC] = -gamma
+                else: #Autres cases
+                    trans = transition(grille, k, i, j, proba)
+                    for t in trans:
+                        A[(i*nbC+j)*4+k][t[0]*nbC+t[1]]=-gamma*trans[t]
 
+    #État puits
+    for i in range(4):
+        A[nbL*nbC*4+i][nbL*nbC] = 1-gamma
+
+    #fonction objectif
+    obj = np.zeros(nbL*nbC+1)
+    obj[0] = 1
+
+    return (A, b, obj)
+
+
+def programmedual(grille, gamma, proba):
+    nbL=grille.shape[0]
+    nbC=grille.shape[1]
+    #Matrice des contraintes + second membre
+    A = np.zeros(((nbL*nbC+1)*(4+1), (nbL*nbC+1)*4))
+    b = np.zeros((nbL*nbC+1)*(4+1))
+    b[0] = 1
+    #fonction objectif
+    obj = np.zeros((nbL*nbC+1)*4)
+    for i in range(nbL):
+        for j in range(nbC):
+            for k in range(4):
+                A[i*nbC+j][(i*nbC+j)*4+k] = 1
+                A[nbC*nbL+1+(i*nbC+j)*4+k][(i*nbC+j)*4+k] = 1
+                if i != (nbL-1) or j != (nbC-1):
+                    obj[(i*nbC+j)*4+k] = grille[i][j]
+                    trans = transition(grille, k, i, j, proba)
+                    for t in trans:
+                        A[t[0]*nbC+t[1]][(i*nbC+j)*4+k] = -gamma*trans[t]
+                else:
+                    obj[(i*nbC+j)*4+k] = valBut(nbL, nbC)
+
+    #État puits
+    for i in range(4):
+        A[nbC*nbL][nbC*nbL*4+i] = 1-gamma
+        A[nbL*nbC][(nbL*nbC-1)*4+i]=-gamma
+        A[nbC*nbL*5+i][nbC*nbL*4+i] = 1
+
+    return (A, b, obj)
+
+
+def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
+    #global nblignes , nbcolonnnes
+    m = Model("PDM")     
+    
+    # declaration variables de decision
+    v = []
+    for i in range(nbL*nbC+1):
+        v.append(m.addVar(vtype=GRB.CONTINUOUS, lb=0, name="v%d" % (i+1)))
+    
+    # maj du modele pour integrer les nouvelles variables
+    m.update()
+
+    obj = LinExpr(objectif, v)
+
+    # definition de l'objectif
+    m.setObjective(obj,GRB.MINIMIZE)
+
+    # definition des contraintes
+    for i in range((nbL*nbC+1)*4):
+        m.addConstr(LinExpr(a[i], v) >= b[i], "Contrainte%d" % i)
+        
+    # Resolution
+    m.optimize()
+    #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
+    t = m.getAttr(GRB.Attr.Runtime) - 0.01
+    
+    return v, m, t
+
+def resolutionGurobidual(A, b, objectif, nbL, nbC):
+    m = Model("PDM")
+
+    #déclaration variables de décision
+    v = []
+    for i in range((nbC*nbL+1)*4):
+        v.append(m.addVar(vtype=GRB.CONTINUOUS, lb=0, name="x%d" % (i+1)))
+    m.update()
+
+    #définition de l'objectif
+    obj = LinExpr(objectif, v)
+    m.setObjective(obj, GRB.MAXIMIZE)
+
+    #définition des contraintes
+    for i in range(nbC*nbL+1):
+        m.addConstr(LinExpr(a[i], v) == b[i], "contrainte %d" % i)
+    for i in range(nbC*nbL+1, (nbC*nbL+1)*5):
+        m.addConstr(LinExpr(a[i], v] >= 0, "contrainte %d" % i)
+
+    #résolution
+    m.optimize()
+    t = m.getAttr(GRB.Attr.Runtime) - 0.01
+
+    return v, m, t
+
+'''
+#Sans puits = moins bons résultats qu'avec.
 def programmeprimal(grille, gamma, proba):
     nbL=grille.shape[0]
     nbC=grille.shape[1]
@@ -237,7 +351,7 @@ def programmeprimal(grille, gamma, proba):
 
     return (A, b, obj)
 
-
+#Sans puits
 def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
     global nblignes , nbcolonnnes
     m = Model("PDM")     
@@ -264,7 +378,7 @@ def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
     #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
     t = m.getAttr(GRB.Attr.Runtime) - 0.01
     
-    return v, m, t
+    return v, m, t'''
 
 #À partir du résultat du PL, calcule une politique
 #/!\ donne des puits des fois, quand plusieurs cases adjacentes ont la même valeur
@@ -377,7 +491,13 @@ print g
 (A, b, obj) = programmeprimal(g, gamma,probaTransition)
 v, m, t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
 pol = politique(v, g,probaTransition,gamma)
-print "pol :"
+print "pol sans puits :"
+print pol
+
+(A, b, obj) = programmeprimalpuits(g, gamma,probaTransition)
+v, m, t = resolutionGurobiprimalpuits(A, b, obj,nblignes,nbcolonnes)
+pol = politique(v, g,probaTransition,gamma)
+print "pol avec puits :"
 print pol
 
 ##(A, b, obj) = programmeprimal(g, gamma)

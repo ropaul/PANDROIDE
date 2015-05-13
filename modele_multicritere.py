@@ -289,41 +289,46 @@ def resolutionMultiSomme(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes)
 #
 ################################################################################
 
+# Définition du PL dual de l'approche égalitariste
+# contraintes (1) : sum(Xsa pourtout a) - gamma*sum(sum(T(s',a,s)*Xsa pourtout a) pourtout s') = µ(s) pourtout s
+# contraintes (2) : Xsa >= 0 pourtout s, pourtout a
+# contraintes (3) : z - sum(sum(Ri(s,a)*Xsa pourtout a) pourtout s) <= 0 pourtout i
 def dualMinMax(grille, gamma, proba, nbCriteres):
     nbL=grille.shape[0]
     nbC=grille.shape[1]
     #Matrice des contraintes + second membre
     A = np.zeros(((nbL*nbC+1)*(4+1)+nbCriteres, nbL*nbC*4+1+4))
     b = np.zeros((nbL*nbC+1)*(4+1)+nbCriteres)
-    b[0]=1
+    b[0]=1 #µ((0,0)) = 1
     for i in range(nbL):
         for j in range(nbC):
             #b[i*nbC+j]=1./(nbL*nbC)
             for k in range(4):
-                A[i*nbC+j][(i*nbC+j)*4+k] = 1
-                A[nbL*nbC+1+((i*nbC+j)*4+k)][(i*nbC+j)*4+k]=1
+                A[i*nbC+j][(i*nbC+j)*4+k] = 1 #contraintes (1) : sum(Xsa pourtout a)
+                A[nbL*nbC+1+((i*nbC+j)*4+k)][(i*nbC+j)*4+k]=1 #contraintes (2)
                 if i != nbL-1 or j != nbC-1:
                     #rajoute les -gamma sur les autres lignes
                     trans=transition(grille, k, i, j, proba, nbCriteres)
                     for t in trans:
-                        A[t[0]*nbC+t[1]][(i*nbC+j)*4+k]=-gamma*trans[t]
+                        A[t[0]*nbC+t[1]][(i*nbC+j)*4+k]=-gamma*trans[t] #contraintes (1) : - gamma*sum(sum(T(s',a,s)*Xsa pourtout a) pourtout s')
                 for n in range(nbCriteres):
                     if i == nbL-1 and j == nbC-1:
-                        A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=-valBut(nbL,nbC)
+                        A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=-valBut(nbL,nbC) #contraintes (3) : sum(sum(Ri(s,a)*Xsa pourtout a) pourtout s) pour l'état but
                     else:
                         if not trans: # si trans est vide
                             A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=0
                         else:
-                            A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=-grille[i][j][n]
+                            A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=-grille[i][j][n] #contraintes (3) : sum(sum(Ri(s,a)*Xsa pourtout a) pourtout s)
     #contraintes sur l'état puits
     for i in range(4):
-        A[nbL*nbC][nbL*nbC*4+i]=1-gamma
-        A[nbL*nbC][(nbL*nbC-1)*4+i]=-gamma
-        A[nbL*nbC+1+nbL*nbC*4+i][nbL*nbC*4+i]=1
+        A[nbL*nbC][nbL*nbC*4+i]=1-gamma #contraintes (1)
+        A[nbL*nbC][(nbL*nbC-1)*4+i]=-gamma #contraintes (1)
+        A[nbL*nbC+1+nbL*nbC*4+i][nbL*nbC*4+i]=1 #contraintes (2)
     for n in range(nbCriteres):
-        A[(nbL*nbC+1)*5+n][(nbL*nbC+1)*4]=1
+        A[(nbL*nbC+1)*5+n][(nbL*nbC+1)*4]=1 #contraintes (3)
 
     #fonction objectif
+    # max z (dernière variable)
     obj = np.zeros(nbL*nbC*4+1+4)
     obj[nbL*nbC*4+4]=1
     
