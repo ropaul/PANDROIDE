@@ -449,9 +449,9 @@ g[2,0,1]=0
 g[2,0,0]=40
 g[2,1,1]=0
 g[2,1,0]=40
-print g
-pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,3,3)
-print pol
+#print g
+#pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,3,3)
+#print pol
 
 """
 #Test PL
