@@ -198,7 +198,7 @@ def transition(g, direction, i, j, probaTransition):
     return trans
 
 def valBut(nblignes, nbcolonnes):
-    return nblignes*nbcolonnes*20
+    return nblignes*nbcolonnes*100
 
 ################################################################################
 #
@@ -234,6 +234,8 @@ def programmeprimal(grille, gamma, proba):
     #fonction objectif
     obj = np.zeros(nbL*nbC+1)
     obj[0] = 1
+    #TEST
+    #obj = [1./(nbL*nbC) for i in range(nbL*nbC+1)]
 
     return (A, b, obj)
 
@@ -244,12 +246,13 @@ def programmedual(grille, gamma, proba):
     #Matrice des contraintes + second membre
     A = np.zeros(((nbL*nbC+1)*(4+1), (nbL*nbC+1)*4))
     b = np.zeros((nbL*nbC+1)*(4+1))
-    b[0] = 1
+    #b[0] = 1
     #fonction objectif
     obj = np.zeros((nbL*nbC+1)*4)
     for i in range(nbL):
         for j in range(nbC):
             for k in range(4):
+                b[(i*nbC+j)*4+k] = 1./(nbL*nbC)
                 A[i*nbC+j][(i*nbC+j)*4+k] = 1
                 A[nbC*nbL+1+(i*nbC+j)*4+k][(i*nbC+j)*4+k] = 1
                 if i != (nbL-1) or j != (nbC-1):
@@ -258,7 +261,7 @@ def programmedual(grille, gamma, proba):
                     for t in trans:
                         A[t[0]*nbC+t[1]][(i*nbC+j)*4+k] = -gamma*trans[t]
                 else:
-                    obj[(i*nbC+j)*4+k] = valBut(nbL, nbC)
+                    obj[(i*nbC+j)*4+k] = -valBut(nbL, nbC)
 
     #État puits
     for i in range(4):
@@ -297,7 +300,7 @@ def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
     
     return v, m, t
 
-def resolutionGurobidual(A, b, objectif, nbL, nbC):
+def resolutionGurobidual(a, b, objectif, nbL, nbC):
     m = Model("PDM")
 
     #déclaration variables de décision
@@ -308,13 +311,13 @@ def resolutionGurobidual(A, b, objectif, nbL, nbC):
 
     #définition de l'objectif
     obj = LinExpr(objectif, v)
-    m.setObjective(obj, GRB.MAXIMIZE)
+    m.setObjective(obj, GRB.MINIMIZE)
 
     #définition des contraintes
     for i in range(nbC*nbL+1):
         m.addConstr(LinExpr(a[i], v) == b[i], "contrainte %d" % i)
     for i in range(nbC*nbL+1, (nbC*nbL+1)*5):
-        m.addConstr(LinExpr(a[i], v] >= 0, "contrainte %d" % i)
+        m.addConstr(LinExpr(a[i], v) >= 0, "contrainte %d" % i)
 
     #résolution
     m.optimize()
@@ -399,12 +402,29 @@ def politique(valeurs, grille, proba, gamma):
                     pol[i][j] = k
     return pol
 
+def politiquedual(valeurs, nbL, nbC):
+    pol = np.zeros((nbL,nbC))
+    for i in range(nbL):
+        for j in range(nbC):
+            maximum = 0
+            for k in range(4):
+                if valeurs[(i*nbC+j)*4+k].x > maximum:
+                    maximum = valeurs[(i*nbC+j)*4+k].x
+                    pol[i][j] = k
+    return pol
+    
+
 def resolution(grille, gamma, proba):
     (A, b, obj) = programmeprimal(grille, gamma, proba)
     v, m, t = resolutionGurobiprimal(A, b, obj)
     pol = politique(v, grille, proba, gamma)
     return pol
 
+def resolutiondual(grille, gamma, proba):
+    (A, b, obj) = programmedual(grille, gamma, proba)
+    v, m, t = resolutionGurobidual(A, b, obj, g.shape[0], g.shape[1])
+    pol = politiquedual(v, grille.shape[0], grille.shape[1])
+    return pol
 
 ################################################################################
 #
@@ -432,6 +452,7 @@ def coutChemin(grille, politique):
 
 #Teste la perte de capacité de l'algorithme à trouver une solution optimale
 #avec la probabilité de transition proba au lieu de 1 (plus court chemin trouvé)
+#INADEQUAT
 def comparePerformanceProba(nblignes, nbcolonnes, gamma, proba, nbIter):
     moyDiff = 0
     moyRatio = 0
@@ -491,13 +512,13 @@ print g
 (A, b, obj) = programmeprimal(g, gamma,probaTransition)
 v, m, t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
 pol = politique(v, g,probaTransition,gamma)
-print "pol sans puits :"
+print "pol primal :"
 print pol
 
-(A, b, obj) = programmeprimalpuits(g, gamma,probaTransition)
-v, m, t = resolutionGurobiprimalpuits(A, b, obj,nblignes,nbcolonnes)
-pol = politique(v, g,probaTransition,gamma)
-print "pol avec puits :"
+(A, b, obj) = programmedual(g, gamma, probaTransition)
+v, m, t = resolutionGurobidual(A, b, obj, g.shape[0], g.shape[1])
+pol = politiquedual(v, g.shape[0], g.shape[1])
+print "pol dual :"
 print pol
 
 ##(A, b, obj) = programmeprimal(g, gamma)
