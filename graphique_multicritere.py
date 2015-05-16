@@ -7,7 +7,7 @@ Created on Wed Apr 15 15:52:20 2015
 
 #from modele_1critere import *
 from modele_multicritere import *
-from minmax_multicritere import *
+#from minmax_multicritere import *
 from Tkinter import *
 from gurobipy import *
 import random

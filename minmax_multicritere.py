@@ -5,6 +5,7 @@ Created on Sat Apr 25 09:54:03 2015
 @author: teddy
 """
 #
+from modele_1critere import *
 from modele_multicritere import *
 from Tkinter import *
 from gurobipy import *
@@ -66,7 +67,7 @@ def valTrans(g,i,j,direction,critere):
     
     
 def valBut(nblignes, nbcolonnes):
-    return -1*nblignes*nbcolonnes*100
+    return -1*nblignes*nbcolonnes*10
     
 
 
@@ -357,13 +358,137 @@ def resolutionMultiMinMax2v2(grille, gamma, proba, nbCriteres, nblignes, nbcolon
     pol = politique2(v, grille)
     return pol,v
  
+ 
+################################################################################
+#
+#                            REGRET MINIMUM
+#
+################################################################################
+
+    
             
+def minMaxRegret(A,objectif,b,grille,gamma,proba,indiceCritere,indiceXsa,nbcri):
+    nbl= grille.shape[0]
+    nbc=grille.shape[1]
+    valMax = np.zeros((nbl,nbc,nbcri))
+    #grille temporaire pour le monocritère
+    grilletemp =np.zeros((nbl,nbc))
+    #taille de la matrice de contrainte
+    la = A.shape[0]
+    ca = A.shape[1]
+    #nouvelle matrice de contrainte
+    Aprime =np.zeros((la+1,ca+nbl*nbc))
+    for i in range (nbcri):
+        #isole un critere dans une grille
+        for j in range(nbl):
+            for k in range (nbc):
+                grilletemp[j][k] = grille[j,k,i]
+        #résout le primal pour un critère et récupère les Vs*
+        (A, b, obj) = programmeprimal(grilletemp, gamma, proba)
+        v, m, t = resolutionGurobiprimal(A, b, obj,nbl,nbc)
+        #copie les Vs*
+        for j in range(nbl):
+            for k in range (nbc):
+                valMax[j][k][i]= v[j*nbc+k].x
+                #rajoute les contraintes dû au regret
+                Aprime[indiceCritere+i][ca+j*nbc+k]= valMax[j][k][i]
+    #copie ce qui ne change pas de la matrice de contrainte             
+    for i in range (la):
+        for j in range(ca):
+            Aprime[i][j] = A[i][j]
+    #ajoute la contrainte des Zs
+    for i in range(nbl*nbc):
+        Aprime[indiceXsa+ i][ca+i]=-1
+        #somme des Zs <1
+        Aprime[la][ca+i]=1
+        
+    #nouveau second membre
+    bprime = np.zeros(la+1)
+    for i in range (la):
+        bprime[i]= b[i]
+    bprime[la]=1
+    
+    #nouveau objectif
+    objprime= np.zeros(ca+nbl*nbc)
+    for i in range (ca):
+        objprime[i]=objectif[i]
+    return Aprime,bprime, objprime 
+            
+        
+                
+                
+
+def gurobiMultiMinMaxRegret(a, b, objectif, nblignes, nbcolonnes):
+    m = Model("MOPDMeq")
+    #déclaration des variables de décision
+    v = []
+    for i in range(len(objectif)-1-4-nblignes*nbclonnes):
+        v.append(m.addVar(vtype=GRB.SEMICONT, lb=0, name="x%d" % (i+1)))
+    v.append(m.addVar(vtype=GRB.SEMICONT, lb=0, name="z"))
+    for i in range(len(objectif)-4-nblignes*nbclonnes,len(objectif)-nblignes*nbclonnes):
+        v.append(m.addVar(vtype=GRB.SEMICONT, lb=0, name="p%d" % (i+1)))
+    for i in range (len(objectif)-nblignes*nbclonnes,len(objectif)):
+        v.append(m.addVar(vtype=GRB.SEMICONT, lb=0, name="p%d" % (i+1)))
+    #màj du modèle pour intégrer les nouvelles variables
+    m.update()
+    #définition de l'objectif
+    obj = LinExpr()
+    for i in range(len(objectif)):
+        obj += objectif[i]*v[i]
+    m.setObjective(obj,GRB.MAXIMIZE)
+
+    #définition des contraintes
+    #TEST : plus de problème de temps
+    t = time.time()
+#    for i in range(a.shape[0]):
+#        #A VERIFIER : LEQUEL MARCHE MIEUX
+#        m.addConstr(LinExpr(a[i], v) <= b[i], "Contrainte%d" % i)
+    for i in range(nbcriteres):
+        #A VERIFIER : LEQUEL MARCHE MIEUX
+        m.addConstr(LinExpr(a[i], v) <= b[i], "Contrainte%d" % i)
+        #m.addConstr(LinExpr(a[i],v) <= b[i], "Contrainte%d" % i)
+    for i in range(nbcriteres,nblignes*nbcolonnes+nbcriteres):
+        m.addConstr(LinExpr(a[i], v) == b[i], "Contrainte%d" % i)
+    for i in range(nblignes*nbcolonnes+nbcriteres, a.shape[0]-1-1):
+        m.addConstr(LinExpr(a[i], v) >= b[i], "Contrainte%d" % i)
+    for i in range(a.shape[0]-1-1, a.shape[0]-1):
+        m.addConstr(LinExpr(a[i], v) == b[i], "Contrainte%d" % i)
+    m.addConstr(LinExpr(a[len(b)-1], v) <= b[len(b)-1], "Contrainte%d" % i)
+    #résolution
+    m.optimize()
+    
+    #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
+    t = m.getAttr(GRB.Attr.Runtime) - 0.01
+    
+    return v, m, t    
+    
+    
+    
+       
+
+def resolutionMultiMinMaxRegret(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
+    (A, b, obj) = dualMinMax2v2(grille, gamma, proba, nbCriteres)
+    (A, b, obj) = regretminimum(A, b, obj,grille ,gamma,proba,0,nbCriteres,nbCriteres)
+    v, m, t = gurobiMultiMinMaxRegret(A, b, obj, nblignes, nbcolonnes)
+    print "v"
+    print v
+    pol = politique2(v, grille)
+    return pol,v        
+
+           
 ################################################################################
 #
 #                            PROGRAMME PRINCIPAL
 #
 ################################################################################
-  
+ 
+#nbl=2
+#nbc=2
+#nbcri=2     
+#g = np.ones((2,2,2))
+#g[1,0,0]=0
+#g[0,1,1]=0
+ 
 
 
 nbl=3
@@ -438,12 +563,12 @@ g[2,2,1]=1
 #nbcri=2
 #g = defineMaze(nbl,nbc,nbcri)
 
-print "g"
-print g
-
-(A, b, obj) = dualMinMax2v2(g, gamma, probaTransition, 2)
-for i in range (A.shape[0]):
-    print A[i]
+#print "g"
+#print g
+#(A, b, obj) = dualMinMax2v2(g, gamma, probaTransition, 2)
+#(A, b, obj) = minMaxRegret(A,b,obj,g, gamma, probaTransition,0,2, 2)
+#for i in range (A.shape[0]):
+#    print A[i]
 
 
 gamma= 0.8
