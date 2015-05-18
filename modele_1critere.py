@@ -529,6 +529,10 @@ g[3,4]=2
 g[4,1]=4
 g[4,3]=3"""
 '''
+
+
+
+
 print g
 (A, b, obj) = programmeprimal(g, gamma,probaTransition)
 v, m, t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
@@ -559,3 +563,36 @@ print pol'''
 #print moyT
 #print moyI
 
+
+
+#
+#g=np.ones((nblignes, nbcolonnes), dtype=int)
+#g[0,1]=2
+#g[0,2]=2
+#g[0,3]=0
+#g[0,4]=2
+#g[1,1]=3
+#g[1,2]=4
+#g[1,3]=4
+#g[2,0]=3
+#g[2,3]=2
+#g[3,0]=2
+#g[3,1]=2
+#g[3,2]=3
+#g[3,4]=2
+#g[4,1]=4
+#g[4,3]=3
+#print g
+#(A, b, obj) = programmeprimal(g, gamma,probaTransition)
+#v, m, t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
+#pol = politique(v, g,probaTransition,gamma)
+#print "pol primal :"
+#print pol
+#print "v"
+#print grilleV(v,nblignes,nbcolonnes)
+#
+#(A,b,obj)=rechercheVS(pol,g,gamma,probaTransition)
+#v,m,t = resolutionGurobirechercheVs(A,b,obj,nblignes,nbcolonnes)
+#
+#print "pt nadir"
+#print grilleV(v,nblignes,nbcolonnes)
