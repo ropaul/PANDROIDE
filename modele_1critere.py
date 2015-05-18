@@ -24,8 +24,8 @@ prouge=0.15
 pnoire=0.10
 
 #taille de la grille
-nblignes=5
-nbcolonnes=5
+nblignes=10
+nbcolonnes=10
 
 #Probabilité d'aller effectivement dans la direction voulue
 probaTransition=0.8
@@ -239,20 +239,20 @@ def programmeprimal(grille, gamma, proba):
 
     return (A, b, obj)
 
-
+# /!\ ne donne pas une politique complète! Les cases non accessibles par la politique donnée n'ont pas de politique définie
 def programmedual(grille, gamma, proba):
     nbL=grille.shape[0]
     nbC=grille.shape[1]
     #Matrice des contraintes + second membre
     A = np.zeros(((nbL*nbC+1)*(4+1), (nbL*nbC+1)*4))
     b = np.zeros((nbL*nbC+1)*(4+1))
-    #b[0] = 1
+    b[0] = 1
     #fonction objectif
     obj = np.zeros((nbL*nbC+1)*4)
     for i in range(nbL):
         for j in range(nbC):
             for k in range(4):
-                b[(i*nbC+j)*4+k] = 1./(nbL*nbC)
+                #b[(i*nbC+j)*4+k] = 1./(nbL*nbC)
                 A[i*nbC+j][(i*nbC+j)*4+k] = 1
                 A[nbC*nbL+1+(i*nbC+j)*4+k][(i*nbC+j)*4+k] = 1
                 if i != (nbL-1) or j != (nbC-1):
@@ -273,7 +273,6 @@ def programmedual(grille, gamma, proba):
 
 
 def resolutionGurobiprimal(a,b,objectif,nbL,nbC):
-    #global nblignes , nbcolonnnes
     m = Model("PDM")     
     
     # declaration variables de decision
@@ -416,15 +415,16 @@ def politiquedual(valeurs, nbL, nbC):
 
 def resolution(grille, gamma, proba):
     (A, b, obj) = programmeprimal(grille, gamma, proba)
-    v, m, t = resolutionGurobiprimal(A, b, obj)
+    v, m, t = resolutionGurobiprimal(A, b, obj, grille.shape[0], grille.shape[1])
     pol = politique(v, grille, proba, gamma)
     return pol
 
 def resolutiondual(grille, gamma, proba):
     (A, b, obj) = programmedual(grille, gamma, proba)
-    v, m, t = resolutionGurobidual(A, b, obj, g.shape[0], g.shape[1])
+    v, m, t = resolutionGurobidual(A, b, obj, grille.shape[0], grille.shape[1])
     pol = politiquedual(v, grille.shape[0], grille.shape[1])
     return pol
+
 
 ################################################################################
 #
@@ -450,36 +450,55 @@ def coutChemin(grille, politique):
         cout += grille[i][j]
     return cout
 
-#Teste la perte de capacité de l'algorithme à trouver une solution optimale
-#avec la probabilité de transition proba au lieu de 1 (plus court chemin trouvé)
-#INADEQUAT
-def comparePerformanceProba(nblignes, nbcolonnes, gamma, proba, nbIter):
-    moyDiff = 0
-    moyRatio = 0
-    for i in range(nbIter):
-        g = defineMaze(nblignes, nbcolonnes)
-        cout = coutChemin(g, resolution(g, gamma, proba))
-        coutObj = coutChemin(g, resolution(g, gamma, 1))
-        moyDiff += cout - coutObj
-        moyRatio += cout/float(coutObj)
-    moyDiff = moyDiff / float(nbIter)
-    moyRatio = moyRatio / float(nbIter)
-    return moyDiff, moyRatio
+def comparePerfPrimalDual(gamma, proba, nbIter):
+    #On compare par des ratios (primal/dual)
+    moyTmp = np.zeros(20)
+    moyIter = np.zeros(20)
+    for i in range(20):
+        for j in range(nbIter):
+            g = defineMaze((i+3), (i+3))
+            (A, b, obj) = programmeprimal(g, gamma, proba)
+            v, m, t = resolutionGurobiprimal(A, b, obj, g.shape[0], g.shape[1])
+            (A, b, obj) = programmedual(g, gamma, proba)
+            v2, m2, t2 = resolutionGurobidual(A, b, obj, g.shape[0], g.shape[1])
+            moyTmp[i] += t/t2
+            moyIter[i] += float(m.getAttr(GRB.Attr.IterCount))/m2.getAttr(GRB.Attr.IterCount)
+        moyTmp[i] /= nbIter
+        moyIter[i] /= nbIter
+    return moyTmp, moyIter
 
-#Compare la qualité des solutions trouvées en fonction de gamma
-def comparePerformanceGamma(nblignes, nbcolonnes, nbIter, pas, proba):
-    moy = [0 for i in np.arange(0, 1.001, pas)]
-    tmp = gamma
+def compareTempsProba(gamma, nbIter, nbPas, nbL, nbC):
+    moyTmp = np.zeros(nbPas)
+    moyIter = np.zeros(nbPas)
     for i in range(nbIter):
-        g = defineMaze(nblignes, nbcolonnes)
-        for j in range(len(moy)):
-            gamma = j*pas
-            cout = coutChemin(g, resolution(g, gamma, proba))
-            moy[j] += cout
-    for i in range(len(moy)):
-        moy[i] /= nbIter
-    return moy
-            
+        g = defineMaze(nbL, nbC)
+        for j in range(nbPas):
+            p=(j+1)/float(nbPas)
+            (A, b, obj) = programmeprimal(g, gamma, p)
+            v, m, t = resolutionGurobiprimal(A, b, obj, nbL, nbC)
+            moyTmp[j] += t
+            moyIter[j] += m.getAttr(GRB.Attr.IterCount)
+    for i in range(nbPas):
+        moyTmp[i] /= nbIter
+        moyIter[i] /= float(nbIter)
+    return moyTmp, moyIter
+
+
+def compareTempsGamma(proba, nbIter, nbPas, nbL, nbC):
+    moyTmp = np.zeros(nbPas)
+    moyIter = np.zeros(nbPas)
+    for i in range(nbIter):
+        g = defineMaze(nbL, nbC)
+        for j in range(nbPas):
+            gam=(j+1)/float(nbPas)
+            (A, b, obj) = programmeprimal(g, gam, proba)
+            v, m, t = resolutionGurobiprimal(A, b, obj, nbL, nbC)
+            moyTmp[j] += t
+            moyIter[j] += m.getAttr(GRB.Attr.IterCount)
+    for i in range(nbPas):
+        moyTmp[i] /= nbIter
+        moyIter[i] /= float(nbIter)
+    return moyTmp, moyIter         
 
 
 
@@ -490,7 +509,8 @@ def comparePerformanceGamma(nblignes, nbcolonnes, nbIter, pas, proba):
 ################################################################################
 
 
-g = defineMaze(nblignes, nbcolonnes)
+#g = defineMaze(nblignes, nbcolonnes)
+#print g
 """ Exemple de grille avec puits
 g=np.ones((nblignes, nbcolonnes), dtype=int)
 g[0,1]=2
@@ -508,6 +528,7 @@ g[3,2]=3
 g[3,4]=2
 g[4,1]=4
 g[4,3]=3"""
+'''
 print g
 (A, b, obj) = programmeprimal(g, gamma,probaTransition)
 v, m, t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
@@ -519,7 +540,7 @@ print pol
 v, m, t = resolutionGurobidual(A, b, obj, g.shape[0], g.shape[1])
 pol = politiquedual(v, g.shape[0], g.shape[1])
 print "pol dual :"
-print pol
+print pol'''
 
 ##(A, b, obj) = programmeprimal(g, gamma)
 ##v, m, t = resolutionGurobiprimal(A, b, obj)
@@ -530,39 +551,11 @@ print pol
 ##pol = politique(v, g)
 ##print "pol :"
 ##print pol
-"""
-pol = resolution(g, gamma)
-print pol
-cout = coutChemin(g, pol)
-print "cout 1"
-print cout
-probaTransition = 0.1
-pol = resolution(g, gamma)
-print pol
-cout = coutChemin(g, pol)
-print "cout 2"
-print cout"""
 
-"""
+
+
 #Test fonction de test
-moyD, moyR = comparePerformanceProba(nblignes, nbcolonnes, gamma, 0.1, 10)
-print moyD
-print moyR
-"""
-
-"""
-nblignes = 8
-nbcolonnes =5
-
-g = defineMaze(nblignes, nbcolonnes)
-(A, b, obj) = programmeprimal(g, gamma,probaTransition)
-v, m,t = resolutionGurobiprimal(A, b, obj,nblignes,nbcolonnes)
-print "v"
-print v
-
-pol = politique(v, g,probaTransition,gamma)
-print "pol :"
-print pol
-
-"""
+#moyT, moyI = compareTempsGamma(probaTransition, 20, 7, 20, 20)
+#print moyT
+#print moyI
 
