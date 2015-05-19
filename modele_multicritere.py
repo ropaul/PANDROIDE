@@ -418,7 +418,8 @@ def gurobiMultiMinMax(a, b, objectif, nblignes, nbcolonnes):
 
 def resolutionMultiMinMax(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
     (A, b, obj) = dualMinMax(grille, gamma, proba, nbCriteres)
-    print A[len(A)-1]
+    for i in range (A.shape[0]):
+        print A[i]
     v, m, t = gurobiMultiMinMax(A, b, obj, nblignes, nbcolonnes)
     pol = politique(v, grille)
     return pol

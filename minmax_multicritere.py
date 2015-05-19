@@ -67,7 +67,7 @@ def valTrans(g,i,j,direction,critere):
     
     
 def valBut(nblignes, nbcolonnes):
-    return -1*nblignes*nbcolonnes*1000
+    return -1*nblignes*nbcolonnes*40
     
 
 
@@ -349,11 +349,11 @@ def dualMinMaxSB(grille, gamma, proba, nbcritere):
     nbl=grille.shape[0]
     nbc=grille.shape[1]
     #il y a -1 variable par ligne a coter du bard et par colonne a coter du bord
-    a= np.zeros((nbcritere+ ((nbl*nbc)+1)*(4+1)-2*(nbl+nbc),(nbl*nbc)*4+1+4))
+    a= np.zeros((nbcritere+ ((nbl*nbc)+1)*(4+1)-2*(nbl+nbc),(nbl*nbc)*4+1+4)-2*(nbl+nbc))
     b= np.zeros(nbcritere+ ((nbl*nbc)+1)*(4+1)-2*(nbl+nbc))
-    obj= np.zeros((nbl*nbc)*4+1+4)
+    obj= np.zeros((nbl*nbc)*4+1+4 -2*(nbl+nbc))
     #on maximize z (le dernier critere)
-    obj[(nbl*nbc)*4+1-1]=1
+    obj[(nbl*nbc)*4+1-1 -2*(nbl+nbc)]=1
     # z >sum(sum(R(s,a)Xsa))
     for l in range(nbcritere) :
         #on met le coef de z a 1
@@ -389,7 +389,7 @@ def dualMinMaxSB(grille, gamma, proba, nbcritere):
     #seul la premiere case a un u(s) a 1                 
     b[nbcritere]=1
     #Xsa > 0            
-    for i in range ((nbl*nbc)*4):
+    for i in range ((nbl*nbc)*4-2*(nbl+nbc)):
         a[nbcritere+(nbl*nbc)+i][i]=1
         b[nbcritere+(nbl*nbc)+i]=0
     #Xsa de l'état puits
@@ -599,6 +599,102 @@ def testNadir(g,gamma,probaTransition,nbcri):
     print "****************************************************************************"
     print "grille critere 2"
     print grilleV(v,nbl,nbc)
+    
+    
+    
+            
+################################################################################
+#
+#                            CONSEIL DU PROF
+#
+################################################################################
+        
+        
+        
+        
+
+def dualMinMaxProf(grille, gamma, proba, nbcritere):
+    nbl=grille.shape[0]
+    nbc=grille.shape[1]
+    a= np.zeros((nbcritere+ ((nbl*nbc)+1)*(4+1),(nbl*nbc)*4+1+4))
+    b= np.zeros(nbcritere+ ((nbl*nbc)+1)*(4+1))
+    obj= np.zeros((nbl*nbc)*4+1+4)
+    #on maximize z (le dernier critere)
+    obj[(nbl*nbc)*4+1-1]=1
+    # z >sum(sum(R(s,a)Xsa)) 
+    for l in range(nbcritere) :
+        #on met le coef de z a 1
+        a[l][(nbl*nbc)*4]=1
+        for i in range(nbl):
+            for j in range(nbc):
+                for k in range (4):
+                    #les premieres lignes des contrainte , une contrainte par critere (d'ou le l)
+                    a[l][(i*nbc+j)*4+k]=1* valTrans(grille,i,j,k,l) #-1* grille[i,j,l]
+        #second memebre a zero
+        tempG = np.zeros((nbl,nbc))
+        for i in range (nbl):
+            for j in range (nbc):
+                tempG[i][j]=grille[i,j,l]
+        (A0, b0, obj0) = modele_1critere.programmeprimal(tempG, gamma,probaTransition)
+        v, m, t = modele_1critere.resolutionGurobiprimal(A0, b0, obj0,nbl,nbc)
+        vs = grilleV(v,nbl,nbc)
+        somme= 0
+        for i in range (nbl):
+            for j in range (nbc):
+                somme += vs[i][j]
+        print "*****************************************************"
+        print "somm"
+        b[l]= somme
+        print "****************************************************"
+    #la contrainte principale
+    
+    for i in range(nbl):
+        for j in range(nbc):
+            #intintialisation du second membre
+            b[nbcritere+nbc*i+j]=0
+            for k in range(4):
+                #rajoute la sum(Xsa)
+                a[nbcritere+nbc*i+j][(i*nbc+j)*4+k]=1
+                if (i == nbl-1 and j==nbc -1):
+                     a[nbcritere+nbc*i+j][(i*nbc+j)*4+k]=01
+                #rajoute les -gamma sur les autres lignes
+                trans=transition(grille, k, i, j, proba, nbcriteres)
+                if (i != nbl-1 and j!=nbc -1):
+                    for t in trans:
+                        iprime = t[0]
+                        jprime= t[1]
+                        ''' if (iprime == nbl-1 and jprime==nbc -1):
+                            a[nbcritere+nbc*iprime+jprime][(i*nbc+j)*4+k]=  0 
+                        else:'''
+                        a[nbcritere+nbc*iprime+jprime][(i*nbc+j)*4+k]= -1* gamma * trans[t] 
+    #seul la premiere case a un u(s) a 1                 
+    b[nbcritere]=1
+    #Xsa > 0            
+    for i in range ((nbl*nbc)*4):
+        a[nbcritere+(nbl*nbc)+i][i]=1
+        b[nbcritere+(nbl*nbc)+i]=0
+    #Xsa de l'état puits
+    for i in range (4):
+        a[nbcritere+(nbl*nbc)*(4+1)+i][nbl*nbc*(4)+1+i]=1
+        b[nbcritere+(nbl*nbc)*(4+1)+i]=0
+    #gestion de l'état puits
+    for i in range (4):
+        a[nbcritere+ ((nbl*nbc)+1)*(4+1)-1][(nbc*nbl)*4+1+i]= 1-gamma
+        a[nbcritere+ ((nbl*nbc)+1)*(4+1)-1][(nbc*nbl-1)*4+i]= -gamma
+        
+    return (a, b, obj)        
+        
+
+
+def resolutionMultiMinMaxProf(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
+    (A, b, obj) = dualMinMaxProf(grille, gamma, proba, nbCriteres)
+    v, m, t = gurobiMultiMinMax2v2(A, b, obj, nblignes, nbcolonnes)
+    for i in range (A.shape[0]):
+        print A[i]
+    print "v"
+    print v
+    pol = politique2(v, grille)
+    return pol,v    
            
 ################################################################################
 #
@@ -612,9 +708,15 @@ def testNadir(g,gamma,probaTransition,nbcri):
 #g = np.ones((2,2,2))
 #g[1,0,0]=0
 #g[0,1,1]=0
- 
 
-#
+nbl=2
+nbc=2
+nbcri=2 
+g = np.ones((2,2,2))
+g[0,1,0]=0
+g[1,0,1]=0
+
+
 #nbl=3
 #nbc=3
 #nbcri=2     
@@ -640,68 +742,54 @@ def testNadir(g,gamma,probaTransition,nbcri):
 #g[2,2,1]=1
 
      
-nbl=4
-nbc=4
-nbcri=2     
-g = np.zeros((4,4,2))
-g[0,0,0]=1
-g[0,1,0]=40
-g[0,2,0]=40
-g[0,3,0]=40
-g[1,0,0]=0
-g[1,1,0]=1
-g[1,2,0]=1
-g[1,3,0]=40
-g[2,0,0]=0
-g[2,1,0]=100
-g[2,2,0]=100
-g[2,3,0]=40
-g[3,0,0]=0
-g[3,1,0]=0
-g[3,2,0]=0
-g[3,3,0]=100
-g[0,0,1]=100
-g[0,1,1]=0
-g[0,2,1]=0
-g[0,3,1]=0
-g[1,0,1]=40
-g[1,1,1]=100
-g[1,2,1]=100
-g[1,3,1]=0
-g[2,0,1]=40
-g[2,1,1]=100
-g[2,2,1]=100
-g[2,3,1]=0
-g[3,0,1]=40
-g[3,1,1]=40
-g[3,2,1]=40
-g[3,3,1]=1
-
-     
-     
-##print estFinissable(g)
-#pol = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
-
 #nbl=4
 #nbc=4
-#nbcri=2
-#g = defineMaze(nbl,nbc,nbcri)
+#nbcri=2     
+#g = np.zeros((4,4,2))
+#g[0,0,0]=1
+#g[0,1,0]=40
+#g[0,2,0]=40
+#g[0,3,0]=40
+#g[1,0,0]=0
+#g[1,1,0]=1
+#g[1,2,0]=1
+#g[1,3,0]=40
+#g[2,0,0]=0
+#g[2,1,0]=100
+#g[2,2,0]=100
+#g[2,3,0]=40
+#g[3,0,0]=0
+#g[3,1,0]=0
+#g[3,2,0]=0
+#g[3,3,0]=100
+#g[0,0,1]=100
+#g[0,1,1]=0
+#g[0,2,1]=0
+#g[0,3,1]=0
+#g[1,0,1]=40
+#g[1,1,1]=100
+#g[1,2,1]=100
+#g[1,3,1]=0
+#g[2,0,1]=40
+#g[2,1,1]=100
+#g[2,2,1]=100
+#g[2,3,1]=0
+#g[3,0,1]=40
+#g[3,1,1]=40
+#g[3,2,1]=40
+#g[3,3,1]=1
 
-#print "g"
-#print g
-#(A, b, obj) = dualMinMax2v2(g, gamma, probaTransition, 2)
-#(A, b, obj) = minMaxRegret(A,b,obj,g, gamma, probaTransition,0,2, 2)
-#for i in range (A.shape[0]):
-#    print A[i]
+     
+     
 
+#g= defineMaze(nbl,nbc,nbcri)
+print g
 
 gamma= 0.8
 probaTransition=0.8
 pol,v = resolutionMultiMinMax2v2(g, gamma, probaTransition, nbcri,nbl,nbc)
 print "c'est bien mon truc"
 print pol
-
-
 
 
 
