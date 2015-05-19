@@ -203,6 +203,7 @@ def politique(valeurs, grille):
 
 def valBut(nblignes, nbcolonnes):
     return nblignes*nbcolonnes*100
+    
 
 ################################################################################
 #
@@ -280,7 +281,7 @@ def resolutionMultiSomme(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes)
     (A, b, obj) = dualSomme(grille, gamma, proba, nbCriteres)
     v, m, t = gurobiMultiSomme(A, b, obj, nblignes, nbcolonnes)
     pol = politique(v, grille)
-    return pol
+    return pol,v
 
 
 
@@ -676,12 +677,12 @@ g[2,0,1]=0
 g[2,0,0]=40
 g[2,1,1]=0
 g[2,1,0]=40'''
-g = np.ones((2,2,2))
-g[0,1,0]=0
-g[1,0,1]=0
-print g
-pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,2,2)
-print pol
+#g = np.ones((2,2,2))
+#g[0,1,0]=0
+#g[1,0,1]=0
+#print g
+#pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,2,2)
+#print pol
 
 """
 #Test PL
