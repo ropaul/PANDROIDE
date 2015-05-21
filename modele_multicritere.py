@@ -10,6 +10,7 @@ import random
 import numpy as np
 import time
 import modele_1critere
+import matplotlib.pyplot as pl
 
 ################################################################################
 #
@@ -22,8 +23,8 @@ import modele_1critere
 pmur = 0.15
 
 #taille de la grille
-nblignes=10
-nbcolonnes=10
+nblignes=20
+nbcolonnes=20
 
 #nombre de critères
 nbcriteres=4
@@ -50,7 +51,10 @@ BAS = 1
 GAUCHE = 2
 DROITE = 3
 
-
+#fonction d'optimisation
+MINMAX = 0
+REGRET = 1
+RPOND = 2
 
 ################################################################################
 #
@@ -419,8 +423,6 @@ def gurobiMultiMinMax(a, b, objectif, nblignes, nbcolonnes):
 
 def resolutionMultiMinMax(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
     (A, b, obj) = dualMinMax(grille, gamma, proba, nbCriteres)
-    for i in range (A.shape[0]):
-        print A[i]
     v, m, t = gurobiMultiMinMax(A, b, obj, nblignes, nbcolonnes)
     pol = politique(v, grille)
     return pol
@@ -642,8 +644,68 @@ def ptNadir(grille,gamma,proba,nbCritere):
                     if Vs[i,j,l] <= vstemp[i][j] :
                         Vs[i,j,l] = vstemp[i][j]
     return Vs
-            
 
+
+        
+################################################################################
+#
+#                                   TESTS
+#
+################################################################################
+
+
+def executionPol(grille, pol, proba):
+    nbL, nbC, nbCrit = grille.shape
+    pos = (0, 0)
+    couts = np.zeros(nbCrit, dtype=int)
+    while pos != (nbL-1, nbC-1):
+        z=np.random.uniform(0,1)
+        dir = 0
+        p = pol[pos[0]][pos[1]]
+        if z < p[0]:
+            dir = HAUT
+        else:
+            if z < p[0]+p[1]:
+                dir = BAS
+            else:
+                if z < p[0]+p[1]+p[2]:
+                    dir = GAUCHE
+                else:
+                    dir = DROITE
+        trans = transition(grille, dir, pos[0], pos[1], proba, nbCrit)
+        z=np.random.uniform(0,1)
+        tmp=0
+        for t in trans:
+            tmp+=trans[t]
+            if z < tmp:
+                if pos != (0,0):
+                    for i in range(nbCrit):
+                        couts[i]+=grille[pos[0]][pos[1]][i]
+                pos = t
+                break
+    return couts
+
+def testPol(grille, pol, proba, nbIter):
+    execs= np.zeros((grille.shape[2], nbIter), dtype=int)
+    for i in range(nbIter):
+        couts = executionPol(grille, pol, proba)
+        for j in range(len(couts)):
+            execs[j][i]=couts[j]
+    return execs
+
+def plotPols(execsSomme, execsSocial, fonc):
+    pl.figure()
+    pl.plot(execsSomme[0], execsSomme[1], '.', label="Somme ponderee")
+    lab=''
+    if fonc == MINMAX:
+        lab='Fonction egalitaire'
+    if fonc == REGRET:
+        lab='Regret minmax'
+    if fonc == RPOND:
+        lab='Regret pondere'
+    pl.plot(execsSocial[0], execsSocial[1], 'wo', label=lab)
+    pl.legend(loc=0)
+    pl.show()
             
 ################################################################################
 #
@@ -651,7 +713,7 @@ def ptNadir(grille,gamma,proba,nbCritere):
 #
 ################################################################################
 
-#g=defineMaze(nblignes,nbcolonnes,nbcriteres)
+g=defineMaze(nblignes,nbcolonnes,nbcriteres)
 #print g
 '''
 g = np.zeros((3,3,2))
@@ -680,9 +742,16 @@ g[2,1,0]=40'''
 #g = np.ones((2,2,2))
 #g[0,1,0]=0
 #g[1,0,1]=0
-#print g
-#pol = resolutionMultiMinMax(g, gamma, probaTransition, 2,2,2)
-#print pol
+print g
+'''
+#Test plotPols
+pol1, v1 = resolutionMultiSomme(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+print pol1
+pol2 = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+print pol2
+ex1=testPol(g, pol1, probaTransition, 200)
+ex2=testPol(g, pol2, probaTransition, 200)
+plotPols(ex1, ex2, MINMAX)'''
 
 """
 #Test PL
