@@ -127,7 +127,7 @@ def transition(g, direction, i, j, probaTransition, nbcriteres):
     if not np.array_equal(g[i,j], vzero):
         if direction == GAUCHE and j > 0:
             if  not np.array_equal(g[i, j-1], vzero):
-                if (i-1 < 0 or np.array_equal(g[i-1, j-1], vzero)) and (i+1 > nblignes-1 or np.array_equal(g[i+1, j-1], vzero)):
+                if (i-1 < 0 or np.array_equal(g[i-1, j-1], vzero)) and (i+1 > nbL-1 or np.array_equal(g[i+1, j-1], vzero)):
                     trans[i, j-1] = 1
                 else:
                     if i-1 < 0 or np.array_equal(g[i-1,j-1], vzero):
@@ -569,19 +569,20 @@ def rechercheVS(politique,grille, gamma, proba):
             for k in range(4):
                 if (k == politique[i][j] ):
                     b[(i*nbC+j)*4+k] = -grille[i][j]
+                    A[(i*nbC+j)*4+k][i*nbC+j] = 1
+                    #Case d'arrivée
+                    
+                    if (i == (nbL-1) and j == (nbC-1)):
+                        #A changer si on veut maximiser
+                        b[(i*nbC+j)*4+k] = valBut(nbL, nbC)
+                        A[(i*nbC+j)*4+k][nbL*nbC] = -gamma
+                    else: #Autres cases
+                        trans = modele_1critere.transition(grille, k, i, j, proba)
+                        for t in trans:
+                            A[(i*nbC+j)*4+k][t[0]*nbC+t[1]]=-gamma*trans[t]
                 else :
                     b[(i*nbC+j)*4+k] = 0
-                A[(i*nbC+j)*4+k][i*nbC+j] = 1
-                #Case d'arrivée
-                
-                if (i == (nbL-1) and j == (nbC-1)):
-                    #A changer si on veut maximiser
-                    b[(i*nbC+j)*4+k] = valBut(nbL, nbC)
-                    A[(i*nbC+j)*4+k][nbL*nbC] = -gamma
-                else: #Autres cases
-                    trans = modele_1critere.transition(grille, k, i, j, proba)
-                    for t in trans:
-                        A[(i*nbC+j)*4+k][t[0]*nbC+t[1]]=-gamma*trans[t]
+               
     #État puits
     for i in range(4):
         A[nbL*nbC*4+i][nbL*nbC] = 1-gamma
