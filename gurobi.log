@@ -73016,3 +73016,4417 @@ Iteration    Objective       Primal Inf.    Dual Inf.      Time
 
 Solved in 21 iterations and 0.00 seconds
 Optimal objective  4.495445317e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 12:40:57 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 12:47:38 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:05:32 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:06:16 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:07:26 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:50:55 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:51:05 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:51:14 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:51:18 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:52:23 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:52:56 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:53:25 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:55:20 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:55:43 2015
+
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+Optimize a model with 104 rows, 26 columns and 234 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 54 rows and 9 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 17 columns, 174 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.726010e+03   0.000000e+00      0s
+      18    4.0453729e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective  4.045372946e+02
+Optimize a model with 104 rows, 26 columns and 220 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 2e+03]
+Presolve removed 58 rows and 10 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 16 columns, 154 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   4.327671e+03   0.000000e+00      0s
+      17    3.9138253e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 17 iterations and 0.00 seconds
+Optimal objective  3.913825282e+02
+Optimize a model with 132 rows, 105 columns and 573 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 105 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 27 rows, 94 columns, 439 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      30    1.8436254e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 30 iterations and 0.00 seconds
+Optimal objective  1.843625398e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:57:41 2015
+
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   8.065836e+02   0.000000e+00      0s
+       4    3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  3.358910789e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   8.103629e+02   0.000000e+00      0s
+       4    3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   8.065836e+02   0.000000e+00      0s
+       4    3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  3.358910789e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   8.103629e+02   0.000000e+00      0s
+       4    3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   8.065836e+02   0.000000e+00      0s
+       4    3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  3.358910789e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   8.103629e+02   0.000000e+00      0s
+       4    3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   8.065836e+02   0.000000e+00      0s
+       4    3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  3.358910789e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   8.103629e+02   0.000000e+00      0s
+       4    3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   8.065836e+02   0.000000e+00      0s
+       4    3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  3.358910789e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   8.103629e+02   0.000000e+00      0s
+       4    3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 13:59:42 2015
+
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:01:30 2015
+
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:02:03 2015
+
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:04:43 2015
+
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 50 rows, 40 columns and 106 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 46 rows and 30 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 10 columns, 27 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -7.5100000e+32   1.440000e+30   7.510000e+02      0s
+       6   -3.3589108e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -3.358910789e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+03]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 41 rows and 11 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 30 columns, 124 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      13    1.4289707e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.428970651e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:09:45 2015
+
+Optimize a model with 45 rows, 36 columns and 128 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e-03, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 36 rows and 12 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 24 columns, 80 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8007200e+33   1.120000e+30   1.800720e+03      0s
+      19   -1.3643531e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 19 iterations and 0.00 seconds
+Optimal objective -1.364353051e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:11:27 2015
+
+Optimize a model with 45 rows, 36 columns and 128 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e-03, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 36 rows and 12 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 24 columns, 80 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8007200e+33   1.120000e+30   1.800720e+03      0s
+      16   -1.3643543e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 16 iterations and 0.00 seconds
+Optimal objective -1.364354277e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:14:39 2015
+
+Optimize a model with 45 rows, 36 columns and 110 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [3e-03, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 39 rows and 20 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 16 columns, 48 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.5127140e+33   1.096000e+30   1.512714e+03      0s
+      10   -1.1902416e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective -1.190241641e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:19:11 2015
+
+Optimize a model with 45 rows, 36 columns and 90 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e-03, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 40 rows and 26 columns
+Presolve time: 0.00s
+Presolved: 5 rows, 10 columns, 22 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -2.7009648e+33   1.136000e+30   2.700965e+03      0s
+       6   -1.0721734e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -1.072173403e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:19:38 2015
+
+Optimize a model with 45 rows, 36 columns and 88 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e-03, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 40 rows and 27 columns
+Presolve time: 0.00s
+Presolved: 5 rows, 9 columns, 21 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.4407200e+33   7.200000e+29   1.440720e+03      0s
+       5   -1.0015675e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 5 iterations and 0.00 seconds
+Optimal objective -1.001567482e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:19:54 2015
+
+Optimize a model with 45 rows, 36 columns and 128 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e-03, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 36 rows and 12 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 24 columns, 80 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8007200e+33   1.120000e+30   1.800720e+03      0s
+      12   -1.3643527e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 12 iterations and 0.00 seconds
+Optimal objective -1.364352698e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:27:10 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:28:18 2015
+
+Optimize a model with 45 rows, 36 columns and 128 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [2e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 36 rows and 12 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 24 columns, 80 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8000000e+33   3.800000e+30   1.800000e+03      0s
+      11   -3.1294775e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 11 iterations and 0.00 seconds
+Optimal objective -3.129477516e+04
+Optimize a model with 52 rows, 41 columns and 174 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 9e+02]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 42 rows and 18 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 23 columns, 102 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      14    5.5640597e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 14 iterations and 0.00 seconds
+Optimal objective  5.564059746e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:28:52 2015
+
+Optimize a model with 45 rows, 36 columns and 128 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [2e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 36 rows and 12 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 24 columns, 80 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8000000e+33   3.800000e+30   1.800000e+03      0s
+      11   -3.1294775e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 11 iterations and 0.00 seconds
+Optimal objective -3.129477516e+04
+Optimize a model with 52 rows, 41 columns and 174 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 9e+02]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 42 rows and 18 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 23 columns, 102 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      14    5.5640597e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 14 iterations and 0.00 seconds
+Optimal objective  5.564059746e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 14:30:00 2015
+
+Optimize a model with 45 rows, 36 columns and 128 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [2e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 36 rows and 12 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 24 columns, 80 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8000000e+33   3.800000e+30   1.800000e+03      0s
+      11   -3.1294775e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 11 iterations and 0.00 seconds
+Optimal objective -3.129477516e+04
+Optimize a model with 52 rows, 41 columns and 174 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 9e+02]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 42 rows and 18 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 23 columns, 102 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      14    5.5640597e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 14 iterations and 0.00 seconds
+Optimal objective  5.564059746e+02
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 15:42:17 2015
+
+Optimize a model with 45 rows, 36 columns and 128 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [2e+00, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 36 rows and 12 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 24 columns, 80 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8000000e+33   3.800000e+30   1.800000e+03      0s
+      11   -3.1294775e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 11 iterations and 0.00 seconds
+Optimal objective -3.129477516e+04
+Optimize a model with 52 rows, 41 columns and 174 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 9e+02]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 42 rows and 18 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 23 columns, 102 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.0240000e+33   2.000000e+30   1.024000e+03      0s
+      14    5.5640597e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 14 iterations and 0.00 seconds
+Optimal objective  5.564059746e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 52 rows, 41 columns and 138 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 44 rows and 19 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 22 columns, 70 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -0.0000000e+00   0.000000e+00   0.000000e+00      0s
+       0   -0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective -0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 52 rows, 41 columns and 138 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 44 rows and 19 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 22 columns, 70 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -0.0000000e+00   0.000000e+00   0.000000e+00      0s
+       0   -0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective -0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 52 rows, 41 columns and 138 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 44 rows and 19 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 22 columns, 70 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -0.0000000e+00   0.000000e+00   0.000000e+00      0s
+       0   -0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective -0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 16 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 19 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  0.000000000e+00
+Optimize a model with 40 rows, 10 columns and 24 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 40 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.169023e+03   0.000000e+00      0s
+       4    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.3849350e+01   1.331543e+03   0.000000e+00      0s
+       3    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.2448338e+01   1.247317e+03   0.000000e+00      0s
+       4    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170475e+03   0.000000e+00      0s
+       5    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 5 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.169023e+03   0.000000e+00      0s
+       4    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.3849350e+01   1.331543e+03   0.000000e+00      0s
+       3    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.2448338e+01   1.247317e+03   0.000000e+00      0s
+       4    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170475e+03   0.000000e+00      0s
+       5    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 5 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.169023e+03   0.000000e+00      0s
+       4    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.3849350e+01   1.331543e+03   0.000000e+00      0s
+       3    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.2448338e+01   1.247317e+03   0.000000e+00      0s
+       4    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170475e+03   0.000000e+00      0s
+       5    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 5 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 3e+05]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+06]
+Presolve removed 41 rows and 8 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 33 columns, 134 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.2428800e+35   2.000000e+30   5.242880e+05      0s
+      15    1.2646903e+06   0.000000e+00   0.000000e+00      0s
+
+Solved in 15 iterations and 0.00 seconds
+Optimal objective  1.264690314e+06
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.169023e+03   0.000000e+00      0s
+       4    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.3849350e+01   1.331543e+03   0.000000e+00      0s
+       3    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.2448338e+01   1.247317e+03   0.000000e+00      0s
+       4    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170475e+03   0.000000e+00      0s
+       5    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 5 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.169023e+03   0.000000e+00      0s
+       4    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.3849350e+01   1.331543e+03   0.000000e+00      0s
+       3    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.2448338e+01   1.247317e+03   0.000000e+00      0s
+       4    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170475e+03   0.000000e+00      0s
+       5    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 5 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 3e+06]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+07]
+Presolve removed 41 rows and 8 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 33 columns, 134 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.2428800e+35   1.125000e+30   5.242880e+05      0s
+      13    1.2831036e+06   0.000000e+00   0.000000e+00      0s
+
+Solved in 13 iterations and 0.00 seconds
+Optimal objective  1.283103623e+06
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.169023e+03   0.000000e+00      0s
+       4    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.3849350e+01   1.331543e+03   0.000000e+00      0s
+       3    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.2448338e+01   1.247317e+03   0.000000e+00      0s
+       4    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170475e+03   0.000000e+00      0s
+       5    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 5 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.168656e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.169023e+03   0.000000e+00      0s
+       4    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.3849350e+01   1.331543e+03   0.000000e+00      0s
+       3    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 3 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170109e+03   0.000000e+00      0s
+       4    5.3176712e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.317671239e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 31 rows and 6 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 4 columns, 26 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.2448338e+01   1.247317e+03   0.000000e+00      0s
+       4    5.9707436e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 4 iterations and 0.00 seconds
+Optimal objective  5.970743571e+02
+Optimize a model with 40 rows, 10 columns and 66 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 9e+02]
+Presolve removed 30 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 10 rows, 5 columns, 30 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.170475e+03   0.000000e+00      0s
+       5    5.3459251e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 5 iterations and 0.00 seconds
+Optimal objective  5.345925103e+02
+Optimize a model with 52 rows, 41 columns and 194 nonzeros
+Coefficient statistics:
+  Matrix range    [4e-02, 3e+06]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+07]
+Presolve removed 41 rows and 8 columns
+Presolve time: 0.00s
+Presolved: 11 rows, 33 columns, 134 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    5.2428800e+35   1.125000e+30   5.242880e+05      0s
+      10    1.2831036e+06   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective  1.283103623e+06
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 17:27:28 2015
+
+Optimize a model with 45 rows, 36 columns and 88 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [2e+01, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 40 rows and 28 columns
+Presolve time: 0.00s
+Presolved: 5 rows, 8 columns, 20 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8000000e+33   3.600000e+30   1.800000e+03      0s
+       6   -1.0984926e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 6 iterations and 0.00 seconds
+Optimal objective -1.098492578e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 17:28:14 2015
+
+Optimize a model with 45 rows, 36 columns and 128 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+01, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 36 rows and 12 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 24 columns, 80 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8000000e+33   3.600000e+30   1.800000e+03      0s
+      11   -1.3183464e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 11 iterations and 0.00 seconds
+Optimal objective -1.318346381e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 17:37:51 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 17:38:03 2015
+
+Optimize a model with 45 rows, 36 columns and 118 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+01, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 37 rows and 16 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 20 columns, 66 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8000000e+33   3.600000e+30   1.800000e+03      0s
+      12   -1.1903164e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 12 iterations and 0.00 seconds
+Optimal objective -1.190316449e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 17:59:45 2015
+
+Optimize a model with 45 rows, 36 columns and 110 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [2e+01, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 39 rows and 20 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 16 columns, 48 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8000000e+33   3.600000e+30   1.800000e+03      0s
+       8   -1.2051516e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 8 iterations and 0.00 seconds
+Optimal objective -1.205151624e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 18:00:53 2015
+
+Optimize a model with 45 rows, 36 columns and 118 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [2e+01, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 37 rows and 16 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 20 columns, 66 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8000000e+33   3.600000e+30   1.800000e+03      0s
+      12   -1.1832042e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 12 iterations and 0.00 seconds
+Optimal objective -1.183204214e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 18:01:21 2015
+
+Optimize a model with 45 rows, 36 columns and 128 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [1e+01, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 36 rows and 12 columns
+Presolve time: 0.00s
+Presolved: 9 rows, 24 columns, 80 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8000000e+33   3.600000e+30   1.800000e+03      0s
+      18   -1.3154937e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 18 iterations and 0.00 seconds
+Optimal objective -1.315493681e+04
+
+Gurobi 6.0.0 (linux64) logging started Sat May 23 18:04:04 2015
+
+Optimize a model with 45 rows, 36 columns and 110 nonzeros
+Coefficient statistics:
+  Matrix range    [8e-02, 1e+00]
+  Objective range [2e+01, 9e+02]
+  Bounds range    [0e+00, 0e+00]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 39 rows and 20 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 16 columns, 48 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.8000000e+33   3.600000e+30   1.800000e+03      0s
+      10   -1.1997557e+04   0.000000e+00   0.000000e+00      0s
+
+Solved in 10 iterations and 0.00 seconds
+Optimal objective -1.199755702e+04

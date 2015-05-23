@@ -70,13 +70,22 @@ def resolutionMultiSommePondere(grille,ponderation, gamma, proba, nbCriteres, nb
     for i in range (debut,fin):
         somme += obj[i]*v[i].x
     print somme
-    return pol,v,somme,
+    return pol,v,somme
 
 ################################################################################
 #
 #                            TEST
 #
 ################################################################################
+
+        
+#prend la matrice V et la met sous forme de tableau plus lisible    
+def grilleV(v, nbl,nbc):
+    grille=np.zeros((nbl,nbc))
+    for i in range(nbl):
+        for j in range (nbc):
+            grille[i][j]= v[i*nbc+j].x
+    return grille
 
 
 def testSommePondere(g, gamma, probaTransition, nbcri,nbl,nbc,nbiteration):
@@ -183,28 +192,34 @@ def testMinMax( gamma, probaTransition, nbcri,nbl,nbc , nbtest):
         
         
         #calcul des Vs pour les deux critères
-        polprime = createGrilleSoluceMixte(pol)
-        (A,b,obj)=rechercheVS(polprime,g0,gamma,probaTransition)
-        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
-        valeur = grilleV(v,nbl,nbc)
-        somme=0
+#        polprime = createGrilleSoluceMixte(pol)
+#        (A,b,obj)=rechercheVS(polprime,g0,gamma,probaTransition)
+#        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
+#        valeur = grilleV(v,nbl,nbc)
+#        somme=0
 #        for i in range (nbl):
 #                for j in range (nbc):
 #                    pondere1[index][0] += valeur[i][j]
-        pondere1[index][0]=coutVs(grilleV(v,nbl,nbc), createGrilleSoluceMixte(pol))
+#        pondere1[index][0]=coutVs(grilleV(v,nbl,nbc), createGrilleSoluceMixte(pol))
        
         
-        (A,b,obj)=rechercheVS(polprime,g1,gamma,probaTransition)
-        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
-        valeur = grilleV(v,nbl,nbc)
-        
+#        (A,b,obj)=rechercheVS(polprime,g1,gamma,probaTransition)
+#        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
+#        valeur = grilleV(v,nbl,nbc)
+#        
 #        somme=0
 #        for i in range (nbl):
 #                for j in range (nbc):
 #                    pondere1[index][1] += valeur[i][j]
 #        
-        pondere1[index][1]=coutVs(grilleV(v,nbl,nbc),createGrilleSoluceMixte(pol))
+        for i in range (nbl):
+            for j in range (nbc):
+                pondere1[index][0] +=   v[i*nbc+j].x *g[i,j,0]  #minmax_multicritere.valTrans(g,i,j,pol[i][j],0)
         
+        for i in range (nbl):
+            for j in range (nbc):
+                pondere1[index][1] +=  v[i*nbc+j].x *g[i,j,1] #minmax_multicritere.valTrans(g,i,j,pol[i][j],1) *
+#
         
         print "ponderation 2"
              
@@ -227,13 +242,19 @@ def testMinMax( gamma, probaTransition, nbcri,nbl,nbc , nbtest):
 #        for i in range (nbl):
 #                for j in range (nbc):
 #                    pondere1[index][0] += valeur[i][j]
-        pondere2[index][0]=coutVs(grilleV(v,nbl,nbc),createGrilleSoluceMixte(pol))
-       
+        for i in range (nbl):
+            for j in range (nbc):
+                pondere2[index][0] +=   v[i*nbc+j].x *g[i,j,0]  #minmax_multicritere.valTrans(g,i,j,pol[i][j],0)
         
-        (A,b,obj)=rechercheVS(polprime,g1,gamma,probaTransition)
-        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
-        valeur = grilleV(v,nbl,nbc)
+        for i in range (nbl):
+            for j in range (nbc):
+                pondere2[index][1] +=  v[i*nbc+j].x *g[i,j,1] #minmax_multicritere.valTrans(g,i,j,pol[i][j],1) *
+#
         
+#        (A,b,obj)=rechercheVS(polprime,g1,gamma,probaTransition)
+#        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
+#        valeur = grilleV(v,nbl,nbc)
+#        
 #        somme=0
 #        for i in range (nbl):
 #                for j in range (nbc):
@@ -253,30 +274,45 @@ def testMinMax( gamma, probaTransition, nbcri,nbl,nbc , nbtest):
         (A, b, obj) = minmax_multicritere.dualMinMax2v2(g, gamma, probaTransition, nbcri)
 
         
-        #calcul des Vs pour les deux critères
-        polprime = createGrilleSoluceMixte(pol)
-        (A,b,obj)=rechercheVS(polprime,g0,gamma,probaTransition)
-        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
-        valeur = grilleV(v,nbl,nbc)
-        somme=0
-#        for i in range (nbl):
-#                for j in range (nbc):
-#                    pondere1[index][0] += valeur[i][j]
-        minmax[index][0]=coutVs(grilleV(v,nbl,nbc),createGrilleSoluceMixte(pol))
+#        #calcul des Vs pour les deux critères
+#        polprime = createGrilleSoluceMixte(pol)
+#        (A,b,obj)=rechercheVS(polprime,g0,gamma,probaTransition)
+#        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
+#        valeur = grilleV(v,nbl,nbc)
+#        somme=0
+        
+        
+        minmax[index][0]= somme[0]#coutVs(grilleV(v,nbl,nbc),createGrilleSoluceMixte(pol))
        
         
-        (A,b,obj)=rechercheVS(polprime,g1,gamma,probaTransition)
-        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
-        valeur = grilleV(v,nbl,nbc)
-        
-#        somme=0
-#        for i in range (nbl):
-#                for j in range (nbc):
-#                    pondere1[index][1] += valeur[i][j]
+#        (A,b,obj)=rechercheVS(polprime,g1,gamma,probaTransition)
+#        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
+#        valeur = grilleV(v,nbl,nbc)
 #        
-        minmax[index][1]=coutVs(grilleV(v,nbl,nbc),createGrilleSoluceMixte(pol))
+##        somme=0
+##        for i in range (nbl):
+##                for j in range (nbc):
+##                    pondere1[index][1] += valeur[i][j]
+#        
+        minmax[index][1]=somme[1]#coutVs(grilleV(v,nbl,nbc),createGrilleSoluceMixte(pol))
         
     return pondere1,pondere2,minmax
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -306,10 +342,10 @@ def testMinMax2( gamma, probaTransition, nbcri,nbl,nbc , nbtest):
         print "poderation 1"
                 
         
-        (A, b, obj) = programmeprimal(g0, gamma,probaTransition)
-        v, m,t = resolutionGurobiprimal(A, b, obj,nbl,nbc)
+        (A, b, obj) = programmedual(g0, gamma,probaTransition)
+        v, m,t = resolutionGurobidual(A, b, obj,nbl,nbc)
         print "v"
-        print v
+        print v 
         
         pol = modele_1critere.politique(v, g0,probaTransition,gamma)
         print "pol :"
@@ -321,9 +357,14 @@ def testMinMax2( gamma, probaTransition, nbcri,nbl,nbc , nbtest):
 #        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
 #        valeur = grilleV(v,nbl,nbc)
 #        somme=0
+
         for i in range (nbl):
                 for j in range (nbc):
-                    pondere1[index][0] += 
+                    pondere1[index][0] +=   v[i*nbc+j].x *g[i,j,0]  #minmax_multicritere.valTrans(g,i,j,pol[i][j],0)
+        
+        for i in range (nbl):
+                for j in range (nbc):
+                    pondere1[index][1] +=  v[i*nbc+j].x *g[i,j,1] #minmax_multicritere.valTrans(g,i,j,pol[i][j],1) *
 #        pondere1[index][0]=coutVs(grilleV(v,nbl,nbc), pol)
 #       
 #        
@@ -331,21 +372,21 @@ def testMinMax2( gamma, probaTransition, nbcri,nbl,nbc , nbtest):
 #        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
 #        valeur = grilleV(v,nbl,nbc)
         
-        somme=0
-        for i in range (nbl):
-                for j in range (nbc):
-                    pondere1[index][1] += valeur[i][j]
+#        somme=0
+#        for i in range (nbl):
+#                for j in range (nbc):
+#                    pondere1[index][1] += valeur[i][j]
+##        
+#        pondere1[index][1]=coutVs(grilleV(v,nbl,nbc),pol)
 #        
-        pondere1[index][1]=coutVs(grilleV(v,nbl,nbc),pol)
-        
         
         
         
         print "poderation2"
                 
         
-        (A, b, obj) = programmeprimal(g1, gamma,probaTransition)
-        v, m,t = resolutionGurobiprimal(A, b, obj,nbl,nbc)
+        (A, b, obj) = programmedual(g1, gamma,probaTransition)
+        v, m,t = resolutionGurobidual(A, b, obj,nbl,nbc)
         print "v"
         print v
         
@@ -353,52 +394,74 @@ def testMinMax2( gamma, probaTransition, nbcri,nbl,nbc , nbtest):
         print "pol :"
         print pol
     
-        #calcul des Vs pour les deux critères
-#        polprime = createGrilleSoluceMixte(pol)
-        (A,b,obj)=rechercheVS(pol,g0,gamma,probaTransition)
-        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
-        valeur = grilleV(v,nbl,nbc)
-        somme=0
-#        for i in range (nbl):
-#                for j in range (nbc):
-#                    pondere1[index][0] += valeur[i][j]
-        pondere2[index][0]=coutVs(grilleV(v,nbl,nbc), pol)
-       
+    
+    
+    
+
+        for i in range (nbl):
+            for j in range (nbc):
+                pondere2[index][0] +=   v[i*nbc+j].x *g[i,j,0]  #minmax_multicritere.valTrans(g,i,j,pol[i][j],0)
         
-        (A,b,obj)=rechercheVS(pol,g1,gamma,probaTransition)
-        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
-        valeur = grilleV(v,nbl,nbc)
-        
+        for i in range (nbl):
+            for j in range (nbc):
+                pondere2[index][1] +=  v[i*nbc+j].x *g[i,j,1] #minmax_multicritere.valTrans(g,i,
+#        #calcul des Vs pour les deux critères
+##        polprime = createGrilleSoluceMixte(pol)
+#        (A,b,obj)=rechercheVS(pol,g0,gamma,probaTransition)
+#        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
+#        valeur = grilleV(v,nbl,nbc)
+#        somme=0
+##        for i in range (nbl):
+##                for j in range (nbc):
+##                    pondere1[index][0] += valeur[i][j]
+#        pondere2[index][0]=coutVs(grilleV(v,nbl,nbc), pol)
+#       
+#        
+#        (A,b,obj)=rechercheVS(pol,g1,gamma,probaTransition)
+#        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
+#        valeur = grilleV(v,nbl,nbc)
+#        
 #        somme=0
 #        for i in range (nbl):
 #                for j in range (nbc):
 #                    pondere1[index][1] += valeur[i][j]
 #        
-        pondere2[index][1]=coutVs(grilleV(v,nbl,nbc),pol)
+#        pondere2[index][1]=coutVs(grilleV(v,nbl,nbc),pol)
         
         print "minax"
         pol,v,somme = minmax_multicritere.resolutionMultiMinMax2v2(g, gamma, probaTransition, nbcri,nbl,nbc)
-        
+#        v= grilleV(v)
         print "c'est bien mon truc"
         print pol
         
        
-        #calcul des Vs pour les deux critères
-        polprime = createGrilleSoluceMixte(pol)
-        (A,b,obj)=rechercheVS(polprime,g1,gamma,probaTransition)
-        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
-        valeur = grilleV(v,nbl,nbc)
+       
+        polprime= createGrilleSoluceMixte(pol)
+        for i in range (nbl):
+                for j in range (nbc):
+                    minmax[index][0] += somme[0]#minmax_multicritere.valTrans(g,i,j,polprime[i][j],0) * v[i*nbc+j]
 
-        minmax[index][0]=coutVs(grilleV(v,nbl,nbc), createGrilleSoluceMixte(pol))
-        print "politique"
-        print createGrilleSoluceMixte(pol)
-        
-        (A,b,obj)=rechercheVS(polprime,g1,gamma,probaTransition)
-        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
-        valeur = grilleV(v,nbl,nbc)
+        for i in range (nbl):
+                for j in range (nbc):
+                    minmax[index][1] += somme[1]#minmax_multicritere.valTrans(g,i,j,polprime[i][j],1) * v[i*nbc+j]
+#       
+       
+#        #calcul des Vs pour les deux critères
+#        polprime = createGrilleSoluceMixte(pol)
+#        (A,b,obj)=rechercheVS(polprime,g1,gamma,probaTransition)
+#        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
+#        valeur = grilleV(v,nbl,nbc)
+#
+#        minmax[index][0]=coutVs(grilleV(v,nbl,nbc), createGrilleSoluceMixte(pol))
+#        print "politique"
+#        print createGrilleSoluceMixte(pol)
+#        
+#        (A,b,obj)=rechercheVS(polprime,g1,gamma,probaTransition)
+#        v,m,t = resolutionGurobirechercheVs(A,b,obj,nbl,nbc)
+#        valeur = grilleV(v,nbl,nbc)
         
 #        
-        minmax[index][1]=coutVs(grilleV(v,nbl,nbc),createGrilleSoluceMixte(pol));gentionIndex (minmax, index)
+#        minmax[index][1]=coutVs(grilleV(v,nbl,nbc),createGrilleSoluceMixte(pol));gentionIndex (minmax, index)
     return pondere1,pondere2,minmax
            
 ################################################################################
@@ -426,29 +489,29 @@ def valV(obj,v,debut,fin):
 #g[0,1,0]=0
 #g[1,0,1]=0
 
-#nbl=3
-#nbc=3
-#nbcri=2     
-#g = np.zeros((3,3,2))
-#g[0,0,0]=1
-#g[0,1,0]=0
-#g[0,2,0]=0
-#g[1,0,0]=40
-#g[1,1,0]=1
-#g[1,2,0]=0
-#g[2,0,0]=40
-#g[2,1,0]=0
-#g[2,2,0]=1
-#g[0,0,1]=1
-#g[0,1,1]=40
-#g[0,2,1]=40
-#g[1,0,1]=0
-#g[1,1,1]=1
-#g[1,2,1]=40
-#g[2,0,1]=0
-#g[2,1,1]=0
-#g[2,1,0]=40
-#g[2,2,1]=1
+nbl=3
+nbc=3
+nbcri=2     
+g = np.zeros((3,3,2))
+g[0,0,0]=1
+g[0,1,0]=0
+g[0,2,0]=0
+g[1,0,0]=40
+g[1,1,0]=1
+g[1,2,0]=0
+g[2,0,0]=40
+g[2,1,0]=0
+g[2,2,0]=1
+g[0,0,1]=1
+g[0,1,1]=40
+g[0,2,1]=40
+g[1,0,1]=0
+g[1,1,1]=1
+g[1,2,1]=40
+g[2,0,1]=0
+g[2,1,1]=0
+g[2,1,0]=40
+g[2,2,1]=1
 #
 #     
 #nbl=4
@@ -489,60 +552,60 @@ def valV(obj,v,debut,fin):
 #g[3,3,1]=1
 
 
-nbl=5
-nbc=5
-nbcri=2     
-g = np.zeros((5,5,2))
-g[0,0,0]=1
-g[0,1,0]=40
-g[0,2,0]=40
-g[0,3,0]=40
-g[0,4,0]=40
-g[1,0,0]=0
-g[1,1,0]=1
-g[1,2,0]=1
-g[1,3,0]=1
-g[1,4,0]=40
-g[2,0,0]=0
-g[2,1,0]=1
-g[2,2,0]=1
-g[2,3,0]=40
-g[2,4,0]=40
-g[3,0,0]=0
-g[3,1,0]=1
-g[3,2,0]=1
-g[3,3,0]=1
-g[3,4,0]=40
-g[4,0,0]=0
-g[4,1,0]=0
-g[4,2,0]=0
-g[4,3,0]=0
-g[4,4,0]=1
-g[0,0,1]=1
-g[0,1,1]=0
-g[0,2,1]=0
-g[0,3,1]=0
-g[0,4,1]=0
-g[1,0,1]=40
-g[1,1,1]=1
-g[1,2,1]=1
-g[1,3,1]=0
-g[1,4,1]=0
-g[2,0,1]=40
-g[2,1,1]=1
-g[2,2,1]=1
-g[2,3,1]=0
-g[2,4,1]=0
-g[3,0,1]=40
-g[3,1,1]=40
-g[3,2,1]=40
-g[3,3,1]=40
-g[3,4,1]=40
-g[4,0,1]=40
-g[4,1,1]=40
-g[4,2,1]=40
-g[4,3,1]=40
-g[4,4,1]=1
+#nbl=5
+#nbc=5
+#nbcri=2     
+#g = np.zeros((5,5,2))
+#g[0,0,0]=1
+#g[0,1,0]=40
+#g[0,2,0]=40
+#g[0,3,0]=40
+#g[0,4,0]=40
+#g[1,0,0]=0
+#g[1,1,0]=1
+#g[1,2,0]=1
+#g[1,3,0]=1
+#g[1,4,0]=40
+#g[2,0,0]=0
+#g[2,1,0]=1
+#g[2,2,0]=1
+#g[2,3,0]=40
+#g[2,4,0]=40
+#g[3,0,0]=0
+#g[3,1,0]=1
+#g[3,2,0]=1
+#g[3,3,0]=1
+#g[3,4,0]=40
+#g[4,0,0]=0
+#g[4,1,0]=0
+#g[4,2,0]=0
+#g[4,3,0]=0
+#g[4,4,0]=1
+#g[0,0,1]=1
+#g[0,1,1]=0
+#g[0,2,1]=0
+#g[0,3,1]=0
+#g[0,4,1]=0
+#g[1,0,1]=40
+#g[1,1,1]=1
+#g[1,2,1]=1
+#g[1,3,1]=0
+#g[1,4,1]=0
+#g[2,0,1]=40
+#g[2,1,1]=1
+#g[2,2,1]=1
+#g[2,3,1]=0
+#g[2,4,1]=0
+#g[3,0,1]=40
+#g[3,1,1]=40
+#g[3,2,1]=40
+#g[3,3,1]=40
+#g[3,4,1]=40
+#g[4,0,1]=40
+#g[4,1,1]=40
+#g[4,2,1]=40
+#g[4,3,1]=40
+#g[4,4,1]=1
 #
 
 
@@ -565,7 +628,7 @@ probaTransition=0.8
 #print somme 
 
 
-pondere1,pondere2,minmax=testMinMax2( gamma, probaTransition, nbcri,nbl,nbc , 5)
+pondere1,pondere2,minmax=testMinMax( gamma, probaTransition, nbcri,nbl,nbc , 5)
 
 print "pondere1"
 print pondere1

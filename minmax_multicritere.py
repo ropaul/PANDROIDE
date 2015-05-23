@@ -704,6 +704,8 @@ def gurobiMultiMinMax2v2(a, b, objectif, nblignes, nbcolonnes):
 def resolutionMultiMinMax2v2(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
     (A, b, obj) = dualMinMax2v2(grille, gamma, proba, nbCriteres)
     v, m, t = gurobiMultiMinMax2v2(A, b, obj, nblignes, nbcolonnes)
+    
+    
     somme = np.zeros(nbCriteres)
     for k in range(nbCriteres):
         for i in range (nblignes*nbcolonnes*4):

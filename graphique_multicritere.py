@@ -696,6 +696,7 @@ def grosseurfleche(valeur):
 #plus la fleche est grosse et plus la probabilité d'aller vers la case est grande                    
 def afficheSolutionMixte(grille):
     ecart = 3
+    saveLine=[]
     vzero = np.zeros(nbcriteres, dtype=np.int)
     for i in range (nblignes):
         for j in range (nbcolonnes):
@@ -734,7 +735,9 @@ def afficheSolutionMixte(grille):
                     Canevas.create_line(PosY+zoom*10,PosX+zoom*2-ecart*zoom,PosY+zoom*12,PosX-ecart*zoom,width=taille) 
     
     
-       
+def afficheSolutionMixteButton():
+    global politique
+    afficheSolutionMixte(politique)       
 
 
 
@@ -805,6 +808,7 @@ Canevas.pack(padx =5, pady =5)
 # Creation d'un widget Button (bouton Quitter)
 Button(Mafenetre, text ='Restart', command = initialize).pack(side=LEFT,padx=5,pady=5)
 Button(Mafenetre, text ='Quit', command = Mafenetre.destroy).pack(side=LEFT,padx=5,pady=5)
+Button(Mafenetre, text ='View Soluce', command = afficheSolutionMixteButton).pack(side=LEFT,padx=5,pady=5)
 
 #Création de l'affichage des coûts
 '''
@@ -854,10 +858,10 @@ print g
 #print grilleSolution
 #afficheSolutionMixte(politique)
 
-politique = politiquelancher()
+politique,v = politiquelancher()
 print "politique"
 print politique
-afficheSolutionMixte(politique)
+#afficheSolutionMixte(politique)
 
 
 #pol= [[[0,0.5,0,0.5],[0,0.5,0,0.5],[0,0.5,0,0.5]],[[0,0.5,0,0.5],[0,0.5,0,0.5],[0,0.5,0,0.5]],[[0,0.5,0,0.5],[0,0.5,0,0.5],[0,0.5,0,0.5]]]

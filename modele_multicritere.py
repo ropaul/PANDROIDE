@@ -23,11 +23,11 @@ import matplotlib.pyplot as pl
 pmur = 0.15
 
 #taille de la grille
-nblignes=20
-nbcolonnes=20
+nblignes=3
+nbcolonnes=3
 
 #nombre de critères
-nbcriteres=4
+nbcriteres=2
 
 #Probabilité d'aller effectivement dans la direction voulue
 probaTransition=0.9
@@ -598,10 +598,10 @@ def plotPols(execsSomme, execsSocial, fonc):
 #                            PROGRAMME PRINCIPAL
 #
 ################################################################################
-
+'''
 g=defineMaze(nblignes,nbcolonnes,nbcriteres)
 #print g
-'''
+
 g = np.zeros((3,3,2))
 g[0,0,0]=1
 g[0,0,1]=1
@@ -624,12 +624,12 @@ g[1,2,0]=0
 g[2,0,1]=0
 g[2,0,0]=40
 g[2,1,1]=0
-g[2,1,0]=40'''
+g[2,1,0]=40
 #g = np.ones((2,2,2))
 #g[0,1,0]=0
 #g[1,0,1]=0
 print g
-'''
+
 #Test plotPols
 pol1, v1 = resolutionMultiSomme(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
 print pol1
@@ -637,8 +637,8 @@ pol2 = resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nb
 print pol2
 ex1=testPol(g, pol1, probaTransition, 200)
 ex2=testPol(g, pol2, probaTransition, 200)
-plotPols(ex1, ex2, MINMAX)'''
-
+plotPols(ex1, ex2, MINMAX)
+'''
 """
 #Test PL
 g = np.ones((2,2,2))
