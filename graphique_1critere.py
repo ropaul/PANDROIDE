@@ -239,7 +239,8 @@ def afficheSolution(grille):
                     Canevas.create_line(PosY+zoom*10,PosX-zoom*2,PosY+zoom*12,PosX,width=zoom/2)
                     Canevas.create_line(PosY+zoom*10,PosX+zoom*2,PosY+zoom*12,PosX,width=zoom/2) 
                 
-                
+def afficheSolutionButton():
+    afficheSolution(pol)                
                 
 #fonction servant a afficher des solutions multicritère                
 def flechemixte (i,j ,pH,pB,pG,pD): #i et j les coord , pH,pB,pG les pourcentage de haut, bas , etc
@@ -404,6 +405,8 @@ Canevas.pack(padx =5, pady =5)
 # Creation d'un widget Button (bouton Quitter)
 Button(Mafenetre, text ='Restart', command = initialize).pack(side=LEFT,padx=5,pady=5)
 Button(Mafenetre, text ='Quit', command = Mafenetre.destroy).pack(side=LEFT,padx=5,pady=5)
+Button(Mafenetre, text ='View Soluce', command = afficheSolutionButton).pack(side=LEFT,padx=5,pady=5)
+
 
 #Création de l'affichage des coûts
 w = Label(Mafenetre, text='cost = '+str(cost[0]),fg=mywalls,font = "Verdana 20 bold")
