@@ -285,7 +285,7 @@ def resolutionMultiSomme(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes)
     (A, b, obj) = dualSomme(grille, gamma, proba, nbCriteres)
     v, m, t = gurobiMultiSomme(A, b, obj, nblignes, nbcolonnes)
     pol = politique(v, grille)
-    return pol,v
+    return pol
 
 
 

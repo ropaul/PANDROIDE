@@ -7,12 +7,14 @@ Created on Wed Apr 15 15:52:20 2015
 
 #from modele_1critere import *
 from modele_multicritere import *
-#from minmax_multicritere import *
+from minmax_multicritere import *
 from Tkinter import *
 from gurobipy import *
 import random
 import numpy as np
 import math
+import SommePondere_multicritere
+import RegretPondere
 
 
 
@@ -28,7 +30,11 @@ zoom=4
 PosX = 20+10*zoom 
 PosY = 20+10*zoom
 
+Pion = ""
 
+saveLine=[]
+alpha=[]
+poidcritere = []
 
 # def des couleurs
 myred="#D20B18"
@@ -108,11 +114,11 @@ def choix():
         
         if val >0:# and valueCL < 5:
             zoom = 4
-        if val >5 :#and valueCL < 10:
+        if val >10 :#and valueCL < 10:
             zoom = 3
-        if val >=10:
-            zoom = 2
         if val >=15:
+            zoom = 2
+        if val >=20:
             zoom = (val -10)/10         
     probaTransition= nb2.get()
     gamma = nb3.get()
@@ -171,14 +177,7 @@ def initFenetre() :
     boite3 = Spinbox(init,from_=0,to=1,increment=0.05,textvariable=nb3,width=5)
     boite3.pack(padx=30,pady=10)   
     
-    champ_label3 = Label(init, text=" policy's choice")
-    champ_label3.pack()
-    liste= StringVar()
-    liste.set("1")
-    choix1 = Radiobutton(init, text= "multicriterion sum", variable = liste, value="1",font = "Verdana 10 bold")
-    choix2 = Radiobutton(init, text= " min max criterion", variable = liste, value="2",font = "Verdana 10 bold")
-    choix1.pack()
-    choix2.pack()
+    
     
     
     #liste de choix de labyrhinte possible et le bouton de changement de maze
@@ -190,10 +189,19 @@ def initFenetre() :
     
 def politiquelancher():
     global liste
+
     if liste.get()=="1":
         return resolutionMultiSomme(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
     if liste.get()=="2":
-        return resolutionMultiMinMax2(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+        return resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+    if liste.get()=="3":
+        return resolutionMultiRegret(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+    if liste.get()=="4":
+        return SommePondere_multicritere.resolutionMultiSommePondere(g,alpha, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+    if liste.get()=="5":
+        return RegretPondere.resolutionMultiRegretPondere(alpha,g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+                        
+        
             
     
 def colordrawlancher(value):
@@ -484,7 +492,7 @@ def colordrawMulti1(g,nblignes,nbcolonnes):
 
 #fonction servant a manipuler le pion dans la labirhynte
 def Clavier (event):
-    global PosX,PosY,posX,posY,cost,g,politique
+    global PosX,PosY,posX,posY,cost,g,politique, Pion
     vzero = np.zeros(nbcriteres, dtype=np.int)
     touche = event.keysym
     i = posX
@@ -696,6 +704,7 @@ def grosseurfleche(valeur):
 #plus la fleche est grosse et plus la probabilité d'aller vers la case est grande                    
 def afficheSolutionMixte(grille):
     ecart = 3
+    global saveLine
     saveLine=[]
     vzero = np.zeros(nbcriteres, dtype=np.int)
     for i in range (nblignes):
@@ -706,42 +715,54 @@ def afficheSolutionMixte(grille):
                     taille = zoom/2 * grosseurfleche(grille[i,j,0])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY+ecart*zoom,PosX-zoom*7,PosY+ecart*zoom,PosX-zoom*12.5,width=taille)
-                    Canevas.create_line(PosY-zoom*2+ecart*zoom,PosX-zoom*10,PosY+ecart*zoom,PosX-zoom*12,width=taille)
-                    Canevas.create_line(PosY+zoom*2+ecart*zoom,PosX-zoom*10,PosY+ecart*zoom,PosX-zoom*12,width=taille)
+                    saveLine.append(Canevas.create_line(PosY+ecart*zoom,PosX-zoom*7,PosY+ecart*zoom,PosX-zoom*12.5,width=taille))
+                    saveLine.append(Canevas.create_line(PosY-zoom*2+ecart*zoom,PosX-zoom*10,PosY+ecart*zoom,PosX-zoom*12,width=taille))
+                    saveLine.append(Canevas.create_line(PosY+zoom*2+ecart*zoom,PosX-zoom*10,PosY+ecart*zoom,PosX-zoom*12,width=taille))
                 #fleche du bas    
                 if grille[i,j,1] != 0 and  not math.isnan(grille[i,j,1]):
                     taille = zoom/2 * grosseurfleche(grille[i,j,1])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY-ecart*zoom,PosX+zoom*7,PosY-ecart*zoom,PosX+zoom*12.5,width=taille)
-                    Canevas.create_line(PosY-zoom*2-ecart*zoom,PosX+zoom*10,PosY-ecart*zoom,PosX+zoom*12,width=taille)
-                    Canevas.create_line(PosY+zoom*2-ecart*zoom,PosX+zoom*10,PosY-ecart*zoom,PosX+zoom*12,width=taille)
+                    saveLine.append(Canevas.create_line(PosY-ecart*zoom,PosX+zoom*7,PosY-ecart*zoom,PosX+zoom*12.5,width=taille))
+                    saveLine.append(Canevas.create_line(PosY-zoom*2-ecart*zoom,PosX+zoom*10,PosY-ecart*zoom,PosX+zoom*12,width=taille))
+                    saveLine.append(Canevas.create_line(PosY+zoom*2-ecart*zoom,PosX+zoom*10,PosY-ecart*zoom,PosX+zoom*12,width=taille))
                 #fleche du gauche    
                 if grille[i,j,2] != 0 and  not math.isnan(grille[i,j,2]):
                     taille = zoom/2 * grosseurfleche(grille[i,j,2])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY-zoom*7,PosX+ecart*zoom,PosY-zoom*12.5,PosX+ecart*zoom,width=taille)
-                    Canevas.create_line(PosY-zoom*10,PosX-zoom*2+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille)
-                    Canevas.create_line(PosY-zoom*10,PosX+zoom*2+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille) 
+                    saveLine.append(Canevas.create_line(PosY-zoom*7,PosX+ecart*zoom,PosY-zoom*12.5,PosX+ecart*zoom,width=taille))
+                    saveLine.append(Canevas.create_line(PosY-zoom*10,PosX-zoom*2+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille))
+                    saveLine.append(Canevas.create_line(PosY-zoom*10,PosX+zoom*2+ecart*zoom,PosY-zoom*12,PosX+ecart*zoom,width=taille)) 
                 #fleche du droite
                 if grille[i,j,3] != 0 and  not math.isnan(grille[i,j,3]):
                     taille = zoom/2 * grosseurfleche(grille[i,j,3])
                     PosY = j *20*zoom +20+zoom*10
                     PosX = i *20*zoom +20+zoom*10
-                    Canevas.create_line(PosY+zoom*7,PosX-ecart*zoom,PosY+zoom*12.5,PosX-ecart*zoom,width=taille)
-                    Canevas.create_line(PosY+zoom*10,PosX-zoom*2-ecart*zoom,PosY+zoom*12,PosX-ecart*zoom,width=taille)
-                    Canevas.create_line(PosY+zoom*10,PosX+zoom*2-ecart*zoom,PosY+zoom*12,PosX-ecart*zoom,width=taille) 
+                    saveLine.append(Canevas.create_line(PosY+zoom*7,PosX-ecart*zoom,PosY+zoom*12.5,PosX-ecart*zoom,width=taille))
+                    saveLine.append(Canevas.create_line(PosY+zoom*10,PosX-zoom*2-ecart*zoom,PosY+zoom*12,PosX-ecart*zoom,width=taille))
+                    saveLine.append(Canevas.create_line(PosY+zoom*10,PosX+zoom*2-ecart*zoom,PosY+zoom*12,PosX-ecart*zoom,width=taille)) 
     
     
 def afficheSolutionMixteButton():
-    global politique
+    global politique, Pion,alpha,poidcritere
+    effacer()
+        
+    #initinalise alpha
+    alpha = np.zeros(nbcriteres)
+    for i in range (nbcriteres):
+        alpha[i] = poidcritere[i].get()
+        
+    politique,v = politiquelancher()
+    print "politique"
+    print politique
     afficheSolutionMixte(politique)       
 
 
-
-
+def effacer():
+    for i in range (len(saveLine)):
+        Canevas.delete(saveLine[i])
+    
 
 
 
@@ -780,6 +801,38 @@ Mafenetre.title('MDP')
 
 #######################creation de l'affichage#########################
 
+
+champ_label3 = Label(Mafenetre, text=" policy's choice")
+champ_label3.grid(row=0, column=4,sticky=N)
+liste= StringVar()
+liste.set("1")
+choix1 = Radiobutton(Mafenetre, text= "multicriterion sum", variable = liste, value="1",font = "Verdana 10 bold")
+choix2 = Radiobutton(Mafenetre, text= " min max criterion", variable = liste, value="2",font = "Verdana 10 bold")
+choix3 = Radiobutton(Mafenetre, text= " min max regret", variable = liste, value="3",font = "Verdana 10 bold")
+choix4 = Radiobutton(Mafenetre, text= " weighted sum", variable = liste, value="4",font = "Verdana 10 bold")
+choix5 = Radiobutton(Mafenetre, text= " weighted regret", variable = liste, value="5",font = "Verdana 10 bold")
+choix1.grid(row=1, column=4,sticky=N)
+choix2.grid(row=2, column=4,sticky=N)
+choix3.grid(row=3, column=4,sticky=N)
+choix4.grid(row=4, column=4,sticky=N)
+choix5.grid(row=5, column=4,sticky=N)
+
+
+champ_labelprime = Label(Mafenetre, text="wieght for wiegted methods ")
+champ_labelprime.grid(row=0,column =5)
+
+for i in range(nbcriteres):
+    poidcritere.append( IntVar())
+    poidcritere[i].set(1)
+    # Création d'un widget Spinbox
+    boiteprime = Spinbox(Mafenetre,from_=1,to=100,increment=1,textvariable=poidcritere[i],width=1)
+    boiteprime.grid(row=(i)%(4)+1, column =5+((i)/4))
+
+Button(Mafenetre, text ='View Soluce', command = afficheSolutionMixteButton).grid(row=5, column=5)#pack(side=LEFT,padx=5,pady=5)
+Button(Mafenetre, text ='Erase Soluce', command = effacer).grid(row=5, column=6)#pack(side=LEFT,padx=5,pady=5)
+
+
+
 # ecriture du quadrillage et coloration
 Canevas = Canvas(Mafenetre, width = Largeur, height =Hauteur, bg =mywhite)
 for i in range(nblignes+1):
@@ -801,36 +854,26 @@ colordrawlancher(nbcriteres)
 #initilaise les touches du clavier 
 Canevas.focus_set()
 Canevas.bind('<Key>',Clavier)
-Canevas.pack(padx =5, pady =5)
+Canevas.grid(row=0, column=1,rowspan=6,columnspan=3,padx =5, pady =5)
 
 
 
 # Creation d'un widget Button (bouton Quitter)
-Button(Mafenetre, text ='Restart', command = initialize).pack(side=LEFT,padx=5,pady=5)
-Button(Mafenetre, text ='Quit', command = Mafenetre.destroy).pack(side=LEFT,padx=5,pady=5)
-Button(Mafenetre, text ='View Soluce', command = afficheSolutionMixteButton).pack(side=LEFT,padx=5,pady=5)
+Button(Mafenetre, text ='Restart', command = initialize).grid(row=6, column=0)#pack(side=LEFT,padx=5,pady=5)
+Button(Mafenetre, text ='Quit', command = Mafenetre.destroy).grid(row=6, column=1)#pack(side=LEFT,padx=5,pady=5)
+
+
 
 #Création de l'affichage des coûts
-'''
-w = Label(Mafenetre, text='cost = '+str(cost[0]),fg=mywalls,font = "Verdana 20 bold")
-w.pack(side=RIGHT) 
-w1 = Label(Mafenetre, text='vert = '+str(cost[1])+' | ',fg=mygreen,font = "Verdana 12 bold")
-w1.pack(side=RIGHT)
-w2 = Label(Mafenetre, text='bleu = '+str(cost[2])+' | ',fg=myblue,font = "Verdana 12 bold")
-w2.pack(side=RIGHT)
-w3 = Label(Mafenetre, text='rouge = '+str(cost[3])+' | ',fg=myred,font = "Verdana 12 bold")
-w3.pack(side=RIGHT)
-w4 = Label(Mafenetre, text='noir = '+str(cost[4])+' | ',fg=myblack,font = "Verdana 12 bold")
-w4.pack(side=RIGHT) 
-'''
+
 cost= np.zeros(nbcriteres+1, dtype=np.int)
 #Création de l'affichage des coûts
 w = Label(Mafenetre, text='cost = '+str(cost[0]),fg=mywalls,font = "Verdana 15 bold")
-w.pack(side=RIGHT) 
+w.grid(row=6, column=3)#pack(side=RIGHT) 
 labels =[]
 for i in range (nbcriteres):
     labels.append(Label(Mafenetre, text= colorname[i+1]+'='+str(cost[i+1])+' | ',fg=color[i+1],font = "Verdana 10 bold"))
-    labels[i].pack(side=RIGHT)
+    labels[i].grid(row=6, column=4+i)#pack(side=RIGHT)
 
 Pion = Canevas.create_oval(PosX-10,PosY-10,PosX+10,PosY+10,width=2,outline='black',fill=myyellow)
 
@@ -857,10 +900,10 @@ print g
 #print 'grilleSolution'
 #print grilleSolution
 #afficheSolutionMixte(politique)
-
-politique,v = politiquelancher()
-print "politique"
-print politique
+#
+#politique,v = politiquelancher()
+#print "politique"
+#print politique
 #afficheSolutionMixte(politique)
 
 

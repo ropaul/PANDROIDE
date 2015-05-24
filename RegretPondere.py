@@ -15,6 +15,72 @@ import random
 import numpy as np
 import math
 
+
+
+
+
+def politique(valeurs, grille):
+    nbL=grille.shape[0]
+    nbC=grille.shape[1]
+    pol = np.zeros((nbL,nbC,4))
+    for i in range(nbL):
+        for j in range(nbC):
+            for k in range(4):
+                pol[i][j][k] = valeurs[(i*nbC+j)*4+k].x
+            somme = sum(pol[i][j])
+            for k in range(4):
+                pol[i][j][k] /= somme
+    return pol
+
+
+#donne la valeur Rsa pour une transition direction a la case (i,j)
+def valTrans(g,i,j,direction,critere):
+    nbl=g.shape[0]
+    nbc=g.shape[1]
+#    if (i == nbl-1 and j==nbc -1):
+#        return 0
+    #si en haut
+    if (direction == 0 ):
+        if(i <=0 ):
+            return 1000
+        else :
+            if (i-1 == nbl-1 and j==nbc -1):
+                return valBut(nbl,nbc)
+            else :
+                return g[i-1,j,critere]
+    #si en bas
+    if (direction == 1 ):
+        if(i >= nbl-1 ):
+            return 1000
+        else :
+            if (i +1== nbl -1 and j==nbc -1):
+                return valBut(nbl,nbc)
+            else :
+                return g[i+1,j,critere]
+    #si a gauche
+    if (direction == 2 ):
+        if(j <=0 ):
+            return 1000
+        else :
+            if (i == nbl -1 and j-1==nbc -1):
+                return valBut(nbl,nbc)
+            else :
+                return g[i,j-1,critere]
+    #si en haut
+    if (direction == 3 ):
+        if(j >= nbc -1 ):
+            return 1000
+        else :
+            if (i == nbl -1 and j+1==nbc -1):
+                return valBut(nbl,nbc)
+            else :
+                return g[i,j+1,critere]
+    
+    
+def valBut(nblignes, nbcolonnes):
+    return -1*nblignes*nbcolonnes*40
+    
+
 ################################################################################
 #
 #                            POINT NADIR
@@ -200,7 +266,7 @@ def dualRegretPondere(grille, gamma, proba, nbcritere,alpha):
             for j in range(nbc):
                 for k in range (4):
                     #les premieres lignes des contrainte , une contrainte par critere (d'ou le l)
-                    a[l][(i*nbc+j)*4+k]= lamb[l]*1* minmax_multicritere.valTrans(grille,i,j,k,l) #-1* grille[i,j,l]
+                    a[l][(i*nbc+j)*4+k]= lamb[l]*1* valTrans(grille,i,j,k,l) #-1* grille[i,j,l]
                     #second memebre a zero
                     b[l]= lamb[l]*vsetoile[l]
     #la contrainte principale
@@ -293,14 +359,14 @@ def gurobiMultiRegretPondere(a, b, objectif, nblignes, nbcolonnes):
 def resolutionMultiRegretPondere(alpha,grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
     (A, b, obj) = dualRegretPondere(grille, gamma, proba, nbCriteres,alpha)
     v, m, t = gurobiMultiRegretPondere(A, b, obj, nblignes, nbcolonnes)
-    somme = np.zeros(nbCriteres)
-    for k in range(nbCriteres):
-        for i in range (nblignes*nbcolonnes*4):
-            somme[k] += A[k][i]*v[i].x
-    print somme
+#    somme = np.zeros(nbCriteres)
+#    for k in range(nbCriteres):
+#        for i in range (nblignes*nbcolonnes*4):
+#            somme[k] += A[k][i]*v[i].x
+#    print somme
   
-    pol = minmax_multicritere.politique2(v, grille)
-    return pol,v,somme    
+    pol = politique(v, grille)
+    return pol,v#,somme    
 
 
 
@@ -318,41 +384,43 @@ def resolutionMultiRegretPondere(alpha,grille, gamma, proba, nbCriteres, nbligne
 
 
 
-nbl=3
-nbc=3
-nbcri=2     
-g = np.zeros((3,3,2))
-g[0,0,0]=1
-g[0,1,0]=0
-g[0,2,0]=0
-g[1,0,0]=40
-g[1,1,0]=1
-g[1,2,0]=0
-g[2,0,0]=40
-g[2,1,0]=0
-g[2,2,0]=1
-g[0,0,1]=1
-g[0,1,1]=40
-g[0,2,1]=40
-g[1,0,1]=0
-g[1,1,1]=1
-g[1,2,1]=40
-g[2,0,1]=0
-g[2,1,1]=0
-g[2,1,0]=40
-g[2,2,1]=1
-
-
-alpha=[1,10]
-
-pt= ptNadir(g,gamma,probaTransition,2)
-
-print pt
-
-pol,v,somme=resolutionMultiRegretPondere(alpha,g, gamma, probaTransition, 2, nbl, nbc)
-    
-print pol
-
+#nbl=3
+#nbc=3
+#nbcri=2     
+#g = np.zeros((3,3,2))
+#g[0,0,0]=1
+#g[0,1,0]=0
+#g[0,2,0]=0
+#g[1,0,0]=40
+#g[1,1,0]=1
+#g[1,2,0]=0
+#g[2,0,0]=40
+#g[2,1,0]=0
+#g[2,2,0]=1
+#g[0,0,1]=1
+#g[0,1,1]=40
+#g[0,2,1]=40
+#g[1,0,1]=0
+#g[1,1,1]=1
+#g[1,2,1]=40
+#g[2,0,1]=0
+#g[2,1,1]=0
+#g[2,1,0]=40
+#g[2,2,1]=1
+#
+#
+alpha=[1,10,1,1]
+#
+#pt= ptNadir(g,gamma,probaTransition,2)
+#
+#print pt
+#
+#g= defineMaze(3,3,2)
+#
+#pol,v,somme=resolutionMultiRegretPondere(alpha,g, gamma, probaTransition, 2, 3, 3)
+#    
+#print pol
+#
 
 
 

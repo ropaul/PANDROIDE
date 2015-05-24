@@ -7,11 +7,11 @@ Created on Sat Apr 25 09:54:03 2015
 #
 from modele_1critere import *
 from modele_multicritere import *
-from Tkinter import *
 from gurobipy import *
 import random
 import numpy as np
 import math
+import RegretPondere
 
 
             
@@ -81,7 +81,7 @@ def politique2(valeurs, grille):
     for i in range(nbL):
         for j in range(nbC):
             for k in range(4):
-                pol[i][j][k] = valeurs[(i*nbC+j)*4+k].x * 1.0
+                pol[i][j][k] = valeurs[(i*nbC+j)*4+k].x
             somme = sum(pol[i][j])
             if somme != 0 :
                 for k in range(4):
@@ -485,104 +485,7 @@ def testNadir(g,gamma,probaTransition,nbcri):
     
     
     
-            
-################################################################################
-#
-#                            CONSEIL DU PROF
-#
-################################################################################
-        
-        
-        
-        
 
-def dualMinMaxProf(grille, gamma, proba, nbcritere):
-    nbl=grille.shape[0]
-    nbc=grille.shape[1]
-    a= np.zeros((nbcritere+ ((nbl*nbc)+1)*(4+1),(nbl*nbc)*4+1+4))
-    b= np.zeros(nbcritere+ ((nbl*nbc)+1)*(4+1))
-    obj= np.zeros((nbl*nbc)*4+1+4)
-    #on maximize z (le dernier critere)
-    obj[(nbl*nbc)*4+1-1]=1
-    # z >sum(sum(R(s,a)Xsa)) 
-    for l in range(nbcritere) :
-        #on met le coef de z a 1
-        a[l][(nbl*nbc)*4]=1
-        for i in range(nbl):
-            for j in range(nbc):
-                for k in range (4):
-                    #les premieres lignes des contrainte , une contrainte par critere (d'ou le l)
-                    a[l][(i*nbc+j)*4+k]=1* valTrans(grille,i,j,k,l) #-1* grille[i,j,l]
-        #second memebre a zero
-        tempG = np.zeros((nbl,nbc))
-        for i in range (nbl):
-            for j in range (nbc):
-                tempG[i][j]=grille[i,j,l]
-        (A0, b0, obj0) = modele_1critere.programmeprimal(tempG, gamma,probaTransition)
-        v, m, t = modele_1critere.resolutionGurobiprimal(A0, b0, obj0,nbl,nbc)
-        vs = grilleV(v,nbl,nbc)
-        somme= 0
-        for i in range (nbl):
-            for j in range (nbc):
-                somme += vs[i][j]
-        print "*****************************************************"
-        print "somm"
-        b[l]= somme
-        print "****************************************************"
-    #la contrainte principale
-    
-    for i in range(nbl):
-        for j in range(nbc):
-            #intintialisation du second membre
-            b[nbcritere+nbc*i+j]=0
-            for k in range(4):
-                #rajoute la sum(Xsa)
-                a[nbcritere+nbc*i+j][(i*nbc+j)*4+k]=1
-                if (i == nbl-1 and j==nbc -1):
-                     a[nbcritere+nbc*i+j][(i*nbc+j)*4+k]=01
-                #rajoute les -gamma sur les autres lignes
-                trans=transition(grille, k, i, j, proba, nbcriteres)
-#                if (i != nbl-1 and j!=nbc -1):
-                for t in trans:
-                    iprime = t[0]
-                    jprime= t[1]
-#                    '' if (iprime == nbl-1 and jprime==nbc -1):
-#                        a[nbcritere+nbc*iprime+jprime][(i*nbc+j)*4+k]=  0 
-#                    else:''
-                    a[nbcritere+nbc*iprime+jprime][(i*nbc+j)*4+k]= -1* gamma * trans[t] 
-    #seul la premiere case a un u(s) a 1                 
-    b[nbcritere]=1
-    
-    for i in range (nbl*nbc-1):
-        for k in range (4):
-            a[nbcritere+ i][(nbc*nbl-1)*4+k]= 0
-    
-    #Xsa > 0            
-    for i in range ((nbl*nbc)*4):
-        a[nbcritere+(nbl*nbc)+i][i]=1
-        b[nbcritere+(nbl*nbc)+i]=0
-    #Xsa de l'état puits
-    for i in range (4):
-        a[nbcritere+(nbl*nbc)*(4+1)+i][nbl*nbc*(4)+1+i]=1
-        b[nbcritere+(nbl*nbc)*(4+1)+i]=0
-    #gestion de l'état puits
-    for i in range (4):
-        a[nbcritere+ ((nbl*nbc)+1)*(4+1)-1][(nbc*nbl)*4+1+i]= 1-gamma
-        a[nbcritere+ ((nbl*nbc)+1)*(4+1)-1][(nbc*nbl-1)*4+i]= -gamma
-        
-    return (a, b, obj)                
-        
-
-
-def resolutionMultiMinMaxProf(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
-    (A, b, obj) = dualMinMaxProf(grille, gamma, proba, nbCriteres)
-    v, m, t = gurobiMultiMinMax2v2(A, b, obj, nblignes, nbcolonnes)
-    for i in range (A.shape[0]):
-        print A[i]
-    print "v"
-    print v
-    pol = politique2(v, grille)
-    return pol,v   
     
 '''            
 ################################################################################
@@ -595,7 +498,7 @@ def resolutionMultiMinMaxProf(grille, gamma, proba, nbCriteres, nblignes, nbcolo
         
         
 
-def dualMinMax2v2(grille, gamma, proba, nbcritere):
+def dualMinMax2(grille, gamma, proba, nbcritere):
     nbl=grille.shape[0]
     nbc=grille.shape[1]
     a= np.zeros((nbcritere+ ((nbl*nbc)+1)*(4+1),(nbl*nbc)*4+1+4))
@@ -659,7 +562,7 @@ def dualMinMax2v2(grille, gamma, proba, nbcritere):
         
 
 
-def gurobiMultiMinMax2v2(a, b, objectif, nblignes, nbcolonnes):
+def gurobiMultiMinMax2(a, b, objectif, nblignes, nbcolonnes):
     m = Model("MOPDMeq")
     #déclaration des variables de décision
     v = []
@@ -696,24 +599,120 @@ def gurobiMultiMinMax2v2(a, b, objectif, nblignes, nbcolonnes):
     #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
     t = m.getAttr(GRB.Attr.Runtime) - 0.01
     
-
+    print v
 
     return v, m, t
 
 
-def resolutionMultiMinMax2v2(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
-    (A, b, obj) = dualMinMax2v2(grille, gamma, proba, nbCriteres)
-    v, m, t = gurobiMultiMinMax2v2(A, b, obj, nblignes, nbcolonnes)
-    
-    
-    somme = np.zeros(nbCriteres)
-    for k in range(nbCriteres):
-        for i in range (nblignes*nbcolonnes*4):
-            somme[k] += A[k][i]*v[i].x
-    print somme
+def resolutionMultiMinMax2(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
+    (A, b, obj) = dualMinMax2(grille, gamma, proba, nbCriteres)
+    v, m, t = gurobiMultiMinMax2(A, b, obj, grille.shape[0],grille.shape[1] )
+    pol = politique(v, grille)
+#    somme = np.zeros(nbCriteres)
+#    for k in range(nbCriteres):
+#        for i in range (nblignes*nbcolonnes*4):
+#            somme[k] += A[k][i]*v[i].x
+#    print somme
   
-    pol = politique2(v, grille)
-    return pol,v,somme    
+   
+    return pol,v#,somme    
+    
+    
+            
+################################################################################
+#
+#                            REGRET MIN MAX
+#
+################################################################################
+        
+        
+        
+        
+
+def dualRegret2(grille, gamma, proba, nbcritere):
+    nbl=grille.shape[0]
+    nbc=grille.shape[1]
+    a= np.zeros((nbcritere+ ((nbl*nbc)+1)*(4+1),(nbl*nbc)*4+1+4))
+    b= np.zeros(nbcritere+ ((nbl*nbc)+1)*(4+1))
+    obj= np.zeros((nbl*nbc)*4+1+4)
+    #on maximize z (le dernier critere)
+    obj[(nbl*nbc)*4+1-1]=1
+    # z >sum(sum(R(s,a)Xsa)) 
+    for l in range(nbcritere) :
+        #on met le coef de z a 1
+        a[l][(nbl*nbc)*4]=1
+        for i in range(nbl):
+            for j in range(nbc):
+                for k in range (4):
+                    #les premieres lignes des contrainte , une contrainte par critere (d'ou le l)
+                    a[l][(i*nbc+j)*4+k]=1* valTrans(grille,i,j,k,l) #-1* grille[i,j,l]
+        #second memebre a zero
+        tempG = np.zeros((nbl,nbc))
+        for i in range (nbl):
+            for j in range (nbc):
+                tempG[i][j]=grille[i,j,l]
+        (A0, b0, obj0) = modele_1critere.programmeprimal(tempG, gamma,probaTransition)
+        v, m, t = modele_1critere.resolutionGurobiprimal(A0, b0, obj0,nbl,nbc)
+        vs = RegretPondere.grilleV(v,nbl,nbc)
+        somme= 0
+        for i in range (nbl):
+            for j in range (nbc):
+                somme += vs[i][j]
+        print "*****************************************************"
+        print "somm"
+        b[l]= somme
+        print "****************************************************"
+    #la contrainte principale
+    
+    for i in range(nbl):
+        for j in range(nbc):
+            #intintialisation du second membre
+            b[nbcritere+nbc*i+j]=0
+            for k in range(4):
+                #rajoute la sum(Xsa)
+                a[nbcritere+nbc*i+j][(i*nbc+j)*4+k]=1
+                if (i == nbl-1 and j==nbc -1):
+                     a[nbcritere+nbc*i+j][(i*nbc+j)*4+k]=01
+                #rajoute les -gamma sur les autres lignes
+                trans=transition(grille, k, i, j, proba, nbcriteres)
+#                if (i != nbl-1 and j!=nbc -1):
+                for t in trans:
+                    iprime = t[0]
+                    jprime= t[1]
+#                    '' if (iprime == nbl-1 and jprime==nbc -1):
+#                        a[nbcritere+nbc*iprime+jprime][(i*nbc+j)*4+k]=  0 
+#                    else:''
+                    a[nbcritere+nbc*iprime+jprime][(i*nbc+j)*4+k]= -1* gamma * trans[t] 
+    #seul la premiere case a un u(s) a 1                 
+    b[nbcritere]=1
+    
+    for i in range (nbl*nbc-1):
+        for k in range (4):
+            a[nbcritere+ i][(nbc*nbl-1)*4+k]= 0
+    
+    #Xsa > 0            
+    for i in range ((nbl*nbc)*4):
+        a[nbcritere+(nbl*nbc)+i][i]=1
+        b[nbcritere+(nbl*nbc)+i]=0
+    #Xsa de l'état puits
+    for i in range (4):
+        a[nbcritere+(nbl*nbc)*(4+1)+i][nbl*nbc*(4)+1+i]=1
+        b[nbcritere+(nbl*nbc)*(4+1)+i]=0
+    #gestion de l'état puits
+    for i in range (4):
+        a[nbcritere+ ((nbl*nbc)+1)*(4+1)-1][(nbc*nbl)*4+1+i]= 1-gamma
+        a[nbcritere+ ((nbl*nbc)+1)*(4+1)-1][(nbc*nbl-1)*4+i]= -gamma
+        
+    return (a, b, obj)                
+        
+
+
+def resolutionMultiRegret2(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
+    (A, b, obj) = dualRegret(grille, gamma, proba, nbCriteres)
+    v, m, t = gurobiMultiMinMax(A, b, obj, nblignes, nbcolonnes)
+    
+    pol = politique(v, grille)
+    return pol,v   
            
 ################################################################################
 #
@@ -798,36 +797,36 @@ def resolutionMultiMinMax2v2(grille, gamma, proba, nbCriteres, nblignes, nbcolon
 #g[3,2,1]=40
 #g[3,3,1]=1
 
+nbl=15
+nbc=15
+nbcri=2
      
-     
 
-#g= defineMaze(nbl,nbc,nbcri)
+g= defineMaze(nbl,nbc,nbcri)
 
 
-'''
+
 
 
 print g
 
 gamma= 0.8
 probaTransition=0.8
-pol,v = resolutionMultiMinMax2v2(g, gamma, probaTransition, nbcri,nbl,nbc)
+pol,v =   resolutionMultiMinMax2(g, gamma, probaTransition, nbcri,nbl,nbc)
 print "c'est bien mon truc"
 print pol
-temp = np.zeros((nbl,nbc))
-for i in range (nbl):
-    for j in range (nbc):
-        temp[i][j]=g[i,j,0]
-
-pol = resolution(temp, gamma, probaTransition)
-print "c'est bien mon truc"
-print pol
-
-
+#temp = np.zeros((nbl,nbc))
+#for i in range (nbl):
+#    for j in range (nbc):
+#        temp[i][j]=g[i,j,0]
+#
+#pol = resolution(temp, gamma, probaTransition)
+#print "c'est bien mon truc"
+#print pol
 
 
 
-'''
+
 
 
 

@@ -70,7 +70,7 @@ def resolutionMultiSommePondere(grille,ponderation, gamma, proba, nbCriteres, nb
     for i in range (debut,fin):
         somme += obj[i]*v[i].x
     print somme
-    return pol,v,somme
+    return pol,v#,somme
 
 ################################################################################
 #
@@ -489,29 +489,29 @@ def valV(obj,v,debut,fin):
 #g[0,1,0]=0
 #g[1,0,1]=0
 
-nbl=3
-nbc=3
-nbcri=2     
-g = np.zeros((3,3,2))
-g[0,0,0]=1
-g[0,1,0]=0
-g[0,2,0]=0
-g[1,0,0]=40
-g[1,1,0]=1
-g[1,2,0]=0
-g[2,0,0]=40
-g[2,1,0]=0
-g[2,2,0]=1
-g[0,0,1]=1
-g[0,1,1]=40
-g[0,2,1]=40
-g[1,0,1]=0
-g[1,1,1]=1
-g[1,2,1]=40
-g[2,0,1]=0
-g[2,1,1]=0
-g[2,1,0]=40
-g[2,2,1]=1
+#nbl=3
+#nbc=3
+#nbcri=2     
+#g = np.zeros((3,3,2))
+#g[0,0,0]=1
+#g[0,1,0]=0
+#g[0,2,0]=0
+#g[1,0,0]=40
+#g[1,1,0]=1
+#g[1,2,0]=0
+#g[2,0,0]=40
+#g[2,1,0]=0
+#g[2,2,0]=1
+#g[0,0,1]=1
+#g[0,1,1]=40
+#g[0,2,1]=40
+#g[1,0,1]=0
+#g[1,1,1]=1
+#g[1,2,1]=40
+#g[2,0,1]=0
+#g[2,1,1]=0
+#g[2,1,0]=40
+#g[2,2,1]=1
 #
 #     
 #nbl=4
@@ -612,7 +612,7 @@ g[2,2,1]=1
 
 
      
-
+"""
 #g= defineMaze(nbl,nbc,nbcri)
 print g
 
@@ -638,7 +638,7 @@ print pondere2
 
 print "minmax"
 print minmax
-
+"""
 
 
 
