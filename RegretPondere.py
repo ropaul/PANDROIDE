@@ -81,161 +81,6 @@ def valBut(nblignes, nbcolonnes):
     return -1*nblignes*nbcolonnes*40
     
 
-################################################################################
-#
-#                            POINT NADIR
-#
-################################################################################
-
-#donne pour une position (i,j) la va laeur de (i',j') pour une direction donné 
-def indiceSuivant(i,j,direction):
-    if (direction == 0):
-        return i+1 , j
-    if (direction == 1):
-        return i-1 , j
-    if (direction == 2):
-        return i , j+1
-    if (direction == 3):
-        return i , j-1
-        
-#prend la matrice V et la met sous forme de tableau plus lisible    
-def grilleV(v, nbl,nbc):
-    grille=np.zeros((nbl,nbc))
-    for i in range(nbl):
-        for j in range (nbc):
-            grille[i][j]= v[i*nbc+j].x
-    return grille
-    
-   
-
-def rechercheVS(politique,grille, gamma, proba):
-    nbL=grille.shape[0]
-    nbC=grille.shape[1]
-    #Matrice des contraintes + second membre
-    A = np.zeros(((nbL*nbC+1)*4, nbL*nbC+1))
-    b = np.zeros((nbL*nbC+1)*4)
-    for i in range(nbL):
-        for j in range(nbC):
-            for k in range(4):
-                if (k == politique[i][j] ):
-                    b[(i*nbC+j)*4+k] = -grille[i][j]
-                    
-                else :
-                    b[(i*nbC+j)*4+k] = 0
-                A[(i*nbC+j)*4+k][i*nbC+j] = 1
-                #Case d'arrivée
-                
-                if (i == (nbL-1) and j == (nbC-1)):
-                    #A changer si on veut maximiser
-                    b[(i*nbC+j)*4+k] = valBut(nbL, nbC)
-                    A[(i*nbC+j)*4+k][nbL*nbC] = -gamma
-                else: #Autres cases
-                    trans = modele_1critere.transition(grille, k, i, j, proba)
-                    for t in trans:
-                        A[(i*nbC+j)*4+k][t[0]*nbC+t[1]]=-gamma*trans[t]
-    #État puits
-    for i in range(4):
-        A[nbL*nbC*4+i][nbL*nbC] = 1-gamma
-    #fonction objectif
-    obj = np.zeros(nbL*nbC+1)
-    obj[0] = 1
-    return (A, b, obj)
-    
-    
-
-def resolutionGurobirechercheVs(a,b,objectif,nbL,nbC):
-    m = Model("PDM")         
-    # declaration variables de decision
-    v = []
-    for i in range(nbL*nbC+1):
-        v.append(m.addVar(vtype=GRB.CONTINUOUS, lb=0, name="v%d" % (i+1)))    
-    # maj du modele pour integrer les nouvelles variables
-    m.update()
-    obj = LinExpr(objectif, v)
-    # definition de l'objectif
-    m.setObjective(obj,GRB.MINIMIZE)
-    # definition des contraintes
-    for i in range((nbL*nbC+1)*4):
-        m.addConstr(LinExpr(a[i], v) >= b[i], "Contrainte%d" % i)        
-    # Resolution
-    m.optimize()
-    #temps de résolution (-0.01 pour compenser le temps d'exécution de la ligne suivante)
-    t = m.getAttr(GRB.Attr.Runtime) - 0.01    
-    return v, m, t
-
-#donne les différente valeur de pt nadir pour chaque case pour chaque critère
-def ptNadir(grille,gamma,proba,nbCritere):
-    nbL=grille.shape[0]
-    nbC=grille.shape[1]
-    Vs =np.zeros((nbL,nbC,nbCritere))
-    temp =np.zeros((nbL,nbC))
-    #on fai le calcul pour chaque critère
-    for k in range (nbCritere):
-        #on isole un citère pour calculer la politique max de ce critère
-        for i in range (nbL):
-            for j in range (nbC):
-                temp[i][j]=grille[i,j,k]
-        (A, b, obj) = modele_1critere.programmeprimal(temp, gamma,probaTransition)
-        v, m, t = modele_1critere.resolutionGurobiprimal(A, b, obj,nbL,nbC)
-        pol = modele_1critere.politique(v, temp,probaTransition,gamma)
-        #pour chaque critère on calcul sa valeur pour la politque précédente et on garde la valeur la plus grande
-        for l in range (nbCritere):
-            for i in range (nbL):
-                for j in range (nbC):
-                    temp[i][j]=grille[i,j,l]
-            (A,b,obj)=rechercheVS(pol,temp,gamma,probaTransition)
-            v,m,t = resolutionGurobirechercheVs(A,b,obj,nbL,nbC)
-            vstemp = grilleV(v,nbL,nbC)
-            print "**************************"
-            print "vstemp"
-            print vstemp
-            print "**************************"
-            for i in range (nbL):
-                for j in range (nbC):
-                    if Vs[i,j,l] <= vstemp[i][j] :
-                        Vs[i,j,l] = vstemp[i][j]
-    return Vs
-
-
-#donne un vecteur lambda de la taille des critere qui donne la valeur alpha/(Vs*-nj) 
-#vsetoile est un vecteur de la taille des criteres qui donne la valeurs vs*
-def calulLambda(alpha,vsetoile,grille,gamma,proba,nbCritere):
-    nbl= grille.shape[0]
-    nbc= grille.shape[1]
-    Vs = ptNadir(grille,gamma,proba,nbCritere)
-    valNadir = np.zeros(nbCritere)
-    for k in range (nbCritere):
-        for i in range (nbl):
-            for j in range (nbc):
-                valNadir[k]+= Vs[i,j,k]
-    lamb= np.zeros(nbCritere)
-    for l in range (nbCritere):
-        print "alpha"
-        print alpha[l]
-        print "valNadir"
-        print valNadir[l]
-        print "vsetoile"
-        print vsetoile[l]
-        lamb[l] = alpha[l]/1.00*(valNadir[l]- vsetoile [l])
-    return lamb
-    
-    
-def calculVsEtoile(grille,gamma,proba,nbCritere):
-    nbl= grille.shape[0]
-    nbc= grille.shape[1]
-    temp = np.zeros((nbl,nbc))
-    vsetoile= np.zeros(nbCritere)
-    for l in range (nbCritere):
-        for i in range (nbl):
-            for j in range (nbc):
-                temp[i][j]=grille[i,j,l]
-        (A,b,obj)=programmeprimal(temp,gamma,probaTransition)
-        v,m,t = resolutionGurobiprimal(A,b,obj,nbl,nbc)
-        vstemp = grilleV(v,nbl,nbc)
-        for i in range (nbl):
-            for j in range (nbc):
-                vsetoile[l] += vstemp[i][j]
-    return vsetoile
     
     
 ################################################################################
@@ -314,6 +159,8 @@ def dualRegretPondere(grille, gamma, proba, nbcritere,alpha):
         
 
 
+
+
 def gurobiMultiRegretPondere(a, b, objectif, nblignes, nbcolonnes):
     m = Model("MOPDMeq")
     #déclaration des variables de décision
@@ -370,8 +217,129 @@ def resolutionMultiRegretPondere(alpha,grille, gamma, proba, nbCriteres, nbligne
 
 
 
+# Définition du PL dual de l'approche regret minmax
+# contraintes (1) : sum(Xsa pourtout a) - gamma*sum(sum(T(s',a,s)*Xsa pourtout a) pourtout s') = µ(s) pourtout s
+# contraintes (2) : Xsa >= 0 pourtout s, pourtout a
+# contraintes (3) : z + sum(sum(Ri(s,a)*Xsa pourtout a) pourtout s) <= V*i pourtout i
+def dualRegretPondere2(grille, gamma, proba, nbCriteres,alpha):
+    #vstar = Vstar(grille, gamma, proba, nbCriteres)
+    vstar= calculVsEtoile(grille,gamma,proba,nbCriteres)
+    lamb=calulLambda(alpha,vstar,grille,gamma,proba,nbCriteres)
+    nbL=grille.shape[0]
+    nbC=grille.shape[1]
+    #Matrice des contraintes + second membre
+    A = np.zeros(((nbL*nbC+1)*(4+1)+nbCriteres, nbL*nbC*4+1+4))
+    b = np.zeros((nbL*nbC+1)*(4+1)+nbCriteres)
+    b[0]=1 #µ((0,0)) = 1
+    for i in range(nbL):
+        for j in range(nbC):
+            #b[i*nbC+j]=1./(nbL*nbC)
+            for k in range(4):
+                A[i*nbC+j][(i*nbC+j)*4+k] = 1 #contraintes (1) : sum(Xsa pourtout a)
+                A[nbL*nbC+1+((i*nbC+j)*4+k)][(i*nbC+j)*4+k]=1 #contraintes (2)
+                if i != nbL-1 or j != nbC-1:
+                    #rajoute les -gamma sur les autres lignes
+                    trans=transition(grille, k, i, j, proba, nbCriteres)
+                    for t in trans:
+                        A[t[0]*nbC+t[1]][(i*nbC+j)*4+k]=-gamma*trans[t] #contraintes (1) : - gamma*sum(sum(T(s',a,s)*Xsa pourtout a) pourtout s')
+                for n in range(nbCriteres):
+                    if i == nbL-1 and j == nbC-1:
+                        A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=valBut(nbL,nbC) #contraintes (3) : sum(sum(Ri(s,a)*Xsa pourtout a) pourtout s) pour l'état but
+                    else:
+                        trans=transition(grille, k, i, j, proba, nbCriteres)
+                        if not trans: # si trans est vide
+                            A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=0
+                        else:
+                            A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=-grille[i][j][n] *lamb[n]#contraintes (3) : sum(sum(Ri(s,a)*Xsa pourtout a) pourtout s)
+    #contraintes sur l'état puits
+    for i in range(4):
+        A[nbL*nbC][nbL*nbC*4+i]=1-gamma #contraintes (1)
+        A[nbL*nbC][(nbL*nbC-1)*4+i]=-gamma #contraintes (1)
+        A[nbL*nbC+1+nbL*nbC*4+i][nbL*nbC*4+i]=1 #contraintes (2)
+    for n in range(nbCriteres):
+        A[(nbL*nbC+1)*5+n][(nbL*nbC+1)*4]=1 #contraintes (3)
+        b[(nbL*nbC+1)*5+n] = vstar[n]*lamb[n]
+
+    #fonction objectif
+    # max z (dernière variable)
+    obj = np.zeros(nbL*nbC*4+1+4)
+    obj[nbL*nbC*4+4]=1
+    
+    return (A, b, obj)
 
 
+def resolutionMultiRegretPondere2(alpha,grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
+    (A, b, obj) = dualRegretPondere2(grille, gamma, proba, nbCriteres,alpha)
+    v, m, t = gurobiMultiMinMax(A, b, obj, nblignes, nbcolonnes)
+    pol = politique(v, grille)
+    return pol        
+        
+   
+
+
+
+
+"""
+
+
+def dualRegretPondere(grille, gamma, proba, nbCriteres,alpha):
+    nbL=grille.shape[0]
+    nbC=grille.shape[1]
+    vsetoile = calculVsEtoile(grille,gamma,proba,nbCriteres)
+    lamb=calulLambda(alpha,vsetoile,grille,gamma,proba,nbCriteres)
+    #Matrice des contraintes + second membre
+    A = np.zeros(((nbL*nbC+1)*(4+1)+nbCriteres, nbL*nbC*4+1+4))
+    b = np.zeros((nbL*nbC+1)*(4+1)+nbCriteres)
+    b[0]=1 #µ((0,0)) = 1
+    for i in range(nbL):
+        for j in range(nbC):
+            #b[i*nbC+j]=1./(nbL*nbC)
+            for k in range(4):
+                A[i*nbC+j][(i*nbC+j)*4+k] = 1 #contraintes (1) : sum(Xsa pourtout a)
+                A[nbL*nbC+1+((i*nbC+j)*4+k)][(i*nbC+j)*4+k]=1 #contraintes (2)
+                if i != nbL-1 or j != nbC-1:
+                    #rajoute les -gamma sur les autres lignes
+                    trans=transition(grille, k, i, j, proba, nbCriteres)
+                    for t in trans:
+                        A[t[0]*nbC+t[1]][(i*nbC+j)*4+k]=-gamma*trans[t] #contraintes (1) : - gamma*sum(sum(T(s',a,s)*Xsa pourtout a) pourtout s')
+                for n in range(nbCriteres):
+                    if i == nbL-1 and j == nbC-1:
+                        A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=valBut(nbL,nbC) #contraintes (3) : sum(sum(Ri(s,a)*Xsa pourtout a) pourtout s) pour l'état but
+                    else:
+                        trans=transition(grille, k, i, j, proba, nbCriteres)
+                        if not trans: # si trans est vide
+                            A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=0
+                        else:
+                            A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=-grille[i][j][n]*-lamb[n] #contraintes (3) : sum(sum(Ri(s,a)*Xsa pourtout a) pourtout s)
+    #contraintes sur l'état puits
+    for i in range(4):
+        A[nbL*nbC][nbL*nbC*4+i]=1-gamma #contraintes (1)
+        A[nbL*nbC][(nbL*nbC-1)*4+i]=-gamma #contraintes (1)
+        A[nbL*nbC+1+nbL*nbC*4+i][nbL*nbC*4+i]=1 #contraintes (2)
+    for n in range(nbCriteres):
+        A[(nbL*nbC+1)*5+n][(nbL*nbC+1)*4]=1 #contraintes (3)
+        b[(nbL*nbC+1)*5+n] = -lamb[n]*vsetoile[n]
+        #fonction objectif
+    # max z (dernière variable)
+    obj = np.zeros(nbL*nbC*4+1+4)
+    obj[nbL*nbC*4+4]=1
+    
+    return (A, b, obj)
+
+
+
+def resolutionMultiRegretPondere(alpha,grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
+    (A, b, obj) = dualRegretPondere(grille, gamma, proba, nbCriteres,alpha)
+    v, m, t = gurobiMultiMinMax(A, b, obj, nblignes, nbcolonnes)
+    pol = politique(v, grille)
+#    somme = np.zeros(nbCriteres)
+#    for k in range(nbCriteres):
+#        for i in range (nblignes*nbcolonnes*4):
+#            somme[k] += A[k][i]*v[i].x
+#    print somme
+  
+    return pol,v#,somme    
+"""
 
 ################################################################################
 #
@@ -409,18 +377,22 @@ def resolutionMultiRegretPondere(alpha,grille, gamma, proba, nbCriteres, nbligne
 #g[2,2,1]=1
 #
 #
-alpha=[1,10,1,1]
+alpha=[.1,0.1,.1,.1,1,1,1,1,1,1,1,1,1,1]
 #
 #pt= ptNadir(g,gamma,probaTransition,2)
 #
 #print pt
-#
-#g= defineMaze(3,3,2)
-#
-#pol,v,somme=resolutionMultiRegretPondere(alpha,g, gamma, probaTransition, 2, 3, 3)
-#    
-#print pol
-#
+
+nbl=3
+nbc=3
+nbcri=8
+g= defineMaze(nbl,nbc,nbcri)
+print g
+pol=resolutionMultiRegretPondere2(alpha,g, gamma, probaTransition, nbcri, nbl, nbc)
+    
+print pol
+#vsetoile = calculVsEtoile(g,gamma,probaTransition,nbcri)
+#lamb=calulLambda(alpha,vsetoile,g,gamma,probaTransition,nbcri)
 
 
 

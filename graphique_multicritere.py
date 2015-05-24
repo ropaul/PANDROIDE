@@ -195,11 +195,11 @@ def politiquelancher():
     if liste.get()=="2":
         return resolutionMultiMinMax(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
     if liste.get()=="3":
-        return resolutionMultiRegret(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+        return resolutionMultiRegretMinMax2(g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
     if liste.get()=="4":
         return SommePondere_multicritere.resolutionMultiSommePondere(g,alpha, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
     if liste.get()=="5":
-        return RegretPondere.resolutionMultiRegretPondere(alpha,g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+        return RegretPondere.resolutionMultiRegretPondere2(alpha,g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
                         
         
             
@@ -753,7 +753,7 @@ def afficheSolutionMixteButton():
     for i in range (nbcriteres):
         alpha[i] = poidcritere[i].get()
         
-    politique,v = politiquelancher()
+    politique = politiquelancher()
     print "politique"
     print politique
     afficheSolutionMixte(politique)       
@@ -828,8 +828,8 @@ for i in range(nbcriteres):
     boiteprime = Spinbox(Mafenetre,from_=1,to=100,increment=1,textvariable=poidcritere[i],width=1)
     boiteprime.grid(row=(i)%(4)+1, column =5+((i)/4))
 
-Button(Mafenetre, text ='View Soluce', command = afficheSolutionMixteButton).grid(row=5, column=5)#pack(side=LEFT,padx=5,pady=5)
-Button(Mafenetre, text ='Erase Soluce', command = effacer).grid(row=5, column=6)#pack(side=LEFT,padx=5,pady=5)
+Button(Mafenetre, text ='View Solution', command = afficheSolutionMixteButton).grid(row=5, column=5)#pack(side=LEFT,padx=5,pady=5)
+Button(Mafenetre, text ='Erase Solution', command = effacer).grid(row=5, column=6)#pack(side=LEFT,padx=5,pady=5)
 
 
 

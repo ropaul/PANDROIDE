@@ -70,7 +70,7 @@ def resolutionMultiSommePondere(grille,ponderation, gamma, proba, nbCriteres, nb
     for i in range (debut,fin):
         somme += obj[i]*v[i].x
     print somme
-    return pol,v#,somme
+    return pol#,v#,somme
 
 ################################################################################
 #

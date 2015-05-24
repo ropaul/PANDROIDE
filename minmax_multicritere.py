@@ -11,7 +11,7 @@ from gurobipy import *
 import random
 import numpy as np
 import math
-import RegretPondere
+#import RegretPondere
 
 
             
@@ -67,7 +67,7 @@ def valTrans(g,i,j,direction,critere):
     
     
 def valBut(nblignes, nbcolonnes):
-    return -1*nblignes*nbcolonnes*40
+    return -1*nblignes*nbcolonnes*100
     
 
 
@@ -625,7 +625,61 @@ def resolutionMultiMinMax2(grille, gamma, proba, nbCriteres, nblignes, nbcolonne
 #
 ################################################################################
         
-        
+# Définition du PL dual de l'approche regret minmax
+# contraintes (1) : sum(Xsa pourtout a) - gamma*sum(sum(T(s',a,s)*Xsa pourtout a) pourtout s') = µ(s) pourtout s
+# contraintes (2) : Xsa >= 0 pourtout s, pourtout a
+# contraintes (3) : z + sum(sum(Ri(s,a)*Xsa pourtout a) pourtout s) <= V*i pourtout i
+def dualRegretMinMax2(grille, gamma, proba, nbCriteres):
+    #vstar = Vstar(grille, gamma, proba, nbCriteres)
+    vstar= calculVsEtoile(grille,gamma,proba,nbCriteres)
+    nbL=grille.shape[0]
+    nbC=grille.shape[1]
+    #Matrice des contraintes + second membre
+    A = np.zeros(((nbL*nbC+1)*(4+1)+nbCriteres, nbL*nbC*4+1+4))
+    b = np.zeros((nbL*nbC+1)*(4+1)+nbCriteres)
+    b[0]=1 #µ((0,0)) = 1
+    for i in range(nbL):
+        for j in range(nbC):
+            #b[i*nbC+j]=1./(nbL*nbC)
+            for k in range(4):
+                A[i*nbC+j][(i*nbC+j)*4+k] = 1 #contraintes (1) : sum(Xsa pourtout a)
+                A[nbL*nbC+1+((i*nbC+j)*4+k)][(i*nbC+j)*4+k]=1 #contraintes (2)
+                if i != nbL-1 or j != nbC-1:
+                    #rajoute les -gamma sur les autres lignes
+                    trans=transition(grille, k, i, j, proba, nbCriteres)
+                    for t in trans:
+                        A[t[0]*nbC+t[1]][(i*nbC+j)*4+k]=-gamma*trans[t] #contraintes (1) : - gamma*sum(sum(T(s',a,s)*Xsa pourtout a) pourtout s')
+                for n in range(nbCriteres):
+                    if i == nbL-1 and j == nbC-1:
+                        A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=valBut(nbL,nbC) #contraintes (3) : sum(sum(Ri(s,a)*Xsa pourtout a) pourtout s) pour l'état but
+                    else:
+                        trans=transition(grille, k, i, j, proba, nbCriteres)
+                        if not trans: # si trans est vide
+                            A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=0
+                        else:
+                            A[(nbL*nbC+1)*5+n][(i*nbC+j)*4+k]=-grille[i][j][n] #contraintes (3) : sum(sum(Ri(s,a)*Xsa pourtout a) pourtout s)
+    #contraintes sur l'état puits
+    for i in range(4):
+        A[nbL*nbC][nbL*nbC*4+i]=1-gamma #contraintes (1)
+        A[nbL*nbC][(nbL*nbC-1)*4+i]=-gamma #contraintes (1)
+        A[nbL*nbC+1+nbL*nbC*4+i][nbL*nbC*4+i]=1 #contraintes (2)
+    for n in range(nbCriteres):
+        A[(nbL*nbC+1)*5+n][(nbL*nbC+1)*4]=1 #contraintes (3)
+        b[(nbL*nbC+1)*5+n] = vstar[n]
+
+    #fonction objectif
+    # max z (dernière variable)
+    obj = np.zeros(nbL*nbC*4+1+4)
+    obj[nbL*nbC*4+4]=1
+    
+    return (A, b, obj)
+
+
+def resolutionMultiRegretMinMax2(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
+    (A, b, obj) = dualRegretMinMax2(grille, gamma, proba, nbCriteres)
+    v, m, t = gurobiMultiMinMax(A, b, obj, nblignes, nbcolonnes)
+    pol = politique(v, grille)
+    return pol        
         
         
 
@@ -653,13 +707,13 @@ def dualRegret2(grille, gamma, proba, nbcritere):
                 tempG[i][j]=grille[i,j,l]
         (A0, b0, obj0) = modele_1critere.programmeprimal(tempG, gamma,probaTransition)
         v, m, t = modele_1critere.resolutionGurobiprimal(A0, b0, obj0,nbl,nbc)
-        vs = RegretPondere.grilleV(v,nbl,nbc)
+        vs = grilleV(v,nbl,nbc)
         somme= 0
         for i in range (nbl):
             for j in range (nbc):
                 somme += vs[i][j]
         print "*****************************************************"
-        print "somm"
+        print "somme" +str(somme)
         b[l]= somme
         print "****************************************************"
     #la contrainte principale
@@ -708,7 +762,7 @@ def dualRegret2(grille, gamma, proba, nbcritere):
 
 
 def resolutionMultiRegret2(grille, gamma, proba, nbCriteres, nblignes, nbcolonnes):
-    (A, b, obj) = dualRegret(grille, gamma, proba, nbCriteres)
+    (A, b, obj) = dualRegret2(grille, gamma, proba, nbCriteres)
     v, m, t = gurobiMultiMinMax(A, b, obj, nblignes, nbcolonnes)
     
     pol = politique(v, grille)
@@ -796,10 +850,10 @@ def resolutionMultiRegret2(grille, gamma, proba, nbCriteres, nblignes, nbcolonne
 #g[3,1,1]=40
 #g[3,2,1]=40
 #g[3,3,1]=1
-
+"""
 nbl=15
 nbc=15
-nbcri=2
+nbcri=4
      
 
 g= defineMaze(nbl,nbc,nbcri)
@@ -812,9 +866,10 @@ print g
 
 gamma= 0.8
 probaTransition=0.8
-pol,v =   resolutionMultiMinMax2(g, gamma, probaTransition, nbcri,nbl,nbc)
+pol =   resolutionMultiRegretMinMax2(g, gamma, probaTransition, nbcri,nbl,nbc)
 print "c'est bien mon truc"
 print pol
+"""
 #temp = np.zeros((nbl,nbc))
 #for i in range (nbl):
 #    for j in range (nbc):
