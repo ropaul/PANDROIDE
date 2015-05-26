@@ -7,7 +7,7 @@ Created on Wed Apr 15 15:52:20 2015
 
 #from modele_1critere import *
 from modele_multicritere import *
-from minmax_multicritere import *
+from regretminmax_multicritere import *
 from Tkinter import *
 from gurobipy import *
 import random
@@ -78,13 +78,6 @@ def initialize():
     posY = j
     posX = i
     Canevas.coords(Pion,PosX -9*zoom, PosY -9*zoom, PosX +9*zoom, PosY +9*zoom)
-    '''
-    w.config(text='Cost = '+ str(cost[0]))
-    w1.config(text='vert = '+ str(cost[1]))
-    w2.config(text='bleu = '+ str(cost[2]))
-    w3.config(text='rouge = '+ str(cost[3]))
-    w4.config(text='noir = '+ str(cost[4]))
-    '''
     cost[0]=0
     w.config(text='Cost = '+ str(cost[0]))
     for i in range (nbcriteres):
@@ -119,7 +112,9 @@ def choix():
         if val >=15:
             zoom = 2
         if val >=20:
-            zoom = (val -10)/10         
+            zoom = 1   
+        if val >=31:
+            zoom = 0.7  
     probaTransition= nb2.get()
     gamma = nb3.get()
     init.destroy()
@@ -199,7 +194,7 @@ def politiquelancher():
     if liste.get()=="4":
         return SommePondere_multicritere.resolutionMultiSommePondere(g,alpha, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
     if liste.get()=="5":
-        return RegretPondere.resolutionMultiRegretPondere2(alpha,g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
+        return RegretPondere.resolutionMultiRegretPondere(alpha,g, gamma, probaTransition, nbcriteres, nblignes, nbcolonnes)
                         
         
             
@@ -797,7 +792,7 @@ Largeur = zoom*20*nbcolonnes+40
 Hauteur = zoom*20*nblignes+40
 
 Mafenetre = Tk()
-Mafenetre.title('MDP')
+Mafenetre.title('compromise\'s game')
 
 #######################creation de l'affichage#########################
 
